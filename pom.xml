@@ -7,6 +7,18 @@
   <version>1.0-SNAPSHOT</version>
   <name>adpostm Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  
+  <!-- PROPERTIES -->
+  <properties>
+  	<mysql.connector.version>5.1.28</mysql.connector.version>
+  	<springframework.version>4.3.10.RELEASE</springframework.version>
+  	<springframework.security-core.version>4.0.1.RELEASE</springframework.security-core.version>
+  	<springframework.security-taglibs.version>4.0.0.RELEASE</springframework.security-taglibs.version>
+    <springframework.security-web.version>4.0.2.RELEASE</springframework.security-web.version>
+  	<springframework.security-config.version>4.0.1.RELEASE</springframework.security-config.version>
+  	<hibernate.version>5.2.10.Final</hibernate.version>
+  </properties>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -14,7 +26,65 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- HIBERNATE -->
+    <dependency>
+    	<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-entitymanager</artifactId>
+    	<version>${hibernate.version}</version>
+    </dependency>
+    <!-- SPRING -->
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-context</artifactId>
+    	<version>${springframework.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-aop</artifactId>
+    	<version>${springframework.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-webmvc</artifactId>
+    	<version>${springframework.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-web</artifactId>
+    	<version>${springframework.version}</version>
+    </dependency>
+    <!-- SPRING SECURITY -->
+    <dependency>
+    	<groupId>org.springframework.security</groupId>
+    	<artifactId>spring-security-config</artifactId>
+    	<version>${springframework.security-config.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework.security</groupId>
+    	<artifactId>spring-security-core</artifactId>
+    	<version>${springframework.security-core.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework.security</groupId>
+    	<artifactId>spring-security-taglibs</artifactId>
+    	<version>${springframework.security-taglibs.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework.security</groupId>
+    	<artifactId>spring-security-web</artifactId>
+    	<version>${springframework.security-web.version}</version>
+    </dependency>
+    <!-- MSQL CONNECTOR -->
+    <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>${mysql.connector.version}</version>
+    </dependency>
+  	<!-- JAVA -->
+
   </dependencies>
+  
+
   <build>
     <finalName>adpostm</finalName>
   </build>
