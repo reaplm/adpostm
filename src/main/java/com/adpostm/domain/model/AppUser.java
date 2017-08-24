@@ -1,4 +1,4 @@
-package com.adpostm.dao.model;
+package com.adpostm.domain.model;
 
 import java.util.Date;
 import java.util.List;
