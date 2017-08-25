@@ -16,7 +16,8 @@
   	<springframework.security-taglibs.version>4.0.0.RELEASE</springframework.security-taglibs.version>
     <springframework.security-web.version>4.0.2.RELEASE</springframework.security-web.version>
   	<springframework.security-config.version>4.0.1.RELEASE</springframework.security-config.version>
-  	<hibernate.version>5.2.10.Final</hibernate.version>
+  	<hibernate.version>4.3.11.Final</hibernate.version>
+  	<javax.servlet.version>2.5</javax.servlet.version>
   </properties>
   
   <dependencies>
@@ -30,6 +31,11 @@
     <dependency>
     	<groupId>org.hibernate</groupId>
     	<artifactId>hibernate-entitymanager</artifactId>
+    	<version>${hibernate.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-core</artifactId>
     	<version>${hibernate.version}</version>
     </dependency>
     <!-- SPRING -->
@@ -81,7 +87,12 @@
     	<version>${mysql.connector.version}</version>
     </dependency>
   	<!-- JAVA -->
-
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>servlet-api</artifactId>
+		<version>${javax.servlet.version}</version>
+		<scope>provided</scope>
+	</dependency>
   </dependencies>
   
 

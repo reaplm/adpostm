@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class UserDetail {
 	@Id
 	@GeneratedValue
-	@Column(name="pk_detail_id")
+	@Column(name="pk_user_detail_id")
 	private int userDetailId;
 	
 	@OneToOne
