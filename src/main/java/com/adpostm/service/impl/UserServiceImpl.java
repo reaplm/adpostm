@@ -15,20 +15,23 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 
 
+
+
 import com.adpostm.domain.dao.IUserDAO;
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Role;
+import com.adpostm.service.IUserService;
 
 
-public class UserServiceImpl implements UserDetailsService{
+public class UserServiceImpl implements UserDetailsService, IUserService{
 	@Autowired
 	IUserDAO iUserDAO;
 	
 	@Override
-	public UserDetails loadUserByUsername(String email)
+	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		//Fetch user from the database
-				AppUser user = iUserDAO.getUserByEmail(email);
+				AppUser user = iUserDAO.getUserByUsername(username);
 				if(user == null){
 					throw new UsernameNotFoundException("Failed to fetch "
 							+ "userDetails from the database.");
@@ -60,6 +63,14 @@ public class UserServiceImpl implements UserDetailsService{
 			List<GrantedAuthority> authorities){
 		return new User(user.getEmail(), user.getPassword(),
 				true, true, true, true, authorities);
+	}
+	@Override
+	public boolean usernameValid(String username) {
+		return iUserDAO.usernameValid(username);
+	}
+	@Override
+	public int createuser(AppUser appUser) {
+		return iUserDAO.createUser(appUser);
 	}
 	
 }

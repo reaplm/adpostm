@@ -17,29 +17,36 @@
 	</head>
 	<body>
 		<jsp:include page="/WEB-INF/views/jspinc/logo.jsp" />
-		<div  id="pg-login">
+		<div  id="pg-register">
 			<div class="container">
-				<form id="form-login" action="/adpostm/login" method="post" class="form-horizontal">
-						<div class="form-group form-group-lg">
-							<input type="text" name="username" id="username" 
-								class = "form-control" placeholder="Username" />
-							<div></div>
-						</div>
-						<div class="form-group">
-							<input type="password" name="password" id="password"
-								class = "form-control" placeholder="Password" />
-
-						</div>
-						<div class="form-group">
-							<button class="btn btn-primary" onclick="submitLogin()" >SUBMIT</button>
-						</div>
-						<div class="form-group row">
-							<div class="col-sm-5">
-								<a href="#">Forgot Password?</a>
+				<form id="form-register" action="/adpostm/register" method="post" class="form-horizontal">
+						<div class="form-group clearfix">
+							<div class="col-sm-6 float-left">
+								<input type="text" name="fname"
+								class = "form-control" placeholder="First Name" />
 							</div>
-							<div class="col-sm-4"></div>
-							<div class="col-sm-3"><a href="/adpostm/register">Register</a></div>
-							
+							<div class="col-sm-6 float-left">
+								<input type="text" name="lname"
+								class = "form-control" placeholder="Last Name" />
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="text" name="email"
+								class = "form-control" placeholder="Email" />
+						</div>
+						<div class="form-group clearfix">
+							<div class="col-sm-6 float-left">
+								<input type="password" name="password"
+								class = "form-control" placeholder="Password" />
+							</div>
+							<div class="col-sm-6 float-left">
+								<input type="password" name="passRepeat"
+								class = "form-control" placeholder="Re-type Password" />
+							</div>
+						</div>
+					
+						<div class="form-group">
+							<button class="btn btn-primary" onclick="SubmitRegistration()" >SUBMIT</button>
 						</div>
 				</form>
 				<div>${msg}</div>

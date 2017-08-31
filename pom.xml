@@ -18,6 +18,8 @@
   	<springframework.security-config.version>4.0.1.RELEASE</springframework.security-config.version>
   	<hibernate.version>4.3.11.Final</hibernate.version>
   	<javax.servlet.version>2.5</javax.servlet.version>
+  	<javax.servlet.version>1.5.5</javax.servlet.version>
+  	
   </properties>
   
   <dependencies>
@@ -91,6 +93,12 @@
 		<groupId>javax.servlet</groupId>
 		<artifactId>servlet-api</artifactId>
 		<version>${javax.servlet.version}</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail-api</artifactId>
+		<version>${javax.mail.version}</version>
 		<scope>provided</scope>
 	</dependency>
   </dependencies>

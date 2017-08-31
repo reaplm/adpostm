@@ -4,5 +4,7 @@ import com.adpostm.domain.model.AppUser;
 
 public interface IUserDAO {
 
-	public AppUser getUserByEmail(String email);
+	public AppUser getUserByUsername(String username);
+	public boolean usernameValid(String username);
+	public int createUser(AppUser appUser);
 }

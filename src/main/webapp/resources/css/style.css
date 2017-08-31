@@ -2,94 +2,30 @@
 body{
 	background-color: #e9eef2;
 }
-/*======================HEADER====================================*/
-#header .inline-menu{
+/*=========================HEADER/LOGO======================================*/
+.center-block {
+	display: block;
+	margin: 0 auto;
+}
+.nav{
 	float: right;
 }
-#logo{
-	width: 100px;
-	margin: 0 auto;
-}
-/*======================LOGIN====================================*/
-#pg-login{
-	background-color: #f8d650;
-	border: groove 1px #f8d650;
-	width: 350px;
-	height: 210px;
-	margin: 0 auto;
-	margin-top: 10px;
-	text-align: center;
+/*=========================LOGIN======================================*/
+#pg-login .container{
+	width: 30%;	
 }
 
-#pg-login form{
-	margin-top: 10px;
-}
-#pg-login input[type=text]{
-	height: 30px;
-	border: solid 1px #d94d4d;
-	padding-left: 35px;
-	width: 80%;
-	background-color: #f9f2a2;
-}
-#pg-login input[type=password]{
-	height: 30px;
-	border: solid 1px #d94d4d;
-	padding-left: 35px;
-	background-color: #f9f2a2;
-	width: 90%;
-}
-#pg-login button{
-	width: 250px;
-	height: 50px;
-	color: #fff;
-	background-color: #d94d4d;
-	border: outset #d94d4d;
-}
-#pg-login a{
-	color: #d94d4d;
-	text-decoration: none;
-}
-#pg-login a:hover{
-	color: #999;
-	text-decoration: underline;
-}
-#username{
-	
-}
-#password{
-	
-}
-
-/*======================FOOTER====================================*/
-#footer{
-	backround-color: #2c2a33;
-}
-/*======================CLASSES====================================*/
-/*-------------------------MENU CLASSES----------------------------*/
-.inline-menu{
-	display: inline;
-	text-decoration: none;
-}
-/*-------------------------BUTTON CLASSES----------------------------*/
-.button{
-	cursor: pointer;
-}
-/*-------------------------DIV CLASSES----------------------------*/
-.form-row{
+#pg-login .btn-primary{
 	width: 100%;
-	height: 60px;
-	
 }
-/*-------------------------TEXTBOX CLASSES----------------------------*/
-.textbox {
-	color: #999;
-	font-weight: bold;
-	outline: none;
-	border: solid 1px #fa6247;
-	font-size: 12pt;
-	height: 30px;
-	margin-left: 0px;
-	padding-left: 5px;
-	background-color: #f9f2a2;
-	text-align: left;
+
+
+/*=========================REGISTER======================================*/
+#pg-register .container{
+	width: 30%;	
+	margin-top: 10px;
 }
+#pg-register .btn-primary{
+	width: 100%;
+}
+

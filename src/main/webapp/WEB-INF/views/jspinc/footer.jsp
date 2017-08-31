@@ -1,4 +1,4 @@
-</wrapper>
+</div>
 <div id="footer"></div>
 
 </body>

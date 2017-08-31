@@ -19,7 +19,7 @@
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')
             	or hasRole('ROLE_USER')"/>
         <form-login login-page="/login"
-        		username-parameter="email"
+        		username-parameter="username"
         		authentication-failure-url="/login?error=true"
         		authentication-success-handler-ref="loginSuccessHandler" />
     	<csrf disabled="true"/>
@@ -30,6 +30,7 @@
       <beans:bean id="loginSuccessHandler" class="com.adpostm.security.LoginAuthenticationSuccessHandler" />
       <beans:bean id="UserServiceImpl" class="com.adpostm.service.impl.UserServiceImpl" />
       <beans:bean id="iUserDAO" class="com.adpostm.domain.dao.impl.UserDAOImpl" />
+      <beans:bean id="iUserService" class="com.adpostm.service.impl.UserServiceImpl" />
       
     <context:component-scan base-package="com.adpostm"/> 
    </beans:beans>
