@@ -18,7 +18,7 @@
   	<springframework.security-config.version>4.0.1.RELEASE</springframework.security-config.version>
   	<hibernate.version>4.3.11.Final</hibernate.version>
   	<javax.servlet.version>2.5</javax.servlet.version>
-  	<javax.servlet.version>1.5.5</javax.servlet.version>
+  	<javax.mail.version>1.5.5</javax.mail.version>
   	
   </properties>
   
@@ -96,10 +96,9 @@
 		<scope>provided</scope>
 	</dependency>
 	<dependency>
-		<groupId>javax.mail</groupId>
-		<artifactId>mail-api</artifactId>
+		<groupId>com.sun.mail</groupId>
+		<artifactId>javax.mail</artifactId>
 		<version>${javax.mail.version}</version>
-		<scope>provided</scope>
 	</dependency>
   </dependencies>
   

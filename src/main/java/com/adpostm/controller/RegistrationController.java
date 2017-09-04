@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +20,7 @@ import com.adpostm.domain.dao.IUserDAO;
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Role;
 import com.adpostm.domain.model.UserDetail;
+import com.adpostm.mail.MailAgent;
 
 @Controller
 public class RegistrationController {
@@ -31,12 +34,22 @@ public class RegistrationController {
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public ModelAndView submitRegisteration(HttpServletRequest request,
-			HttpServletResponse response) throws IOException{
+			HttpServletResponse response) throws IOException, AddressException, 
+			MessagingException{
 		ModelAndView modelAndView = new ModelAndView("register");
 		int userId = createAppUser(request.getParameter("fname"),
 				request.getParameter("lname"),request.getParameter("email"),
 				request.getParameter("password"));
+	
 		if(userId > 0){
+			MailAgent mailAgent = new MailAgent
+					(request.getParameter("email"), "pdm.molefe@gmail.com", 
+							"pmolefe@bec.co.bw", null,
+							"adpostm registration activation", 
+							"Congradulations you have successfully registered on adpostm", 
+							"mail.smtp.host");
+			mailAgent.sendMessage();
+			
 			modelAndView.addObject("msg","<p  class='bg-info'>You have successfully registered. "
 					+ "You will be redirected to the login page.</p>" );
 			response.setHeader("refresh", "5;url=/adpostm/login");
