@@ -3,18 +3,28 @@ package com.adpostm.mail;
 import java.util.Date;
 import java.util.Properties;
 
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.sun.mail.iap.Protocol;
+
 /**
  * @author https://alvinalexander.com/blog/post/java/free-java-class-simplify-sending-email
+ *Tested with fake SMTP server
  */
 public class MailAgent {
+	private int port;
+	private boolean auth;
+	private String username;
+	private String password;
+	private Protocol protocol;
 	private String to;
 	private String from;
 	private String cc;
@@ -27,6 +37,11 @@ public class MailAgent {
 	public MailAgent(String to, String from, String cc, String bcc,
 			String subject, String content, String smtpHost)
 				throws AddressException, MessagingException{
+		this.username = "pdm.molefe@gmail.com";
+		this.password = "Mink05Pink06=";
+		this.auth = true;
+		this.port = 25;
+		
 		this.to = to;
 		this.from = from;
 		this.cc = cc;
@@ -53,8 +68,10 @@ public class MailAgent {
 		}
 	}
 	private Message createMessage(){
+		Authenticator authenticator = null;
 		Properties properties = new Properties();
-		properties.put("mail.smtp.host", "smtpHost");
+		properties.put("mail.smtp.host", this.smtpHost);
+		properties.put("mail.smtp.port", this.port);
 		Session session = Session.getDefaultInstance(properties, null);
 		return new MimeMessage(session);
 	}

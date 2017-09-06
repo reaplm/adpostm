@@ -47,7 +47,8 @@ public class RegistrationController {
 							"pmolefe@bec.co.bw", null,
 							"adpostm registration activation", 
 							"Congradulations you have successfully registered on adpostm", 
-							"mail.smtp.host");
+							"localhost");
+			
 			mailAgent.sendMessage();
 			
 			modelAndView.addObject("msg","<p  class='bg-info'>You have successfully registered. "
