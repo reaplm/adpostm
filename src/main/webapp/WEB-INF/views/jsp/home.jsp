@@ -4,6 +4,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <jsp:include page="/WEB-INF/views/jspinc/header.jsp"></jsp:include>
 <div id="pg-home">
-	<h1>HOME</h1>
+	<div class="container">
+		<div class="row">
+			<jsp:include page="/WEB-INF/views/jspinc/topMenu.jsp" />
+		</div>
+		<div class="row">
+		
+			
+				
+		</div>
+		
+	</div>
+	
 </div>
 <jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>

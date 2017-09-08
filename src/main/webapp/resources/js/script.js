@@ -90,8 +90,9 @@ function SubmitRegistration(){
  */
 $(document).ready(
 	function(){
-		//------------------LOGIN VALIDATION-------------------
-		
-	//--------------end login validation------------------------------
+		$(window).on("resize", function(){
+			if($(window).width() < 576){
+			}
+		});
 	}
 );

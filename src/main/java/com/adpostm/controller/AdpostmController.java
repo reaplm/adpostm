@@ -12,4 +12,9 @@ public class AdpostmController {
 		ModelAndView modelAndView = new ModelAndView("home");
 		return modelAndView;
 	}
+	@RequestMapping(value="/admin")
+	public ModelAndView admin(){
+		ModelAndView modelAndView = new ModelAndView("dashboard");
+		return modelAndView;
+	}
 }

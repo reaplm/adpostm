@@ -13,15 +13,7 @@
 		<script src="<%=request.getContextPath()%>/resources/js/bootstrap/js/bootstrap.min.js"></script>
 		<script src="<%=request.getContextPath()%>/resources/js/script.js"></script>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Login</title>
 	</head>
-	<body>
-		<div class="container">
-			<div >
-				<ul class="nav">
-					<li><a href="/adpostm/login" class="nav-link">SIGN IN</a></li>
-					<li><a class="nav-link">|</a></li>
-					<li><a href="/adpostm/register" class="nav-link">REGISTER</a></li>
-				</ul>
-			</div>
-		
+	<body>	

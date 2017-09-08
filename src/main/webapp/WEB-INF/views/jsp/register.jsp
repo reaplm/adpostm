@@ -13,6 +13,8 @@
 		<script src="<%=request.getContextPath()%>/resources/js/bootstrap/js/bootstrap.min.js"></script>
 		<script src="<%=request.getContextPath()%>/resources/js/script.js"></script>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
 		<title>Login</title>
 	</head>
 	<body>
@@ -21,11 +23,11 @@
 			<div class="container">
 				<form id="form-register" action="/adpostm/register" method="post" class="form-horizontal">
 						<div class="form-group clearfix">
-							<div class="col-sm-6 float-left">
+							<div class="col-sm-6">
 								<input type="text" name="fname"
 								class = "form-control" placeholder="First Name" />
 							</div>
-							<div class="col-sm-6 float-left">
+							<div class="col-sm-6">
 								<input type="text" name="lname"
 								class = "form-control" placeholder="Last Name" />
 							</div>
@@ -35,11 +37,11 @@
 								class = "form-control" placeholder="Email" />
 						</div>
 						<div class="form-group clearfix">
-							<div class="col-sm-6 float-left">
+							<div class="col-sm-6">
 								<input type="password" name="password"
 								class = "form-control" placeholder="Password" />
 							</div>
-							<div class="col-sm-6 float-left">
+							<div class="col-sm-6">
 								<input type="password" name="passRepeat"
 								class = "form-control" placeholder="Re-type Password" />
 							</div>

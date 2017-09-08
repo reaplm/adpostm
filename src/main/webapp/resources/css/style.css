@@ -7,25 +7,40 @@ body{
 	display: block;
 	margin: 0 auto;
 }
-.nav{
-	float: right;
-}
-/*=========================LOGIN======================================*/
-#pg-login .container{
-	width: 30%;	
-}
-
-#pg-login .btn-primary{
-	width: 100%;
-}
-
-
-/*=========================REGISTER======================================*/
-#pg-register .container{
-	width: 30%;	
+#pg-register .container{	
 	margin-top: 10px;
 }
-#pg-register .btn-primary{
+#pg-register .btn-primary, #pg-login .btn-primary{
 	width: 100%;
+}
+#pg-register .col-sm-6{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+@media(min-width: 768px){
+	#pg-login .container, #pg-register .container{
+		width: 40%;
+	}
+}
+
+@media(min-width: 576px){
+	#pg-register .col-sm-6{
+		float: left;
+	}
+}
+@media(max-width: 575px){
+	#pg-register .col-sm-6{
+		clear: both;
+		margin-bottom: 1rem;
+		display: block;
+	}
+}
+#top-menu{
+	text-transform: uppercase;
+	width: 100%;
+	color: #fff;
+}
+.list-unstyled{
+	margin-bottom: 0px;
 }
 
