@@ -17,8 +17,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 
 
+
+
+import com.adpostm.domain.dao.IMenuDAO;
 import com.adpostm.domain.dao.IUserDAO;
 import com.adpostm.domain.model.AppUser;
+import com.adpostm.domain.model.Menu;
 import com.adpostm.domain.model.Role;
 import com.adpostm.service.IUserService;
 
@@ -72,5 +76,6 @@ public class UserServiceImpl implements UserDetailsService, IUserService{
 	public int createuser(AppUser appUser) {
 		return iUserDAO.createUser(appUser);
 	}
+	
 	
 }

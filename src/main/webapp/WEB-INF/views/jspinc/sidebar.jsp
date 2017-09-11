@@ -65,7 +65,7 @@
 					<ul class="list-unstyled">
 						<li><a href="#">Users</a></li>
 						<li class="dropdown-divider"></li>
-						<li><a href="#">Menus</a></li>
+						<li><a href="/adpostm/menus">Menus</a></li>
 						<li class="dropdown-divider"></li>
 						<li><a href="#">Posts</a></li>
 					</ul>

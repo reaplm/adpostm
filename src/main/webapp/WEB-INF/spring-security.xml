@@ -31,6 +31,8 @@
       <beans:bean id="UserServiceImpl" class="com.adpostm.service.impl.UserServiceImpl" />
       <beans:bean id="iUserDAO" class="com.adpostm.domain.dao.impl.UserDAOImpl" />
       <beans:bean id="iUserService" class="com.adpostm.service.impl.UserServiceImpl" />
+         <beans:bean id="iMenuDAO" class="com.adpostm.domain.dao.impl.MenuDAOImpl" />
+      <beans:bean id="iMenuService" class="com.adpostm.service.impl.MenuServiceImpl" />
       
     <context:component-scan base-package="com.adpostm"/> 
    </beans:beans>

@@ -1,0 +1,24 @@
+package com.adpostm.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.adpostm.domain.dao.IMenuDAO;
+import com.adpostm.domain.model.Menu;
+import com.adpostm.service.IMenuService;
+
+public class MenuServiceImpl implements IMenuService{
+	@Autowired
+	IMenuDAO iMenuDAO;
+	
+	@Override
+	public List<Menu> getMenus() {
+		return iMenuDAO.getMenus();
+	}
+
+	@Override
+	public List<Menu> getMenuByType(String type) {
+		return iMenuDAO.getMenuByType(type);
+	}
+}

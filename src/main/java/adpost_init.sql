@@ -4,4 +4,8 @@ INSERT INTO user_detail(pk_user_detail_id, first_name)
 	VALUES(null, 'Administrator Account');
 INSERT INTO AppUser_roles
 	VALUES(1,'ROLE_USER'),(1,'ROLE_ADMIN');
+INSERT INTO menu(pk_menu_id, menu_type, menu_name,url)
+	VALUES(null, 'HOME', 'vehicles', '#'),
+		(null, 'HOME', 'property', '#'),
+		(null, 'HOME', 'furniture', '#');
 	
