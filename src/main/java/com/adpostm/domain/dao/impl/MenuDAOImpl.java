@@ -52,4 +52,42 @@ public class MenuDAOImpl implements IMenuDAO{
 		return result;
 	}
 
+	@Override
+	public Menu getMenuById(int id) {
+		List<Menu> result = null;
+		Menu menu = null;
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			Query query = session.createQuery("from Menu where menuId = :menuId");
+			query.setParameter("menuId", id);
+			result = (List<Menu>)query.list();
+			session.flush();
+			session.getTransaction().commit();
+			session.close();
+			if(result.size() == 1){menu = result.get(0);}
+			else {menu = null;}
+			
+		}
+		catch(Exception ex) {
+			System.out.println("Exception caught in getMenuById(int id).\n Exception is" + ex);	
+		}
+		return menu;
+	}
+
+	@Override
+	public void updateMenu(Menu menu) {
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.getTransaction().begin();
+			session.update(menu);
+			session.flush();
+			session.getTransaction().commit();
+			session.close();
+			
+		}
+		catch(Exception ex) {
+			System.out.println("Exception in updateMenu(Menu menu).\nError thrown is: " + ex );
+		}
+	}
 }

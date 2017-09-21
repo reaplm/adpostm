@@ -21,4 +21,15 @@ public class MenuServiceImpl implements IMenuService{
 	public List<Menu> getMenuByType(String type) {
 		return iMenuDAO.getMenuByType(type);
 	}
+
+	@Override
+	public Menu getMenuById(int id) {
+		return iMenuDAO.getMenuById(id);
+	}
+
+	@Override
+	public void updateMenu(Menu menu) {
+		iMenuDAO.updateMenu(menu);
+		
+	}
 }

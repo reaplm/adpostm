@@ -1,17 +1,38 @@
 @CHARSET "ISO-8859-1";
 body{
 	background-color: #e9eef2;
+	margin-top: 30px;
 }
 /*=========================HEADER/LOGO======================================*/
 .center-block {
 	display: block;
 	margin: 0 auto;
 }
+.has-danger .form-control{
+	background-color: #f9f2a2;
+	border: solid 1px #f9f2a2;
+}
+.form-control:focus{
+	border: solid 1px #f8d650;
+}
+.form-group div{
+	font-size: 10pt;
+	height: 10px;
+}
+.form-group a, .form-group a:visited{
+	color: #666;
+}
+
+.form-control-danger{
+	color: #d94d4d;
+}
 #pg-register .container{	
 	margin-top: 10px;
 }
 #pg-register .btn-primary, #pg-login .btn-primary{
 	width: 100%;
+	background-color: #2c2a33;
+	border-color: #2c2a33;
 }
 #pg-register .col-sm-6{
 	padding-left: 0px;
@@ -19,7 +40,7 @@ body{
 }
 @media(min-width: 768px){
 	#pg-login .container, #pg-register .container{
-		width: 40%;
+		width: 30%;
 	}
 }
 
@@ -43,4 +64,115 @@ body{
 .list-unstyled{
 	margin-bottom: 0px;
 }
+#pg-home{
+	min-height: 400px;
+}
+#pg-home .container{
+	margin-top: 1.2rem;
+}
+#pg-home .category{
+	text-transform: Capitalize;
+	margin-right: 5px;
+	
+}
+#pg-home .category a{
+	
+	margin-left: .625rem;
+	
+}
+#admin-menu a, #admin-menu a:visited{
+	color: #e9eef2;
+	
+}
+#admin-menu a:hover, #admin-menu a:active{
+	text-decoration: underline;
+	color: #d94d4d;
+	
+}
+.card{
+	background-color: #e9eef2;
+	border: none;
+}
+#sidebar{
+	margin-top: 30px;
+	width: 100%;
+}
+#sidebar a{
+	color: #2c2a33;
+}
+.content{
+	margin-top: 30px;
+	background-color: #fff;
+}
+.nopadding{
+	padding-right: 0px;
+	padding-left: 0px;
+	
+}
+.nomargin{
+	margin-right: 0px;
+	margin-left: 0px;
+	
+}
+#sidebar .user-info{
+	background-color: #fff;
+	padding-top: 20px;
+	margin-bottom: 10px;
+}
+#sidebar .user-info-img{
+	margin: 0 auto;
+	width: 70%;
+}
+#sidebar .user-info-img img{
+	width: 100%;
+}
+#sidebar .card-block{
+	background-color: #fff;
+}
+.acc-logo{
+	background-color: #f8d650;
+}
+#admin-menu {
+	color: #e9eef2;
+	width: 100%;
+}
+.pg-admin{
+	/*box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);*/
+}
+#admin-menu .nav{
+	background-color: #2c2a33;
+	
+}
+/*=============================MODAL====================*/
+.modal-content{
+	color: #2c2a33;
+}
 
+.modal-header{
+	text-transform: Capitalize;
+	background-color: #e9eef2;
+}
+.modal-footer{
+	background-color: #e9eef2;
+}
+/*====================================FOOTER===============*/
+.footer{
+	width: 100%;
+	background-color: #2c2a33;
+	color: #e9eef2;
+}
+.footer img{
+	width: 5%;
+}
+.footer-content{
+	width: 20%;
+	margin-right: 30px;
+	
+}
+.footer-footer{
+	border-top: solid 1px #d94d4d;
+	background-color: #2e202b;
+}
+.card-footer{
+	padding-bottom: 0;
+}

@@ -7,17 +7,24 @@
 			<div class="container">
 				<jsp:include page="/WEB-INF/views/jspinc/logo.jsp" />
 				<form id="form-login" action="/adpostm/login" method="post" class="form-horizontal">
-						<div class="form-group">
-							<input type="text" name="username" id="username" 
-								class = "form-control" placeholder="Username" />
+						<div class="form-group has-danger">	
+								<input type="text" name="username" id="username" 
+									class = "form-control" placeholder="Username" />
+						<div>
+							<label id="username-error" class="form-control-danger" for="username">
+							</label>
 						</div>
-						<div class="form-group">
+						</div>
+						<div class="form-group has-danger">
 							<input type="password" name="password" id="password"
 								class = "form-control" placeholder="Password" />
-
+							<div>
+								<label id="password-error" class="form-control-danger" 
+								for="password"></label>
+							</div>
 						</div>
 						<div class="form-group">
-							<button class="btn btn-primary" onclick="submitLogin()" >SUBMIT</button>
+							<button class="btn btn-primary" onclick="submitLogin()" role="button">SUBMIT</button>
 						</div>
 						<div class="form-group">
 							

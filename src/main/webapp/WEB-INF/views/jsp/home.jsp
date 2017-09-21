@@ -16,12 +16,12 @@
 				<%if(colCount == 0){//new row%>
 					<div class="row">
 				<%}%>
-						<div class="col-sm-3" style="border: solid">
+						<div class="col-sm-3 category">
 							<div class="float-left">
 								<img src="<%=request.getContextPath()%>/resources/
 									images/menu/${menu.getIcon()}" />
 							</div>
-							<a href="${menu.getUrl()}">${menu.getMenuName()}</a>
+							<h4></h4><a href="${menu.getUrl()}">${menu.getMenuName()}</a></h4>
 						</div>
 				<%if(colCount == 4){ colCount = 0;%>
 					</div>

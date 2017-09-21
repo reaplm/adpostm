@@ -13,12 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.adpostm.domain.enumerated.MenuType;
 
 
 @Entity
 @Table(name="menu")
-@DiscriminatorColumn(name="menu_type")
+@DynamicUpdate(value=true)
 public class Menu {
 	@Id
 	@GeneratedValue
