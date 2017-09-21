@@ -42,14 +42,14 @@ public class RegistrationController {
 				request.getParameter("password"));
 	
 		if(userId > 0){
-			MailAgent mailAgent = new MailAgent
+			/*MailAgent mailAgent = new MailAgent
 					(request.getParameter("email"), "pdm.molefe@gmail.com", 
 							"pmolefe@bec.co.bw", null,
 							"adpostm registration activation", 
 							"Congradulations you have successfully registered on adpostm", 
 							"localhost");
 			
-			mailAgent.sendMessage();
+			mailAgent.sendMessage();*/
 			
 			modelAndView.addObject("msg","<p  class='bg-info'>You have successfully registered. "
 					+ "You will be redirected to the login page.</p>" );

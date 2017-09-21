@@ -10,7 +10,7 @@
 						<div class="form-group has-danger">	
 								<input type="text" name="username" id="username" 
 									class = "form-control" placeholder="Username" />
-						<div>
+						<div class="error-div">
 							<label id="username-error" class="form-control-danger" for="username">
 							</label>
 						</div>
@@ -18,7 +18,7 @@
 						<div class="form-group has-danger">
 							<input type="password" name="password" id="password"
 								class = "form-control" placeholder="Password" />
-							<div>
+							<div class="error-div">
 								<label id="password-error" class="form-control-danger" 
 								for="password"></label>
 							</div>

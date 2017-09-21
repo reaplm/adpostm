@@ -94,7 +94,7 @@ function submitLogin(){
  */
 function SubmitRegistration(){
 	var validator = $("#form-register").validate({
-		errorClass: "formErrMsg",
+		errorClass: "form-control-danger",
 		rules:{
 			fname:{
 				required: true
@@ -115,7 +115,7 @@ function SubmitRegistration(){
 			password:{
 				required: true,
 			},
-			passRetype:{
+			passRepeat:{
 				required: true,
 				equalTo: "#password"
 			}
@@ -133,9 +133,9 @@ function SubmitRegistration(){
 				remote: "That email is already registered!"
 			},
 			password:{
-				required: "Password cannot be blank",
+				required: "Password is required",
 			},
-			passRetype:{
+			passRepeat:{
 				required: "Please re-type password",
 				equalTo: "Passwords must match"
 			}
