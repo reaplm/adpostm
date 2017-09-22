@@ -4,12 +4,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<jsp:include page="/WEB-INF/views/jspinc/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/jspinc/head.jsp"></jsp:include>
 <div id="pg-home">
+	<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
 	<div class="container">
-		<div class="row">
-			<jsp:include page="/WEB-INF/views/jspinc/topMenu.jsp" />
-		</div>
 		<%int colCount = 0; %>
 		<c:if test="${fn: length(menus) > 0}">
 			<c:forEach items="${menus}" var="menu">
@@ -29,8 +27,5 @@
 			</c:forEach>
 		</c:if>
 		</div>
-		
 	</div>
-	
-</div>
 <jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>

@@ -1,7 +1,9 @@
-
-		<div class="footer card-footer justify-content-center">
-			<div class="row nopadding">
-				<div class="col-sm-4"></div>
+		<div class="footer card-footer">
+			<div class="row">
+				<div class="col-sm-4 justify-content-center">
+					<img src="<%=request.getContextPath()%>/resources/images/twitter-bird-logo.png" /> 
+					<img src="<%=request.getContextPath()%>/resources/images/facebook-logo.png" /> 
+				</div>
 				<div class="col-sm-4">
 					<h3>About</h3>
 					<p>
@@ -16,22 +18,23 @@
 				<div class="col-sm-4">
 						<h3>Contact</h3>
 					<div>
-					<img src="<%=request.getContextPath()%>/resources/images/menu/
-						ic_pets_black_48dp.png" /> Gaborone
+					<img src="<%=request.getContextPath()%>/resources/images/pin.png" /> 
+						Gaborone
 					</div>
 					<div>
-					<img src="<%=request.getContextPath()%>/resources/images/menu/
-						ic_pets_black_48dp.png" /> +267 ....
+					<img src="<%=request.getContextPath()%>/resources/images/
+						phone-receiver.png" /> +267 ....
 					</div>
 					<div>
-					<img src="<%=request.getContextPath()%>/resources/images/menu/
-						ic_pets_black_48dp.png"/> pdm.molefe@gmail
+					<img src="<%=request.getContextPath()%>/resources/images/
+						email-filled-closed-envelope.png"/> pdm.molefe@gmail.com
 					</div>
 				</div>
 			</div>
-			<div class="row justify-content-center footer-footer nopadding">
-				&copy;Pearl Molefe 2017
-			</div>
+			
+		</div>
+		<div class="footer card-footer footer-footer">
+				<p>&copy;  Pearl Molefe 2017</p>
 		</div>
 	</body>
 </html>

@@ -25,7 +25,7 @@
 				aria-labelledby="Home">
 				<div class="card-block">
 					<ul class="list-unstyled">
-						<li><a href="#">Dashboard</a></li>
+						<li><a href="/adpostm/admin">Dashboard</a></li>
 					</ul>
 				</div>
 			</div>
