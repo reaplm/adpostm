@@ -1,4 +1,4 @@
-		<div class="footer card-footer">
+		<div class="footer">
 			<div class="row">
 				<div class="col-sm-4 justify-content-center">
 					<img src="<%=request.getContextPath()%>/resources/images/twitter-bird-logo.png" /> 
@@ -31,10 +31,10 @@
 					</div>
 				</div>
 			</div>
-			
-		</div>
-		<div class="footer card-footer footer-footer">
+			<div class="card footer-footer">
 				<p>&copy;  Pearl Molefe 2017</p>
+			</div>
 		</div>
+		
 	</body>
 </html>

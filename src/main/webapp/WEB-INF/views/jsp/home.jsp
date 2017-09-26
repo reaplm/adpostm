@@ -6,26 +6,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <jsp:include page="/WEB-INF/views/jspinc/head.jsp"></jsp:include>
 <div id="pg-home">
-	<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
-	<div class="container">
-		<%int colCount = 0; %>
-		<c:if test="${fn: length(menus) > 0}">
-			<c:forEach items="${menus}" var="menu">
-				<%if(colCount == 0){//new row%>
-					<div class="row">
-				<%}%>
-						<div class="col-sm-3 category">
-							<div class="float-left">
-								<img src="<%=request.getContextPath()%>/resources/
-									images/menu/${menu.getIcon()}" />
+	
+	<div class="container" >
+		<div class="row">
+			<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
+		</div>
+		<div class="row w-100">
+			<%int colCount = 0; %>
+			<c:if test="${fn: length(menus) > 0}">
+				<c:forEach items="${menus}" var="menu">
+					<%if(colCount == 0){//new row%>
+						<div class="row w-100" >
+					<%} colCount++;%>
+							<div class="col-sm-3 category" >
+								<div class="float-left">
+									<img src="<%=request.getContextPath()%>/resources/
+										images/menu/${menu.getIcon()}" />
+								</div>
+								<h4 class="pt-3"><a href="${menu.getUrl()}">${menu.getMenuName()}</a></h4>
 							</div>
-							<h4></h4><a href="${menu.getUrl()}">${menu.getMenuName()}</a></h4>
+					<%if(colCount == 4){ colCount = 0;%>
 						</div>
-				<%if(colCount == 4){ colCount = 0;%>
-					</div>
-				<%} colCount++;%>
-			</c:forEach>
-		</c:if>
+					<%} %>
+				</c:forEach>
+			</c:if>
 		</div>
 	</div>
+	
+</div>
 <jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>

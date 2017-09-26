@@ -90,4 +90,22 @@ public class MenuDAOImpl implements IMenuDAO{
 			System.out.println("Exception in updateMenu(Menu menu).\nError thrown is: " + ex );
 		}
 	}
+
+	@Override
+	public int createMenu(Menu menu) {
+		int menuId = 0;
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.persist(menu);
+			menuId = menu.getMenuId();
+			session.flush();
+			session.getTransaction().commit();
+			session.close();
+		}
+		catch(Exception ex) {
+			System.out.println("Exception occured in createMenu(Menu menu): " + ex);
+		}
+		return menuId;
+	}
 }

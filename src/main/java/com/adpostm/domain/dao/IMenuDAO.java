@@ -9,4 +9,5 @@ public interface IMenuDAO {
 	public List<Menu> getMenuByType(String type);
 	public Menu getMenuById(int id);
 	public void updateMenu(Menu menu);
+	public int createMenu(Menu menu);
 }

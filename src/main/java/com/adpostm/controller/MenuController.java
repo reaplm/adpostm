@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.Menu;
 import com.adpostm.service.IMenuService;
 
@@ -46,10 +47,30 @@ public class MenuController {
 		iMenuService.updateMenu(menu);
 		return msg;
 	}
+	@RequestMapping(value="/menus/add")
+	public String submitAddMenu(HttpServletRequest request, HttpServletResponse response) {
+		Menu menu = createMenu(request.getParameter("menuName"),
+				request.getParameter("menuDesc"),request.getParameter("icon"));
+		
+		int menuId = iMenuService.createMenu(menu);
+		if(menuId > 0)
+			return "success";
+		else return "failure";
+		
+	}
 	private List<Menu> getMenus(){
 		return iMenuService.getMenus();
 	}
 	private List<Menu> getMenuByType(String type){
 		return iMenuService.getMenuByType(type);
+	}
+	private Menu createMenu(String menuName, String menuDesc,
+			String icon) {
+		Menu menu = new Menu();
+		menu.setMenuName(menuName);
+		menu.setMenuDesc(menuDesc);
+		menu.setIcon(icon);
+		menu.setMenuType(MenuType.HOME);
+		return menu;
 	}
 }

@@ -9,4 +9,5 @@ public interface IMenuService {
 	public List<Menu> getMenus();
 	public Menu getMenuById(int id);
 	public void updateMenu(Menu menu);
+	public int createMenu(Menu menu);
 }

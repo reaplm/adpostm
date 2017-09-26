@@ -27,7 +27,7 @@
 						<a href="#" class="nav-link">post ad</a>
 					</li>
 					<li class="nav-item">
-						<a href="/adpostm/admin" class="nav-link">admin</a>
+						<a href="/adpostm/admin" class="nav-link">my account</a>
 					</li>
 					<li class="nav-item">
 						<a href="/adpostm/logout" class="nav-link">logout</a>

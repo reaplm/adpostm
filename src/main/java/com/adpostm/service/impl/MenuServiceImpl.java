@@ -32,4 +32,10 @@ public class MenuServiceImpl implements IMenuService{
 		iMenuDAO.updateMenu(menu);
 		
 	}
+
+	@Override
+	public int createMenu(Menu menu) {
+		return iMenuDAO.createMenu(menu);
+		
+	}
 }

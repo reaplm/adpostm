@@ -15,21 +15,30 @@
 			</div>
 			<div class="col-sm-9 content nopadding">
 				<div class="card-header">
-					<ul class="nav nav-tabs card-header-tabs" role="tablist">
-						<li class="nav-item"><a href="#category" data-toggle="tab"
-							class="nav-link active" role="tab">category</a></li>
-						<li class="nav-item"><a href="#admin" data-toggle="tab"
-							class="nav-link" role="tab">admin</a></li>
-					</ul>
+					<div class="nav">
+						<ul class="nav nav-tabs card-header-tabs" role="tablist">
+							<li class="nav-item"><a href="#category" data-toggle="tab"
+								class="nav-link active" role="tab">category</a></li>
+							<li class="nav-item"><a href="#admin" data-toggle="tab"
+								class="nav-link" role="tab">admin</a></li>
+						</ul>
+						<ul class="nav ml-auto" >
+							<li class="nav-item">
+								<img src="<%=request.getContextPath()%>
+								/resources/images/menu/ic_add_circle_outline_black_36dp.png" 
+								width="20px" role="button" class="pt-2" id="newMenuBtn"/>
+							</li>
+						</ul>
 					</div>
-					<div class="tab-content pl-2 pr-2">
-						<div class="tab-pane active" id="category" role="tabpanel">
-							<jsp:include page="/WEB-INF/views/jsp/category.jsp"></jsp:include>
-						</div>
-						<div class="tab-pane" id="admin" role="tabpanel">
-							<jsp:include page="/WEB-INF/views/jsp/admin.jsp"></jsp:include>
-						</div>
+				</div>
+				<div class="tab-content pl-2 pr-2">
+					<div class="tab-pane active" id="category" role="tabpanel">
+						<jsp:include page="/WEB-INF/views/jsp/category.jsp"></jsp:include>
 					</div>
+					<div class="tab-pane" id="admin" role="tabpanel">
+						<jsp:include page="/WEB-INF/views/jsp/admin.jsp"></jsp:include>
+					</div>
+				</div>
 			</div>
 		</div>
 		<br />
@@ -38,4 +47,5 @@
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/jsp/editMenuForm.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/jsp/newMenuForm.jsp"></jsp:include>
 </div>

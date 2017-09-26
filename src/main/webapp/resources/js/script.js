@@ -33,10 +33,50 @@ function SubmitUpdateMenu(url, data){
 		}
 	});
 }
+function SubmitAddMenu(url, formData){
+	$.ajax({
+		type: "get",
+		url: url,
+		data: formData,
+		dataType: "json",
+		error: function(jqxHr,errorText, errorThrown){
+			alert("Failed to submit menu");
+		},
+		success: function(){
+			alert("menu submitted successfully");
+		}
+	});
+}
 //=============================================VALIDATORS===============================
+function ValidateAddMenu(){
+	var validator = $("#add-menu-form").validate({
+		errorClass: "form-control-danger",
+		rules:{
+			menuName:{
+				required: true
+			},
+			icon:{
+				required: true
+			}
+		},
+		messages:{
+			menuName:{
+				required: "Menu title is required"
+			},
+			icon:{
+				required: "You need an icon for this menu"
+			}
+		}
+	});
+	if(validator.form()){
+		SubmitAddMenu($("#add-menu-form").attr("action"),
+				$("#add-menu-form").serializeArray());
+		window.location.reload();
+	}
+}
 function ValidateUpdateMenu(){
 	var validator = $("#edit-menu-form").validate({
-		errorClass: "formErrorMsg",
+		errorClass: "form-control-danger",
 		rules:{
 			menuName:{
 				required: true
@@ -174,5 +214,12 @@ $(document).ready(
 			//open bootstrap modal
 			$("#menu-edit-modal").modal();
 		});
+		$(document).on("click", "#newMenuBtn", function(){
+			$("#menu-add-modal").modal();
+			
+		});
+		$(".modal").on("hidden.bs.modal", function(){
+			$(".modal-body input").val("");
+		})
 	}
 );
