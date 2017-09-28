@@ -25,6 +25,8 @@ public class AdpostmController {
 	@RequestMapping(value="/admin")
 	public ModelAndView admin(){
 		ModelAndView modelAndView = new ModelAndView("dashboard");
+		List<Menu> menus= getMenuByType("sidebar");
+		modelAndView.addObject("sideMenu", menus);
 		return modelAndView;
 	}
 	private List<Menu> getMenus(){

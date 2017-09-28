@@ -30,6 +30,7 @@ public class Menu {
 	private String menuName;
 	@Column(name="menu_desc")
 	private String menuDesc;
+	private String label;
 	private String url;
 	private String icon;
 	
@@ -71,8 +72,16 @@ public class Menu {
 	public void setIcon(String icon){
 		this.icon = icon;
 	}
+	public String getLabel(){
+		return this.label;
+	}
+	public void setLabel(String label){
+		this.label = label;
+	}
 	public List<SubMenu> getSubMenu(){
+		System.out.println(this.menuName+": " +this.subMenu);
 		return this.subMenu;
+		
 	}
 	public void setSubMenu(List<SubMenu> subMenu){
 		this.subMenu = subMenu;

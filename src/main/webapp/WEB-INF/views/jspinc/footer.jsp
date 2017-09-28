@@ -1,7 +1,9 @@
 		<div class="footer">
 			<div class="row">
-				<div class="col-sm-4 justify-content-center">
-					<img src="<%=request.getContextPath()%>/resources/images/twitter-bird-logo.png" /> 
+				
+				<div class="col-sm-4">
+					<img src="<%=request.getContextPath()%>/resources/images/
+						twitter-bird-logo.png" /> 
 					<img src="<%=request.getContextPath()%>/resources/images/facebook-logo.png" /> 
 				</div>
 				<div class="col-sm-4">

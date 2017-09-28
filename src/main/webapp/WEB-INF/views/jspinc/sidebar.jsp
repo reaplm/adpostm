@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <div id="sidebar">
 	<div id="" class="user-info">
@@ -13,65 +15,45 @@
 		</div>
 	</div>
 	<div id="accordion" role="tablist" aria-multiselectable="true" >
-		<div class="card">
-			<div class="card-header" role="tab">
-				<h5 class="mb-0">
-					<a data-toggle="collapse" data-parent="#accordion"  
-						href="#home" aria-expanded="true"  
-						aria-controls="home">Home</a>
-				</h5>
-			</div>
-			<div id="home" class="collapse show" role="tabpanel" 
-				aria-labelledby="Home">
-				<div class="card-block">
-					<ul class="list-unstyled">
-						<li><a href="/adpostm/admin">Dashboard</a></li>
-					</ul>
+		<c:forEach items="${sideMenu}" var="menu" varStatus="loop">
+			<div class="card">
+				<div class="card-header" role="tab">
+					<h5 class="mb-0">
+						<a data-toggle="collapse" data-parent="#accordion"  
+							href="#${menu.getLabel()}" 
+							<c:if test="${loop.index==0}">								
+								aria-expanded="true"  
+							</c:if>
+							<c:if test="${loop.index > 0}">
+								aria-expanded="false"  
+							</c:if>
+							aria-controls="${menu.getMenuName()}">
+							${menu.getMenuName()}
+						</a>
+					</h5>
 				</div>
+				<c:if test="${fn: length(menu.getSubMenu()) > 0}">
+					<div id="${menu.getLabel()}" 
+						<c:if test="${loop.index == 0}">
+							class="collapse show" 
+						</c:if>
+							<c:if test="${loop.index > 0}">
+								class="collapse"
+							</c:if>
+						role="tabpanel" aria-labelledby="${menu.getLabel()}">
+						<div class="card-block">
+							<ul class="list-unstyled">
+								<c:forEach items="${menu.subMenu}" var="subMenu">
+									<li><a href="#">${subMenu.getSubMenuName()}</a></li>
+									<li class="dropdown-divider"></li>
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+				</c:if>
 			</div>
-		</div>
-		<div class="card">
-			<div class="card-header" role="tab" id="headingThree">
-				<h5 class="mb-0">
-					<a class="collapsed" data-toggle="collapse" data-parent="#accordion"  
-						href="#account" aria-expanded="false"  
-						aria-controls="account">My Account</a>
-				</h5>
-			</div>
-			<div id="account" class="collapse" role="tabpanel" 
-				aria-labelledby="account">
-				<div class="card-block">
-					<ul class="list-unstyled">
-						<li><a href="#">Preferences</a></li>
-						<li class="dropdown-divider"></li>
-						<li><a href="#">Subscriptions</a></li>
-						<li class="dropdown-divider"></li>
-						<li><a href="#">My Posts</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-header" role="tab" id="headingTwo">
-				<h5 class="mb-0">
-					<a class="collapsed" data-toggle="collapse" data-parent="#accordion"  
-						href="#manage" aria-expanded="false" 
-						aria-controls="manage">Manage</a>
-				</h5>
-			</div>
-			<div id="manage" class="collapse" role="tabpanel" 
-				aria-labelledby="manage">
-				<div class="card-block">
-					<ul class="list-unstyled">
-						<li><a href="#">Users</a></li>
-						<li class="dropdown-divider"></li>
-						<li><a href="/adpostm/menus">Menus</a></li>
-						<li class="dropdown-divider"></li>
-						<li><a href="#">Posts</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		</c:forEach>
+
 		
 	</div>
 </div>
