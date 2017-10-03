@@ -186,6 +186,19 @@ function SubmitRegistration(){
 		alert("All Good!");
 	}
 }
+function SaveActiveAcc(active){
+	var dataStore = window.sessionStorage;
+	try{
+		dataStore.setItem("activeAccId", active);
+	}catch(e){Alert("failed to store index: "+active);}
+}
+function OpenActiveAcc(){
+	var dataStore = window.sessionStorage;
+	var oldIndex = dataStore.getItem("activeAccId");
+}
+window.onload = function() {
+	 OpenActiveAcc();
+}
 /**
  * 
  */
@@ -220,6 +233,23 @@ $(document).ready(
 		});
 		$(".modal").on("hidden.bs.modal", function(){
 			$(".modal-body input").val("");
-		})
+		});
+		$(document).on("click","#sidebar-accordion ul li a",function(){
+			
+		});
+		$("#sidebar-accordion").on("show.bs.collapse", function(e){
+			var index = e.target.id;
+			SaveActiveAcc(index);
+		});
+		
+		//Navigation highlight
+		var url = window.location.href;
+		url = url.split("?",1);
+		url = decodeURIComponent(url);
+		$(".nav-link").each(function(){
+			if(this.href == url){
+				$(this).addClass("active");
+			}
+		});
 	}
 );

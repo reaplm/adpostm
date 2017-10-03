@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div id="pg-menu-admin">
 		<c:if test="${fn: length(adminMenu) > 0}">
-			<table>
+			<table class="w-100">
 				<thead>
 					<tr>
 						<th>Name</th>
@@ -22,7 +22,7 @@
 					<%}else{ %>
 					<tr class="even-row">
 					<%} %>
-						<td><a href="#">${admin.getMenuName()}</a></td>
+						<td><a href="#" class="text-capitalize pl-1">${admin.getMenuName()}</a></td>
 						<td>${admin.getMenuDesc()}</td>
 						<td>${admin.getUrl()}</td>
 						<td>${admin.getIcon()}</td>

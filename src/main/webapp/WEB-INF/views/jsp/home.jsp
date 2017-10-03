@@ -16,7 +16,8 @@
 			<c:if test="${fn: length(menus) > 0}">
 				<c:forEach items="${menus}" var="menu">
 					<%if(colCount == 0){//new row%>
-						<div class="row w-100" >
+						<div class="row w-100 mt-3" >
+		
 					<%} colCount++;%>
 							<div class="col-sm-3 category" >
 								<div class="float-left">
@@ -26,7 +27,7 @@
 								<h4 class="pt-3"><a href="${menu.getUrl()}">${menu.getMenuName()}</a></h4>
 							</div>
 					<%if(colCount == 4){ colCount = 0;%>
-						</div>
+						</div><hr />
 					<%} %>
 				</c:forEach>
 			</c:if>

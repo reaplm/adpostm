@@ -9,9 +9,6 @@ body{
 	display: block;
 	margin: 0 auto;
 }
-.has-danger .form-control{
-	
-}
 
 .form-control:focus{
 	border: solid 1px #f8d650;
@@ -27,7 +24,9 @@ body{
 .form-control-danger{
 	color: #d94d4d;
 }
-#pg-login input[type=text] ,#pg-register input[type="text"]{
+
+#pg-login .has-danger .form-control 
+	,#pg-register .has-danger .form-control{
 	background-color: #f9f2a2;
 	border: solid 1px #f9f2a2;
 }
@@ -69,7 +68,11 @@ body{
 #top-menu a, #top-menu a:visited{
 	color: #666;
 }
-#top-menu a:hover, #top-menu a:active{
+#top-menu a:hover{
+	color: #f7547a;
+	text-decoration: underline;
+}
+#top-menu a.active{
 	color: #f7547a;
 	text-decoration: underline;
 }
@@ -87,6 +90,10 @@ body{
 	margin-right: 0px;
 	
 }
+#pg-home .category img{
+	width: 50px;
+	
+}
 .nav-item .right-side{
 	text-align: right;
 }
@@ -98,6 +105,10 @@ body{
 	text-decoration: underline;
 	color: #f7547a;
 	
+}
+#admin-menu a.active{
+	color: #f7547a;
+	text-decoration: underline;
 }
 .card{
 	background-color: #e9eef2;

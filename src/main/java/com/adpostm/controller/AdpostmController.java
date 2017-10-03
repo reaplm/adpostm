@@ -22,12 +22,36 @@ public class AdpostmController {
 		modelAndView.addObject("menus", menus);
 		return modelAndView;
 	}
-	@RequestMapping(value="/admin")
+	
+	@RequestMapping(value="/admin/dashboard")
 	public ModelAndView admin(){
 		ModelAndView modelAndView = new ModelAndView("dashboard");
 		List<Menu> menus= getMenuByType("sidebar");
 		modelAndView.addObject("sideMenu", menus);
 		return modelAndView;
+	}
+	@RequestMapping(value="/admin/menus")
+	public ModelAndView menus(){
+		ModelAndView model = new ModelAndView("menus");
+		model.addObject("catMenu", getMenuByType("home"));
+		model.addObject("adminMenu", getMenuByType("sidebar"));
+		List<Menu> menus= getMenuByType("sidebar");
+		model.addObject("sideMenu", menus);
+		return model;
+	}
+	@RequestMapping(value="/admin/posts")
+	public ModelAndView posts(){
+		ModelAndView model = new ModelAndView("posts");
+		List<Menu> menus= getMenuByType("sidebar");
+		model.addObject("sideMenu", menus);
+		return model;
+	}
+	@RequestMapping(value="/admin/users")
+	public ModelAndView users(){
+		ModelAndView model = new ModelAndView("users");
+		List<Menu> menus= getMenuByType("sidebar");
+		model.addObject("sideMenu", menus);
+		return model;
 	}
 	private List<Menu> getMenus(){
 		return iMenuDAO.getMenus();

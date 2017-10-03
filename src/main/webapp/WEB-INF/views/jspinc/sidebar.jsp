@@ -14,18 +14,19 @@
 			
 		</div>
 	</div>
-	<div id="accordion" role="tablist" aria-multiselectable="true" >
+	<div id="sidebar-accordion" role="tablist" aria-multiselectable="true" class="text-capitalize">
 		<c:forEach items="${sideMenu}" var="menu" varStatus="loop">
 			<div class="card">
 				<div class="card-header" role="tab">
 					<h5 class="mb-0">
-						<a data-toggle="collapse" data-parent="#accordion"  
+						<a data-toggle="collapse" data-parent="#sidebar-accordion"  
 							href="#${menu.getLabel()}" 
 							<c:if test="${loop.index==0}">								
 								aria-expanded="true"  
 							</c:if>
 							<c:if test="${loop.index > 0}">
 								aria-expanded="false"  
+								class="collapsed"
 							</c:if>
 							aria-controls="${menu.getMenuName()}">
 							${menu.getMenuName()}
@@ -44,7 +45,7 @@
 						<div class="card-block">
 							<ul class="list-unstyled">
 								<c:forEach items="${menu.subMenu}" var="subMenu">
-									<li><a href="#">${subMenu.getSubMenuName()}</a></li>
+									<li><a href="/adpostm/admin/${subMenu.getLabel()}">${subMenu.getSubMenuName()}</a></li>
 									<li class="dropdown-divider"></li>
 								</c:forEach>
 							</ul>

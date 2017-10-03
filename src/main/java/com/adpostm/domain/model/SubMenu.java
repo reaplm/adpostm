@@ -20,6 +20,7 @@ public class SubMenu {
 	@Column(name="sub_menu_desc")
 	private String subMenuDesc;
 	private String url;
+	private String label;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_menu_id", nullable=false)
@@ -48,6 +49,12 @@ public class SubMenu {
 	}
 	public void setUrl(String url){
 		this.url = url;
+	}
+	public String getLabel(){
+		return this.label;
+	}
+	public void setLabel(String label){
+		this.label = label;
 	}
 	public Menu getMenu(){
 		return this.menu;
