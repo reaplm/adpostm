@@ -4,7 +4,7 @@ body{
 	margin-top: 30px;
 	font-size: .8125rem;
 }
-/*=========================FORM/LOGIN/REG======================================*/
+/*=========================LOGIN/REG======================================*/
 .center-block {
 	display: block;
 	margin: 0 auto;
@@ -60,6 +60,7 @@ body{
 		display: block;
 	}
 }
+/*=========================HEADER MENU======================================*/
 #top-menu{
 	text-transform: uppercase;
 	width: 100%;
@@ -79,6 +80,7 @@ body{
 .list-unstyled{
 	margin-bottom: 0px;
 }
+/*=========================HOME PAGE======================================*/
 #pg-home{
 	min-height: 400px;
 }
@@ -93,6 +95,13 @@ body{
 #pg-home .category img{
 	width: 50px;
 	
+}
+#pg-home .category a, #pg-home .category a:visited{
+	color: #2c2a33;
+}
+#pg-home .category a:hover, #pg-home .category a:active{
+	color: #f7547a;
+	text-decoration: underline;
 }
 .nav-item .right-side{
 	text-align: right;
@@ -114,12 +123,31 @@ body{
 	background-color: #e9eef2;
 	border: none;
 }
+/*=========================SIDEBAR======================================*/
 #sidebar{
 	margin-top: 30px;
 	width: 100%;
 }
 #sidebar a{
 	color: #2c2a33;
+}
+#sidebar .user-info{
+	background-color: #fff;
+	padding-top: 20px;
+	margin-bottom: 10px;
+}
+#sidebar .user-info-img{
+	margin: 0 auto;
+	width: 70%;
+}
+#sidebar .user-info-img img{
+	width: 100%;
+}
+#sidebar .card-block{
+	background-color: #fff;
+}
+#sidebar-accordion li.active{
+	border-right: solid 6px #f7547a;
 }
 .content{
 	margin-top: 30px;
@@ -142,21 +170,7 @@ body{
 	background-color: #f9f2a2;
 }
 
-#sidebar .user-info{
-	background-color: #fff;
-	padding-top: 20px;
-	margin-bottom: 10px;
-}
-#sidebar .user-info-img{
-	margin: 0 auto;
-	width: 70%;
-}
-#sidebar .user-info-img img{
-	width: 100%;
-}
-#sidebar .card-block{
-	background-color: #fff;
-}
+
 .acc-logo{
 	background-color: #f8d650;
 }
@@ -172,13 +186,7 @@ body{
 	background-color: #2c2a33;
 	
 }
-#pg-home .category a, #pg-home .category a:visited{
-	color: #2c2a33;
-}
-#pg-home .category a:hover, #pg-home .category a:active{
-	color: #f7547a;
-	text-decoration: underline;
-}
+
 /*=============================MODAL====================*/
 .modal-content{
 	color: #2c2a33;

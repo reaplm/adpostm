@@ -34,7 +34,7 @@
 					</h5>
 				</div>
 				<c:if test="${fn: length(menu.getSubMenu()) > 0}">
-					<div id="${menu.getLabel()}" 
+					<div id="${menu.getLabel()}"
 						<c:if test="${loop.index == 0}">
 							class="collapse show" 
 						</c:if>
@@ -45,7 +45,8 @@
 						<div class="card-block">
 							<ul class="list-unstyled">
 								<c:forEach items="${menu.subMenu}" var="subMenu">
-									<li><a href="/adpostm/admin/${subMenu.getLabel()}">${subMenu.getSubMenuName()}</a></li>
+									<li ><a href="/adpostm/admin/${subMenu.getLabel()}" class="acc-nav-link">
+										${subMenu.getSubMenuName()}</a></li>
 									<li class="dropdown-divider"></li>
 								</c:forEach>
 							</ul>

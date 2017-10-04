@@ -195,6 +195,13 @@ function SaveActiveAcc(active){
 function OpenActiveAcc(){
 	var dataStore = window.sessionStorage;
 	var oldIndex = dataStore.getItem("activeAccId");
+	elementId = "#"+oldIndex;
+	var roleSelector = "[href='"+elementId+"']";
+	$("[role=tabpanel]").removeClass("show");
+	$("[role=tab] h5 a").attr("aria-expanded","false");
+	
+	$(roleSelector).attr("aria-expanded","true");
+	$(elementId).addClass("show");
 }
 window.onload = function() {
 	 OpenActiveAcc();
@@ -251,5 +258,14 @@ $(document).ready(
 				$(this).addClass("active");
 			}
 		});
+		//sidebar navigation highlight
+		$(".acc-nav-link").each(function(){
+			if(this.href == url){
+				$(this).addClass("active");
+				//find the li item
+				$(this).closest('li').addClass("active");
+			}
+		});
+		
 	}
 );
