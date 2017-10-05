@@ -222,9 +222,17 @@ body{
 	margin-left: 15px; 
 	margin-right: 15px;
 }
+.footer a, .footer a:hover{
+	color: #f7547a;
+}
 .footer-footer{
 	/*border-top: solid 1px #d94d4d;*/
 	background-color: #2e202b;
 	text-align: center;
 	padding-bottom: 0;
+}
+
+#pg-menu-admin img, #pg-menu-category img{
+	width: 45px;
+	
 }

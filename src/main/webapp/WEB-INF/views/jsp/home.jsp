@@ -20,11 +20,15 @@
 		
 					<%} colCount++;%>
 							<div class="col-sm-3 category" >
-								<div class="float-left">
-									<img src="<%=request.getContextPath()%>/resources/
-										images/menu/${menu.getIcon()}" />
-								</div>
-								<h4 class="pt-3"><a href="${menu.getUrl()}">${menu.getMenuName()}</a></h4>
+									<div class="clearfix">
+										<img src="<%=request.getContextPath()%>/resources/
+											images/menu/${menu.getIcon()}" class="float-left"/>
+									<h4 class="pt-3"><a href="${menu.getUrl()}">${menu.getMenuName()}</a></h4>
+									</div>
+								
+								<c:forEach items="${menu.subMenu}" var="subMenu">
+									<p class="pl-2 mb-1"><a href="#">${subMenu.getMenuName()}</a></p>
+								</c:forEach>
 							</div>
 					<%if(colCount == 4){ colCount = 0;%>
 						</div><hr />

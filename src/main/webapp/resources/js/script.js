@@ -47,6 +47,19 @@ function SubmitAddMenu(url, formData){
 		}
 	});
 }
+function GetMenuList(url, callback){
+	$.ajax({
+		type: "get",
+		url: url,
+		dataType: "json",
+		error: function(jqHxrerrorText, errorThrown){
+			alert("Error fetching menu list.\n Error thrown is: " + errorThrown)
+		},
+		success: function(data){
+			callback(data);
+		}
+	});
+}
 //=============================================VALIDATORS===============================
 function ValidateAddMenu(){
 	var validator = $("#add-menu-form").validate({
@@ -54,17 +67,11 @@ function ValidateAddMenu(){
 		rules:{
 			menuName:{
 				required: true
-			},
-			icon:{
-				required: true
 			}
 		},
 		messages:{
 			menuName:{
 				required: "Menu title is required"
-			},
-			icon:{
-				required: "You need an icon for this menu"
 			}
 		}
 	});
@@ -218,7 +225,7 @@ $(document).ready(
 			e.preventDefault();
 			var url = $(this).attr("href");
 			GetMenuDetail(url, function(menu){
-				
+
 				$("#spanName").text(menu.menuName);
 				$("#spanDesc").text(menu.menuDesc);
 				$("#spanUrl").text(menu.url);
@@ -235,6 +242,17 @@ $(document).ready(
 			$("#menu-edit-modal").modal();
 		});
 		$(document).on("click", "#newMenuBtn", function(){
+			//parentId select
+			GetMenuList("/adpostm/menus?type=home", function(menuList){
+				if(menuList.length > 0){
+					$("#parentId").empty();
+					$("#parentId").append("<option value=0> </option>");
+					for(var i=0; i< menuList.length; i++){
+						$("#parentId").append("<option value="+menuList[i].menuId+">" +
+								menuList[i].menuName+"</option>");
+					}
+				}
+			});
 			$("#menu-add-modal").modal();
 			
 		});

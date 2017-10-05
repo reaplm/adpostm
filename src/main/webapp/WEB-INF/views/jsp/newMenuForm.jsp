@@ -20,17 +20,16 @@
 						<div class="row">
 							<form:form action="/adpostm/menus/add" method="post" class="form-horizontal w-75" 
 									id="add-menu-form">
-									<!-- 
 								<div class="form-group row">
 									<div class="col-sm-4 text-right">
-										<label for="name">Parent Menu</label>
+										<label for="parentId">Parent Menu</label>
 									</div>
 									<div class="col-sm-8">
-										<input type="text" name="parentId"
-										id="parentId" class="form-control"/>
+										<select name="parentId"
+										id="parentId" class="form-control  text-capitalize">
+										</select>
 									</div>
 								</div>
-								-->
 								<div class="form-group row has-danger">
 									<div class="col-sm-4 text-right">
 										<label for="menuName">Menu Name</label>

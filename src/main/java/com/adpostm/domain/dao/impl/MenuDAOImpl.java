@@ -9,6 +9,7 @@ import org.hibernate.exception.GenericJDBCException;
 import com.adpostm.domain.dao.IMenuDAO;
 import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.Menu;
+import com.adpostm.domain.model.SubMenu;
 import com.adpostm.hibernate.dao.HibernateUtil;
 
 public class MenuDAOImpl implements IMenuDAO{
@@ -107,5 +108,46 @@ public class MenuDAOImpl implements IMenuDAO{
 			System.out.println("Exception occured in createMenu(Menu menu): " + ex);
 		}
 		return menuId;
+	}
+
+	@Override
+	public SubMenu getSubMenuById(int id) {
+		List<SubMenu> result = null;
+		SubMenu subMenu = null;
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			Query query = session.createQuery
+					("from SubMenu where menuId = :id");
+			query.setParameter("id", id);
+			result = (List<SubMenu>)query.list();
+			session.flush();
+			session.getTransaction().commit();
+			session.close();
+			if(result.size() == 1) {subMenu = result.get(0);}
+			//subMenu = (SubMenu)session.byId(SubMenu.class).getReference(id);
+		}
+		catch(Exception e) {
+			System.out.println("Exception in getSubMenuById(int id): " + e);
+		}
+		return subMenu;
+	}
+
+	@Override
+	public int createSubMenu(SubMenu subMenu) {
+		int id = 0;
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.persist(subMenu);
+			id = subMenu.getMenuId();
+			session.flush();
+			session.getTransaction().commit();
+			session.close();
+		}
+		catch(Exception e) {
+			System.out.println("Exception in createSubMenu(SubMenu subMenu): "+e);
+		}
+		return id;
 	}
 }

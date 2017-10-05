@@ -16,7 +16,7 @@ INSERT INTO menu(pk_menu_id, menu_type, menu_name,url, label,icon)
 		(9, 'SIDEBAR', 'home', '#','home',''),
 		(10, 'SIDEBAR', 'my account', '#','account',''),
 		(11, 'SIDEBAR', 'manage', '#','manage','');
-INSERT INTO sub_menu(pk_sub_menu_id, sub_menu_name,label, fk_menu_id)
+INSERT INTO sub_menu(pk_menu_id, menu_name,label, fk_menu_id)
 	VALUES(null, 'dashboard', 'dashboard', 9),
 		(null, 'profile','profile', 10),
 		(null, 'preferences','preferences', 10),

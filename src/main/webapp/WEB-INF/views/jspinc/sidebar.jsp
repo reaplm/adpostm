@@ -46,7 +46,7 @@
 							<ul class="list-unstyled">
 								<c:forEach items="${menu.subMenu}" var="subMenu">
 									<li ><a href="/adpostm/admin/${subMenu.getLabel()}" class="acc-nav-link">
-										${subMenu.getSubMenuName()}</a></li>
+										${subMenu.getMenuName()}</a></li>
 									<li class="dropdown-divider"></li>
 								</c:forEach>
 							</ul>

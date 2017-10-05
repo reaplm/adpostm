@@ -1,5 +1,7 @@
 package com.adpostm.domain.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,41 +10,45 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="sub_menu")
-public class SubMenu {
+public class SubMenu implements Serializable{
+	
 	@Id
 	@GeneratedValue
-	@Column(name="pk_sub_menu_id")
-	private int subMenuId;
-	@Column(name="sub_menu_name")
-	private String subMenuName;
-	@Column(name="sub_menu_desc")
-	private String subMenuDesc;
+	@Column(name="pk_menu_id")
+	private int menuId;
+	@Column(name="menu_name")
+	private String menuName;
+	@Column(name="menu_desc")
+	private String menuDesc;
 	private String url;
 	private String label;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_menu_id", nullable=false)
+	@JsonBackReference
 	private Menu menu;
 	
-	public int getSubMenuId(){
-		return this.subMenuId;
+	public int getMenuId(){
+		return this.menuId;
 	}
-	public void setSubMenuId(int subMenuId){
-		this.subMenuId = subMenuId;
+	public void setMenuId(int subMenuId){
+		this.menuId = subMenuId;
 	}
-	public String getSubMenuName(){
-		return this.subMenuName;
+	public String getMenuName(){
+		return this.menuName;
 	}
-	public void setSubMenuName(String subMenuName){
-		this.subMenuName = subMenuName;
+	public void setMenuName(String subMenuName){
+		this.menuName = subMenuName;
 	}
-	public String getSubMenuDesc(){
-		return this.subMenuDesc;
+	public String getMenuDesc(){
+		return this.menuDesc;
 	}
-	public void setSubMenuDesc(String subMenuDesc){
-		this.subMenuDesc = subMenuDesc;
+	public void setMenuDesc(String subMenuDesc){
+		this.menuDesc = subMenuDesc;
 	}
 	public String getUrl(){
 		return this.url;

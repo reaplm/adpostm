@@ -8,14 +8,14 @@
 				</div>
 				<div class="col-sm-4">
 					<h3>About</h3>
-					<p>
-						Each of the UI elements in your application is a View object 
-						of one incarnation or another, and each has events that 
-						are unique to that element. This is how user interaction 
-						with specific UI elements is kept separate and organized. 
-						Each of these View objects keeps track of its own user-input 
-						events. 
-					</p>
+
+						My name is Pearl  Molefe. I am an oracle certified software engineer 
+						with accreditations in Oracle Forms, PL/SQL and Oracle database administration. 
+						Currently, I work as an analyst programmer at BEC. Check out my <a href="https://www.
+						linkedin.com/in/pearl-m/">LinkedIn Profile</a> for more about me. I am looking for commercial experience
+						in Java where I can hopefully expand on my knowledge and advance my development career.
+		
+					
 				</div>
 				<div class="col-sm-4">
 						<h3>Contact</h3>
@@ -33,6 +33,7 @@
 					</div>
 				</div>
 			</div>
+			<br>
 			<div class="card footer-footer">
 				<p>&copy;  Pearl Molefe 2017</p>
 			</div>

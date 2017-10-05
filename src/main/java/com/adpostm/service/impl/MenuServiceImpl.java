@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.adpostm.domain.dao.IMenuDAO;
 import com.adpostm.domain.model.Menu;
+import com.adpostm.domain.model.SubMenu;
 import com.adpostm.service.IMenuService;
 
 public class MenuServiceImpl implements IMenuService{
@@ -37,5 +38,15 @@ public class MenuServiceImpl implements IMenuService{
 	public int createMenu(Menu menu) {
 		return iMenuDAO.createMenu(menu);
 		
+	}
+
+	@Override
+	public SubMenu getSubMenuById(int id) {
+		return iMenuDAO.getSubMenuById(id);
+	}
+
+	@Override
+	public int createSubMenu(SubMenu subMenu) {
+		return iMenuDAO.createSubMenu(subMenu);
 	}
 }
