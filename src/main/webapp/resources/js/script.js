@@ -24,12 +24,11 @@ function SubmitUpdateMenu(url, data){
 		type: "post",
 		url: url,
 		data: data,
-		dataType: "json",
 		error: function(jqxHr,errorText, errorThrown){
 			alert("Failed to submit menu");
 		},
 		success: function(){
-			alert("menu submitted successfully");
+			alert("response from server: " + data.message);
 		}
 	});
 }
@@ -38,12 +37,11 @@ function SubmitAddMenu(url, formData){
 		type: "get",
 		url: url,
 		data: formData,
-		dataType: "json",
 		error: function(jqxHr,errorText, errorThrown){
 			alert("Failed to submit menu");
 		},
-		success: function(){
-			alert("menu submitted successfully");
+		success: function(data){
+			alert("response from server: " + data.message);
 		}
 	});
 }
@@ -211,7 +209,7 @@ function OpenActiveAcc(){
 	$(elementId).addClass("show");
 }
 window.onload = function() {
-	 OpenActiveAcc();
+	 //OpenActiveAcc();
 }
 /**
  * 
@@ -262,10 +260,10 @@ $(document).ready(
 		$(document).on("click","#sidebar-accordion ul li a",function(){
 			
 		});
-		$("#sidebar-accordion").on("show.bs.collapse", function(e){
+		/*$("#sidebar-accordion").on("show.bs.collapse", function(e){
 			var index = e.target.id;
 			SaveActiveAcc(index);
-		});
+		});*/
 		
 		//Navigation highlight
 		var url = window.location.href;
@@ -282,6 +280,16 @@ $(document).ready(
 				$(this).addClass("active");
 				//find the li item
 				$(this).closest('li').addClass("active");
+				//find the header
+				var elementId = $(this).closest('[role=tabpanel]').attr('id');
+				elementId = "#"+elementId;
+				var headerSelector = "[href='"+elementId+"']";
+				$("[role=tabpanel]").removeClass("show");
+				$("[role=tab] h5 a").attr("aria-expanded","false");
+				
+				$(headerSelector).attr("aria-expanded","true");
+				$(elementId).addClass("show");
+				
 			}
 		});
 		

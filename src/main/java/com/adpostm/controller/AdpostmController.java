@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.adpostm.domain.dao.IMenuDAO;
 import com.adpostm.domain.model.Menu;
 import com.adpostm.service.IMenuService;
 
@@ -81,9 +80,6 @@ public class AdpostmController {
 		List<Menu> menus= getMenuByType("sidebar");
 		model.addObject("sideMenu", menus);
 		return model;
-	}
-	private List<Menu> getMenus(){
-		return iMenuService.getMenus();
 	}
 	private List<Menu> getMenuByType(String type){
 		return iMenuService.getMenuByType(type);

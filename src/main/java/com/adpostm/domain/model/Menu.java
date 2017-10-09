@@ -4,18 +4,20 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.adpostm.domain.enumerated.MenuType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
@@ -40,7 +42,12 @@ public class Menu {
 	
 	@OneToMany(mappedBy="menu", 
 			cascade=CascadeType.REMOVE)
-	private List<SubMenu> subMenu;
+	private List<Menu> subMenu;
+	
+	@ManyToOne
+	@JoinColumn(name="fk_menu_id")
+	@JsonBackReference
+	private Menu menu;
 	
 	public int getMenuId(){
 		return this.menuId;
@@ -78,13 +85,18 @@ public class Menu {
 	public void setLabel(String label){
 		this.label = label;
 	}
-	public List<SubMenu> getSubMenu(){
+	public List<Menu> getSubMenu(){
 		System.out.println(this.menuName+": " +this.subMenu);
-		return this.subMenu;
-		
+		return this.subMenu;	
 	}
-	public void setSubMenu(List<SubMenu> subMenu){
+	public void setSubMenu(List<Menu> subMenu){
 		this.subMenu = subMenu;
+	}
+	public Menu getMenu(){
+		return this.menu;	
+	}
+	public void setMenu(Menu menu){
+		this.menu = menu;
 	}
 	public MenuType getMenuType() {
 		return menuType;

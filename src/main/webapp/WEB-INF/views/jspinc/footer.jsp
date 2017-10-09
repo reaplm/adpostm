@@ -1,12 +1,17 @@
 		<div class="footer">
-			<div class="row">
-				
-				<div class="col-sm-4">
-					<img src="<%=request.getContextPath()%>/resources/images/
-						twitter-bird-logo.png" /> 
-					<img src="<%=request.getContextPath()%>/resources/images/facebook-logo.png" /> 
+			<div class="row">	
+				<div class="col-sm-4 d-flex  align-items-center justify-content-center social-links">
+					<a href="#" class="align-center">
+						<img src="<%=request.getContextPath()%>/resources/images/
+							twitter-logo-silhouette.png" 
+							/> 
+					</a>
+					<a href="#">
+						<img src="<%=request.getContextPath()%>/resources/images/
+						facebook-logo_1.png"/> 
+					</a>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-4" >
 					<h3>About</h3>
 
 						My name is Pearl  Molefe. I am an oracle certified software engineer 
@@ -20,16 +25,17 @@
 				<div class="col-sm-4">
 						<h3>Contact</h3>
 					<div>
-					<img src="<%=request.getContextPath()%>/resources/images/pin.png" /> 
+					<img src="<%=request.getContextPath()%>/resources/images/
+					locate-places-on-maps.png" /> 
 						Gaborone
 					</div>
 					<div>
 					<img src="<%=request.getContextPath()%>/resources/images/
-						phone-receiver.png" /> +267 ....
+						phone-receiver_p.png" /> +267 ....
 					</div>
 					<div>
 					<img src="<%=request.getContextPath()%>/resources/images/
-						email-filled-closed-envelope.png"/> pdm.molefe@gmail.com
+						close-envelope.png"/> pdm.molefe@gmail.com
 					</div>
 				</div>
 			</div>

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,8 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.Menu;
-import com.adpostm.domain.model.SubMenu;
 import com.adpostm.service.IMenuService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 @Controller
 public class MenuController {
@@ -48,47 +50,36 @@ public class MenuController {
 	@ResponseBody
 	public String submitEditMenu(HttpServletRequest request,
 			HttpServletResponse response, @ModelAttribute("menu") Menu menu) {
-		String msg = "success";
+		String message = "success";
 		iMenuService.updateMenu(menu);
-		return msg;
+		return message;
 	}
 	@RequestMapping(value="/menus/add")
+	@ResponseBody
 	public String submitAddMenu(HttpServletRequest request, HttpServletResponse response)
-	{
+			throws JSONException{
+		JSONObject jsonObject = new JSONObject();
 		int parentId = Integer.parseInt(request.getParameter("parentId"));
 		int menuId = 0;
-		String message = "fail";
-		if(parentId > 0) {
-			SubMenu subMenu = createSubMenu(request.getParameter("menuName"),
-					request.getParameter("menuDesc"),request.getParameter("icon"),
-					parentId);
-			menuId = iMenuService.createSubMenu(subMenu);
-			if(menuId > 0)
-				message = "success";
-			else message = "fail";
+		String message =  "fail";
+		Menu menu = createMenu(request.getParameter("menuName"),
+				request.getParameter("menuDesc"),request.getParameter("icon"));
+
+		if(parentId > 0) {//this is a submenu
+			Menu parentMenu = iMenuService.getMenuById(parentId);
+			menu.setMenu(parentMenu);
+			menu.setMenuType(MenuType.SUBMENU);
 		}
-		else if(parentId == 0) {
-			Menu menu = createMenu(request.getParameter("menuName"),
-					request.getParameter("menuDesc"),request.getParameter("icon"));
-			menuId = iMenuService.createMenu(menu);
-			if(menuId > 0)
-				message = "success";
-			else message = "fail";
+		else {
+			menu.setMenuType(MenuType.HOME);
 		}
+		menuId = iMenuService.createMenu(menu);
+		message = menuId > 0 ? "success":"fail";
+		
 		return message;
-		
-		
-		
-		
 	}
-	@RequestMapping(value="/menus/sub/detail", method=RequestMethod.GET)
-	@ResponseBody
-	public SubMenu getSubMenuDetail(HttpServletRequest request, 
-			HttpServletResponse response, @RequestParam("id")int id){
-		return iMenuService.getSubMenuById(id);
-	}
-	private List<Menu> getMenus(){
-		return iMenuService.getMenus();
+	private List<Menu> getMenusWithoutSub(){
+		return iMenuService.getMenusWithoutSub();
 	}
 	private List<Menu> getMenuByType(String type){
 		return iMenuService.getMenuByType(type);
@@ -100,17 +91,6 @@ public class MenuController {
 		menu.setMenuDesc(menuDesc);
 		menu.setIcon(icon);
 		menu.setLabel(menuName.replaceAll("\\s+", ""));
-		menu.setMenuType(MenuType.HOME);
 		return menu;
-	}
-	private SubMenu createSubMenu(String menuName, String menuDesc,
-			String icon, int parentId) {
-		Menu menu = iMenuService.getMenuById(parentId);
-		SubMenu subMenu = new SubMenu();
-		subMenu.setMenuName(menuName);
-		subMenu.setMenuDesc(menuDesc);
-		subMenu.setLabel(menuName.replaceAll("\\s+", ""));
-		subMenu.setMenu(menu);
-		return subMenu;
 	}
 }

@@ -55,7 +55,8 @@
 				</c:if>
 			</div>
 		</c:forEach>
+	</div>
+	<div id="" class="sidebar-footer card-header">
 
-		
 	</div>
 </div>

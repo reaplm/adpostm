@@ -14,7 +14,19 @@
 				<jsp:include page="/WEB-INF/views/jspinc/sidebar.jsp"></jsp:include>
 			</div>
 			<div class="col-sm-9 content nopadding">
-				PROFILE
+				<div class="row" style="border: solid;">
+					<div class="col-sm-3">
+						<div class="card" >
+							<img class="card-image-top" src="<%=request.getContextPath()%>
+								/resources/images/glyphicons-4-user.png" />
+							<div class="card-block">
+								<h4 class="card-title"><%=session.getAttribute("username")%></h4>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-9">
+					</div>
+				</div>
 
 			</div>
 		</div>
