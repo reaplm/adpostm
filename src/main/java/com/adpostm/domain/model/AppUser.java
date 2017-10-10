@@ -32,8 +32,14 @@ public class AppUser {
 	private String password;
 	@Column(name="email")
 	private String email;
+	@Column(name="activation_code")
+	private String activationCode;
 	@Column(name="pass_expiry_dt")
 	private Date passExpiryDate;
+	@Column(name="reg_dt")
+	private Date registrationDate;
+	@Column(name="last_login_dt")
+	private Date lastLoginDate;
 	
 	public int getAppUserId(){
 		return this.appUserId;
@@ -70,5 +76,17 @@ public class AppUser {
 	}
 	public void setPassExpiryDate(Date passExpiryDate){
 		this.passExpiryDate = passExpiryDate;
+	}
+	public Date getRegistrationDate(){
+		return this.registrationDate;
+	}
+	public void setRegistrationDate(Date registrationDate){
+		this.registrationDate = registrationDate;
+	}
+	public Date getLastLoginDate(){
+		return this.lastLoginDate;
+	}
+	public void setLastLoginDate(Date lastLoginDate){
+		this.lastLoginDate = lastLoginDate;
 	}
 }

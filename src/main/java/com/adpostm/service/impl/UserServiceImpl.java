@@ -76,6 +76,10 @@ public class UserServiceImpl implements UserDetailsService, IUserService{
 	public int createuser(AppUser appUser) {
 		return iUserDAO.createUser(appUser);
 	}
+	@Override
+	public AppUser getUserByUsername(String username) {
+		return iUserDAO.getUserByUsername(username);
+	}
 	
 	
 }

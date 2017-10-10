@@ -27,8 +27,8 @@ function SubmitUpdateMenu(url, data){
 		error: function(jqxHr,errorText, errorThrown){
 			alert("Failed to submit menu");
 		},
-		success: function(){
-			alert("response from server: " + data.message);
+		success: function(data){
+			alert("Menu created successfully");
 		}
 	});
 }
@@ -41,7 +41,7 @@ function SubmitAddMenu(url, formData){
 			alert("Failed to submit menu");
 		},
 		success: function(data){
-			alert("response from server: " + data.message);
+			alert("Menu created successfully");
 		}
 	});
 }

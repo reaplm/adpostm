@@ -232,6 +232,9 @@ body{
 .footer .social-links img{
 	width: 30px;
 }
+.bs-card-color{
+	background-color: #f7f7f9;
+}
 #pg-menu-admin img, #pg-menu-category img{
 	width: 45px;
 	

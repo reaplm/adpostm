@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="java.text.SimpleDateFormat, java.util.Date" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -10,8 +10,15 @@
 				/>
 		</div>
 		<div class="user-info-txt">
-			<p class="text-center">User Information</p>
-			
+			<%
+				SimpleDateFormat format = new SimpleDateFormat("dd MMM yyy"); 
+				Date registrationDate = (Date)session.getAttribute("registrationDate");
+				String dateText = format.format(registrationDate);
+			%>
+			<p class="text-center card-title">
+				<a href="/adpostm/admin/profile"><%=session.getAttribute("firstName") %></a>
+			</p>
+			<p class="text-center">Member Since <%=dateText%></p>
 		</div>
 	</div>
 	<div id="sidebar-accordion" role="tablist" aria-multiselectable="true" class="text-capitalize">

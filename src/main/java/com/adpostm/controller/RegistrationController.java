@@ -2,6 +2,8 @@ package com.adpostm.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -71,12 +73,14 @@ public class RegistrationController {
 	}
 	private int createAppUser(String firstName, String lastName,
 			String email, String password){
+		Date now = new Date((System.currentTimeMillis()));
 		AppUser appUser = new AppUser();
 		UserDetail userDetails = new UserDetail();
 		List<Role> roles = new ArrayList<Role>();
 		Role role = new Role();
 		appUser.setEmail(email);
 		appUser.setPassword(password);
+		appUser.setRegistrationDate(now);
 		userDetails.setFirstName(firstName);
 		userDetails.setLastName(lastName);
 		appUser.setUserDetail(userDetails);
