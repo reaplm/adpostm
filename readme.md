@@ -1,6 +1,5 @@
 # Ad Post
-
-## Getting Started
+A website for classified ads.
 
 # Deployment
 ## Built With
@@ -11,6 +10,8 @@
 * MySql
 * Bootstrap
 * JQuery
+* Tomcat 7
+* Eclipse
 
 
 ## Authors
@@ -22,3 +23,6 @@
   
   http://javapointers.com/tutorial/spring-custom-authenticationsuccesshandler-example-2
 * Samantha Lorette [https://unsplash.com/photos/792ASMfWAhM]
+
+#Screenshots/Video
+![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
