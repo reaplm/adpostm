@@ -24,5 +24,6 @@ A website for classified ads.
   http://javapointers.com/tutorial/spring-custom-authenticationsuccesshandler-example-2
 * Samantha Lorette [https://unsplash.com/photos/792ASMfWAhM]
 
-#Screenshots/Video
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+# Screenshots/Video
+
+![Alt Text](https://github.com/reaplm/adpostm/blob/master/demo2.gif)
