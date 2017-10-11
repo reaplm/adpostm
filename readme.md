@@ -27,3 +27,5 @@ A website for classified ads.
 # Screenshots/Video
 
 ![Alt Text](https://github.com/reaplm/adpostm/blob/master/demo2.gif)
+
+![Alt Text](https://github.com/reaplm/adpostm/blob/master/demo1.gif)
