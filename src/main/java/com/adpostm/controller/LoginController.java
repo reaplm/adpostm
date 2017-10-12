@@ -14,7 +14,7 @@ public class LoginController {
 			@RequestParam(value="error", required=false) boolean error){
 		ModelAndView modelAndView = new ModelAndView("login");
 		if(error){
-			modelAndView.addObject("msg", "<p class='bg-info'>Invalid email or password</p>");
+			modelAndView.addObject("msg", "<p class='errorMsg'>Invalid email or password</p>");
 		}
 		return modelAndView;
 	}

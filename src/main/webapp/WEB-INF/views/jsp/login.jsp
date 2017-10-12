@@ -35,7 +35,7 @@
 							
 						</div>
 				</form>
-				<div>${msg}</div>
+				<div class="font-weight-bold text-danger">${msg}</div>
 			</div>
 		</div>
 	</body>
