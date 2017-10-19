@@ -237,5 +237,16 @@ body{
 }
 #pg-menu-admin img, #pg-menu-category img{
 	width: 45px;
+}	
+.navbar-toggler-icon{
+	color: #fff;
+}
+.collapse{
+	display: none;
+}
+@media (min-width: 992px){
+	.collapse{
+		display: inherit;
+	}
 	
 }

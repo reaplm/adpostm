@@ -7,32 +7,26 @@
 <jsp:include page="/WEB-INF/views/jspinc/head.jsp"></jsp:include>
 <div id="pg-home">
 	
-	<div class="container" >
-		<div class="row">
+	<div class="container">
+		<div class="row mb-3" >
 			<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
 		</div>
-		<div class="row w-100">
+		<div class="row">
 			<%int colCount = 0; %>
 			<c:if test="${fn: length(menus) > 0}">
 				<c:forEach items="${menus}" var="menu">
-					<%if(colCount == 0){//new row%>
-						<div class="row w-100 mt-3" >
-		
-					<%} colCount++;%>
-							<div class="col-sm-3 category" >
-									<div class="clearfix">
-										<img src="<%=request.getContextPath()%>/resources/
-											images/menu/${menu.getIcon()}" class="float-left"/>
-									<h4 class="pt-2"><a href="${menu.getUrl()}">${menu.getMenuName()}</a></h4>
-									</div>
-								
-								<c:forEach items="${menu.subMenu}" var="subMenu">
-									<p class="pl-2 mb-1"><a href="#">${subMenu.getMenuName()}</a></p>
-								</c:forEach>
+					<div class="col-6 col-sm-4 category mb-2">
+							<div class="clearfix">
+								<img src="<%=request.getContextPath()%>/resources/
+									images/menu/${menu.getIcon()}" class="float-left"/>
+							<h4 class="pt-2"><a href="${menu.getUrl()}">${menu.getMenuName()}</a></h4>
 							</div>
-					<%if(colCount == 4){ colCount = 0;%>
-						</div><hr />
-					<%} %>
+						
+						<c:forEach items="${menu.subMenu}" var="subMenu">
+							<p class="pl-2 mb-1"><a href="#">${subMenu.getMenuName()}</a></p>
+						</c:forEach>
+					</div>
+					
 				</c:forEach>
 			</c:if>
 		</div>

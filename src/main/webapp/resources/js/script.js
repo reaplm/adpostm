@@ -292,6 +292,11 @@ $(document).ready(
 				
 			}
 		});
-		
+		/**
+		 * Hide collapsible menu when screen clicked
+		 */
+		$(document).on("click", function(){
+			$(".collapse").collapse("hide");
+		});
 	}
 );

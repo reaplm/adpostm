@@ -9,7 +9,12 @@
 				width="50" height="50" />
 		</a>
 		-->
-		<ul  class="nav justify-content-end">
+		<button type="button" class="navbar-toggler" data-toggle="collapse" 
+			data-target="#top-menu-toggle" aria-controls="top-menu-toggle" 
+			aria-expanded="false" aria-label="toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		<ul  id = "top-menu-toggle"class="nav justify-content-end" >
 			<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
 				<li class="nav-item">
 					<a href="/adpostm/login" class="nav-link">sign in</a>
