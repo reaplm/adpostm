@@ -124,6 +124,10 @@ body{
 #sidebar{
 	margin-top: 30px;
 	width: 100%;
+	-webkit-transition: margin 2s ease;
+    -moz-transition: margin 2s ease;
+    -o-transition: margin 2s ease;
+    transition: margin 2s ease;
 }
 #sidebar a{
 	color: #2c2a33;
@@ -252,8 +256,13 @@ body{
 }
 @media(max-width: 991px){
 	.container{
-	padding-right: 0px;
-	padding-left: 0px;
 	width: 100%;
+	}
 }
+.content-fluid{
+		height: 100%;
+	-webkit-transition: width 2s ease;
+    -moz-transition: width 2s ease;
+    -o-transition: width 2s ease;
+    transition: width 2s ease;
 }

@@ -9,10 +9,10 @@
 			<jsp:include page="/WEB-INF/views/jspinc/adminMenu.jsp"></jsp:include>
 		</div>
 		<div class="row">
-			<div class="col-sm-3 nopadding pr-1">
+			<div class="col-sm-4 col-lg-3 nopadding pr-1">
 				<jsp:include page="/WEB-INF/views/jspinc/sidebar.jsp"></jsp:include>
 			</div>
-			<div class="col-sm-9 content">
+			<div class="col-sm-8 col-lg-9 content content-fluid">
 				CONTENT
 			</div>
 		</div>

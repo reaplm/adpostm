@@ -1,3 +1,6 @@
+function contentToggle(){
+	$(".content-fluid").toggleClass("col-sm-12 col-sm-8");
+}
 /**
  * Ajax call to fetch menu details
  * @param url
@@ -296,7 +299,9 @@ $(document).ready(
 		 * Hide collapsible menu when screen clicked
 		 */
 		$(document).on("click", function(){
-			$(".collapse").collapse("hide");
+			$("#navbar-menu .collapse").collapse("hide");
 		});
+		
+		
 	}
 );
