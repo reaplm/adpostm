@@ -12,6 +12,13 @@
 		<script src="<%=request.getContextPath()%>/resources/js/jquery/jquery.validate.js"></script>
 		<script src="<%=request.getContextPath()%>/resources/js/bootstrap/js/bootstrap.min.js"></script>
 		<script src="<%=request.getContextPath()%>/resources/js/script.js"></script>
+		<script>
+			UPLOADCARE_LOCALE = "en";
+			UPLOADCARE_PUBLIC_KEY = '402840513ca8fdd44f3b';
+		    UPLOADCARE_TABS = 'file camera dropbox';
+		    UPLOADCARE_IMAGES_ONLY = true;
+		</script>
+		<script charset="utf-8" src="//ucarecdn.com/widget/3.1.4/uploadcare/uploadcare.full.min.js"></script>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Login</title>

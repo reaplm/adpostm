@@ -12,5 +12,6 @@ public interface IUserService {
 	public boolean usernameValid(String username);
 	public AppUser getUserByUsername(String username);
 	public int createuser(AppUser appUser);
+	public void updateUser(AppUser appUser);
 
 }

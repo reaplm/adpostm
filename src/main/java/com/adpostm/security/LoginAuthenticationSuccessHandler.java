@@ -71,6 +71,7 @@ public class LoginAuthenticationSuccessHandler
 		session.setAttribute("registrationDate", appUser.getRegistrationDate());
 		session.setAttribute("authorities", authentication.getAuthorities());
 		session.setAttribute("loggedIn", true);
+		session.setAttribute("profileImage", appUser.getUserDetail().getImageCdn());
 		
 		if(response.isCommitted())
 			return;

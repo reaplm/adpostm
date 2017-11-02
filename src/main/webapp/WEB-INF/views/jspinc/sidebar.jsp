@@ -4,12 +4,11 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <div id="sidebar" class="collapse show">
-	<button type="button" class="close pr-2 hidden-lg-up">&times;</button>
+	
 	<div id="" class="user-info">
 		
 		<div class="user-info-img" >
-			<img src="<%=request.getContextPath()%>/resources/images/samantha-lorette-335011_ed.jpg"
-				/>
+			<img src="<%=session.getAttribute("profileImage")%>" />
 				
 		</div>
 		<div class="user-info-txt">

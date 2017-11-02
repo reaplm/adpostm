@@ -36,6 +36,15 @@ public class UserDetail {
 	@Column(name = "mobile_no")
 	private String mobileNo;
 	
+	@Column(name="image_cdn")
+	private String imageCdn;
+	
+	@Column(name="image_name")
+	private String imageName;
+	
+	@Column(name="image_uuid")
+	private String imageUuid;
+	
 	public String getFirstName(){
 		return this.firstName;
 	}
@@ -95,5 +104,23 @@ public class UserDetail {
 	}
 	public void setAppUser(AppUser appUser){
 		this.appUser = appUser;
+	}
+	public String getImageCdn(){
+		return this.imageCdn;
+	}
+	public void setImageCdn(String imageCdn){
+		this.imageCdn = imageCdn;
+	}
+	public String getImageName(){
+		return this.imageName;
+	}
+	public void setImageName(String imageName){
+		this.imageName = imageName;
+	}
+	public String getImageUuid(){
+		return this.imageUuid;
+	}
+	public void setImageUuid(String imageUuid){
+		this.imageUuid= imageUuid;
 	}
 }

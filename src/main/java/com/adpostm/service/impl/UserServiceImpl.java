@@ -80,6 +80,11 @@ public class UserServiceImpl implements UserDetailsService, IUserService{
 	public AppUser getUserByUsername(String username) {
 		return iUserDAO.getUserByUsername(username);
 	}
+	@Override
+	public void updateUser(AppUser appUser) {
+		iUserDAO.updateUser(appUser);
+		
+	}
 	
 	
 }

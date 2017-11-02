@@ -1,3 +1,21 @@
+function UpdateProfileImage(cdnUrl, name, uuid){
+	var imageData = {cdnUrl: cdnUrl, name: name, uuid: uuid};
+	$.ajax({
+		type: "post",
+		url:	"/adpostm/user/updatepic?cdnUrl="+cdnUrl+"&name="+name+"&uuid="+uuid,
+		contentType: "application/json",
+		error: function(jqXHr, textStatus, errorThrown){
+			alert("Error fetching menu details.\n Error thrown is: " + errorThrown)
+			window.location.reload();
+		} ,
+		success: function(data){
+			alert("Picture update! ("+data+")")
+			window.location.reload();
+		}//data: JSON.stringify(imageData),
+	});
+	
+}
+
 function contentToggle(){
 	$(".content-fluid").toggleClass("col-sm-12 col-sm-8");
 }
@@ -219,6 +237,7 @@ window.onload = function() {
  */
 $(document).ready(
 	function(){
+		
 		/**
 		 * OnClick for links to details and edits
 		 */
@@ -302,6 +321,29 @@ $(document).ready(
 			$("#navbar-menu .collapse").collapse("hide");
 		});
 		
-		
+		$("#upload-profile-img").on("click", function(){
+			 uploadcare.openDialog(null,{
+				 imagesOnly: true,
+				 maxSize: (1024 * 1024),
+				 crop: 'free',
+				 multiple: false
+			 }).done(function(file){
+				 file.done(function(fileInfo){
+					 if(fileInfo.isStored == true){
+						 var imageData = new Array();
+						 imageData["cdnUrl"] = fileInfo.cdnUrl;
+						 imageData["name"] = fileInfo.name;
+						 imageData["uuid"] = fileInfo.uuid;
+						 UpdateProfileImage(fileInfo.cdnUrl, fileInfo.name, fileInfo.uuid);
+						 
+					 }
+					 else{
+						 alert("Failed to save image. Please try again later.");
+					 }
+				 }).fail(function(error, fileInfo){
+					 alert("Failed: "+error);
+				 });
+			 });
+		});
 	}
 );

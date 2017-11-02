@@ -20,13 +20,13 @@
 				Date lastLoginDate = (Date)session.getAttribute("lastLogin");
 				String regText = format.format(registrationDate);
 				String loginText = format.format(lastLoginDate);
+	
 			%>
 				<div class="row">
 					<div class="col-sm-3 pr-0">
 						<div class="card-header ml-1 mt-1  nopadding" >
-							<img class="card-image-top" src="<%=request.getContextPath()%>/
-								resources/images/samantha-lorette-335011_ed.jpg" width="100%"
-								/>
+							<img class="card-image-top" src="<%=session.getAttribute("profileImage")%>"
+							 width="100%" id="upload-profile-img" role="button"/>
 							<div class="card-block">
 								<h4 class="card-title"><%=session.getAttribute("firstName")%></h4>
 							</div>

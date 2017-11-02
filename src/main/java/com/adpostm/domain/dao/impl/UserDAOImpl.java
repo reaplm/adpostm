@@ -64,5 +64,20 @@ public class UserDAOImpl implements IUserDAO{
 		}
 		return userId;
 	}
+
+	@Override
+	public void updateUser(AppUser appUser) {
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.update(appUser);
+			session.flush();
+			session.getTransaction().commit();
+			session.close();
+		}
+		catch(Exception ex) {
+			System.out.println("Exception in updateUser(AppUser appUser): " + ex );
+		}
+	}
 	
 }
