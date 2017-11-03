@@ -249,7 +249,7 @@ body{
 	display: none;
 }
 @media (min-width: 992px){
-	.collapse{
+	#admin-menu .collapse{
 		display: inherit;
 	}
 	
