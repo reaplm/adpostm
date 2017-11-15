@@ -1,3 +1,28 @@
+function openUploadCareDialog(currfile){
+	var file = uploadcare.fileFrom('url',currfile);
+		 uploadcare.openDialog(file,{
+			 imagesOnly: true,
+			 maxSize: (1024 * 1024),
+			 crop: 'free',
+			 multiple: false
+		 }).done(function(file){
+			 file.done(function(fileInfo){
+				 if(fileInfo.isStored == true){
+					 var imageData = new Array();
+					 imageData["cdnUrl"] = fileInfo.cdnUrl;
+					 imageData["name"] = fileInfo.name;
+					 imageData["uuid"] = fileInfo.uuid;
+					 UpdateProfileImage(fileInfo.cdnUrl, fileInfo.name, fileInfo.uuid);
+					 
+				 }
+				 else{
+					 alert("Failed to save image. Please try again later.");
+				 }
+			 }).fail(function(error, fileInfo){
+				 alert("Failed: "+error);
+			 });
+		 });
+}
 function UpdateProfileImage(cdnUrl, name, uuid){
 	var imageData = {cdnUrl: cdnUrl, name: name, uuid: uuid};
 	$.ajax({
@@ -321,29 +346,6 @@ $(document).ready(
 			$("#navbar-menu .collapse").collapse("hide");
 		});
 		
-		$("#upload-profile-img").on("click", function(){
-			 uploadcare.openDialog(null,{
-				 imagesOnly: true,
-				 maxSize: (1024 * 1024),
-				 crop: 'free',
-				 multiple: false
-			 }).done(function(file){
-				 file.done(function(fileInfo){
-					 if(fileInfo.isStored == true){
-						 var imageData = new Array();
-						 imageData["cdnUrl"] = fileInfo.cdnUrl;
-						 imageData["name"] = fileInfo.name;
-						 imageData["uuid"] = fileInfo.uuid;
-						 UpdateProfileImage(fileInfo.cdnUrl, fileInfo.name, fileInfo.uuid);
-						 
-					 }
-					 else{
-						 alert("Failed to save image. Please try again later.");
-					 }
-				 }).fail(function(error, fileInfo){
-					 alert("Failed: "+error);
-				 });
-			 });
-		});
+		
 	}
 );

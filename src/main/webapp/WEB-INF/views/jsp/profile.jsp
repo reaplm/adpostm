@@ -26,7 +26,8 @@
 					<div class="col-sm-3 pr-0">
 						<div class="card-header ml-1 mt-1  nopadding" >
 							<img class="card-image-top" src="<%=session.getAttribute("profileImage")%>"
-							 width="100%" id="upload-profile-img" role="button"/>
+							 width="100%" id="upload-profile-img" 
+							 onClick="openUploadCareDialog('<%=session.getAttribute("profileImage")%>');" role="button"/>
 							<div class="card-block">
 								<h4 class="card-title"><%=session.getAttribute("firstName")%></h4>
 							</div>

@@ -71,7 +71,13 @@ public class LoginAuthenticationSuccessHandler
 		session.setAttribute("registrationDate", appUser.getRegistrationDate());
 		session.setAttribute("authorities", authentication.getAuthorities());
 		session.setAttribute("loggedIn", true);
-		session.setAttribute("profileImage", appUser.getUserDetail().getImageCdn());
+		if(appUser.getUserDetail().getImageCdn() == null) {
+			session.setAttribute("profileImage",
+					"https://ucarecdn.com/d6ae93a9-bd2f-4ba2-a407-16dbd530a11b/ic_account_circle_black_36dp_2x.png");
+		}
+		else
+			session.setAttribute("profileImage", appUser.getUserDetail().getImageCdn());
+		
 		
 		if(response.isCommitted())
 			return;
