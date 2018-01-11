@@ -6,6 +6,7 @@ A website for classified ads.
 * Java SE8
 * Maven
 * Spring
+* Spring Security
 * Hibernate
 * MySql
 * Bootstrap
