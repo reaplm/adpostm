@@ -8,4 +8,7 @@ public interface IUserDAO {
 	public boolean usernameValid(String username);
 	public int createUser(AppUser appUser);
 	public void updateUser(AppUser appUser);
+	public int updateAddress(String postAddress1, String postAddress2,
+			String street, String surbub, String state, String postCoce, 
+			String mobileNo, int userDetailId);
 }

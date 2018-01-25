@@ -1,3 +1,10 @@
+/**
+ * Toggle between edit and save
+ * @returns
+ */
+function ToggleEdit(){
+	
+}
 function openUploadCareDialog(currfile){
 	var file = uploadcare.fileFrom('url',currfile);
 		 uploadcare.openDialog(file,{
@@ -43,6 +50,25 @@ function UpdateProfileImage(cdnUrl, name, uuid){
 
 function contentToggle(){
 	$(".content-fluid").toggleClass("col-sm-12 col-sm-8");
+}
+/**
+ * Fetch user details 
+ * @param url
+ * @param callback
+ * @returns
+ */
+function GetUserDetail(url, callback){
+	$.ajax({
+		url: url,
+		type: "get",
+		dataType: "json",
+		error: function(jqXfr, textStatus, errorThrown){
+			alert("There was an error fetching your details.");
+		},
+		success: function(data){
+			callback(data);
+		}
+	});
 }
 /**
  * Ajax call to fetch menu details
@@ -98,6 +124,27 @@ function GetMenuList(url, callback){
 		dataType: "json",
 		error: function(jqHxrerrorText, errorThrown){
 			alert("Error fetching menu list.\n Error thrown is: " + errorThrown)
+		},
+		success: function(data){
+			callback(data);
+		}
+	});
+}
+/**
+ * Submit update of address
+ * @param callback
+ * @returns
+ */
+function SubmitEditAddress(callback){
+	var url = $("#edit-address-form").attr("action");
+	var formData = $("#edit-address-form").serializeArray();
+	$.ajax({
+		url: url,
+		type: "post",
+		data: formData,
+		dataType: "json",
+		error: function(jqHxr, textStatus, errorThrown){
+			alert("An error occured while submitting address.");
 		},
 		success: function(data){
 			callback(data);
@@ -262,7 +309,7 @@ window.onload = function() {
  */
 $(document).ready(
 	function(){
-		
+//=============================dialogs=============================================		
 		/**
 		 * OnClick for links to details and edits
 		 */
@@ -303,6 +350,40 @@ $(document).ready(
 		});
 		$(".modal").on("hidden.bs.modal", function(){
 			$(".modal-body input").val("");
+		});
+		/**
+		 * Modal for editing user's address
+		 */
+		$(document).on("click", "#edit-address", function(e){
+			e.preventDefault();
+			var url = $(this).attr("href");
+			GetUserDetail(url, function(user){
+				document.getElementById("postAddress1").value = user.userDetail.postAddress1;
+				document.getElementById("postAddress2").value = user.userDetail.postAddress2;
+				document.getElementById("surbub").value = user.userDetail.surbub;
+				document.getElementById("state").value = user.userDetail.state;
+				document.getElementById("postCode").value = user.userDetail.postCode;
+				document.getElementById("mobileNo").value = user.userDetail.mobileNo;
+				document.getElementById("userId").value = user.appUserId;
+				document.getElementById("userDetailId").value = user.userDetail.userDetailId;
+			});
+			//open bootstrap modal
+			$("#address-edit-modal").modal();
+		});
+		$(document).on("click", "#newMenuBtn", function(){
+			//parentId select
+			GetMenuList("/adpostm/menus?type=home", function(menuList){
+				if(menuList.length > 0){
+					$("#parentId").empty();
+					$("#parentId").append("<option value=0> </option>");
+					for(var i=0; i< menuList.length; i++){
+						$("#parentId").append("<option value="+menuList[i].menuId+">" +
+								menuList[i].menuName+"</option>");
+					}
+				}
+			});
+			$("#menu-add-modal").modal();
+			
 		});
 		$(document).on("click","#sidebar-accordion ul li a",function(){
 			
@@ -345,7 +426,19 @@ $(document).ready(
 		$(document).on("click", function(){
 			$("#navbar-menu .collapse").collapse("hide");
 		});
-		
+		$(document).on("click", "#submitAddressEdit", function(e){
+			e.preventDefault();
+			SubmitEditAddress(function(data){
+				if(data.success){
+					alert(data.message);
+				}
+				else{
+					alert(data.message);
+				}
+			});
+			$("#address-edit-modal").modal("toggle");
+			window.location.reload();
+		});
 		
 	}
 );

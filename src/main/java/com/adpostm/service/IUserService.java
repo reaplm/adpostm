@@ -13,5 +13,7 @@ public interface IUserService {
 	public AppUser getUserByUsername(String username);
 	public int createuser(AppUser appUser);
 	public void updateUser(AppUser appUser);
-
+	public int updateAddress(String postAddress1, String postAddress2,
+			String street, String surbub, String state, String postCoce, 
+			String mobileNo, int userDetailId);
 }

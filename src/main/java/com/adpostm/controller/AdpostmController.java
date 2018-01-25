@@ -2,18 +2,26 @@ package com.adpostm.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Menu;
 import com.adpostm.service.IMenuService;
+import com.adpostm.service.IUserService;
 
 @Controller
 public class AdpostmController {
 	@Autowired
 	IMenuService iMenuService;
+	@Autowired
+	IUserService iUserService;
 	
 	@RequestMapping(value="/home")
 	public ModelAndView home(){
@@ -24,9 +32,18 @@ public class AdpostmController {
 	}
 	
 	@RequestMapping(value="/admin/profile")
-	public ModelAndView profile(){
+	public ModelAndView profile(HttpServletRequest request, 
+			HttpServletResponse response){
 		ModelAndView modelAndView = new ModelAndView("profile");
 		List<Menu> menus= getMenuByType("sidebar");
+		HttpSession session = request.getSession();
+		String username = (String)session.getAttribute("username");
+		AppUser user = null;
+		
+		if(username != null)
+			user = iUserService.getUserByUsername(username);
+
+		modelAndView.addObject("user", user);
 		modelAndView.addObject("sideMenu", menus);
 		return modelAndView;
 	}

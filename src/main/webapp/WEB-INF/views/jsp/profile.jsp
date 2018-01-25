@@ -20,6 +20,7 @@
 				Date lastLoginDate = (Date)session.getAttribute("lastLogin");
 				String regText = format.format(registrationDate);
 				String loginText = format.format(lastLoginDate);
+				
 	
 			%>
 				<div class="row">
@@ -75,7 +76,8 @@
 								<hr>
 								<div class="d-flex  justify-content-between">
 									<p class="d-inline-block">Name</p>
-									<p class="d-inline-block"><%=session.getAttribute("firstName")%></p>
+									<p class="d-inline-block">${user.userDetail.getFirstName()} 
+										${user.userDetail.getLastName()}</p>
 									<a href="#">Edit</a>
 								</div>
 							</div>
@@ -86,24 +88,24 @@
 								<h4 class="card-title">Contact Information</h4>
 								<hr>
 								<div class="d-flex  justify-content-between">
-									<p class="d-inline-block">Address</p>
-									<p class="d-inline-block"></p>
-									<a href="#">Edit</a>
+									<p class="w-25">Address</p>
+									<p class="">${user.userDetail.getPostAddress1()}<br />
+										${user.userDetail.getPostAddress2()}
+									${user.userDetail.getSurbub()} 
+										${user.userDetail.getPostCode()}<br />
+										${user.userDetail.getSurbub()}</p>
+									<a href="/adpostm/user?username=<%=session.getAttribute("username")%>" 
+										id="edit-address" class="ml-auto">Edit</a>
 								</div>
 								<div class="d-flex  justify-content-between">
-									<p class="d-inline-block">Mobile</p>
-									<p class="d-inline-block"></p>
-									<a href="#">Edit</a>
+									<p class="w-25">Mobile No</p>
+									<p class="">${user.userDetail.getMobileNo()}</p>
+									<p class="ml-auto"></p>
 								</div>
 								<div class="d-flex  justify-content-between">
-									<p class="d-inline-block">Landline</p>
-									<p class="d-inline-block"></p>
-									<a href="#">Edit</a>
-								</div>
-								<div class="d-flex  justify-content-between">
-									<p class="d-inline-block">Location</p>
-									<p class="d-inline-block"></p>
-									<a href="#">Edit</a>
+									<p class="w-25">Location</p>
+									<p class="pl-5"></p>
+									<a href="#"class="ml-auto">Edit</a>
 								</div>
 							</div>
 					</div>
@@ -118,4 +120,5 @@
 	</div>
 	<jsp:include page="/WEB-INF/views/jsp/editMenuForm.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/jsp/newMenuForm.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/jsp/address.jsp"></jsp:include>
 </div>

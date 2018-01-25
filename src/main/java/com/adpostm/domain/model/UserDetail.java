@@ -8,6 +8,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="user_detail")
 public class UserDetail {
@@ -18,6 +20,7 @@ public class UserDetail {
 	
 	@OneToOne
 	@PrimaryKeyJoinColumn
+	@JsonBackReference
 	private AppUser appUser;
 	
 	@Column(name = "first_name")

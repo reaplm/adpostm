@@ -85,6 +85,14 @@ public class UserServiceImpl implements UserDetailsService, IUserService{
 		iUserDAO.updateUser(appUser);
 		
 	}
+	@Override
+	public int updateAddress(String postAddress1, String postAddress2, 
+			String street, String surbub, String state, String postCoce, 
+			String mobileNo, int userDetailId) {
+		return iUserDAO.updateAddress(postAddress1, postAddress2, street, surbub, 
+				state, postCoce, mobileNo, userDetailId);
+		
+	}
 	
 	
 }

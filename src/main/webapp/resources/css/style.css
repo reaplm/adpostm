@@ -203,8 +203,15 @@ body{
 .modal-footer{
 	background-color: #e9eef2;
 }
-.modal-body input[type="text"]{
-	border: solid 1px #e9eef2;
+.modal-body .border-btm select{
+	border-bottom: solid 1px #e9eef2;
+}
+.modal-body .border-btm input[type="text"]{
+	border: none;
+	border-bottom: solid 1px #e9eef2;
+}
+.modal-body label{
+	color: #999;
 }
 /*====================================FOOTER===============*/
 .footer{

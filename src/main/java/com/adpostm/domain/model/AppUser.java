@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="app_user")
 public class AppUser {
@@ -23,6 +26,7 @@ public class AppUser {
 	
 	@OneToOne(mappedBy="appUser", cascade=CascadeType.ALL,
 			fetch=FetchType.EAGER)
+	@JsonManagedReference
 	private UserDetail userDetail;
 	
 	@ElementCollection

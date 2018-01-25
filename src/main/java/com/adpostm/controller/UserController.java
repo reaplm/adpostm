@@ -1,5 +1,7 @@
 package com.adpostm.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,5 +60,40 @@ public class UserController {
 			session.setAttribute("profileImage", cdnUrl);
 		return result;
 	}
-
+	@RequestMapping(value="/user/update/address", method=RequestMethod.POST)
+	@ResponseBody
+	public  void updateAddress(HttpServletRequest request, 
+			HttpServletResponse response) throws IOException, JSONException {
+		PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+		JSONObject myObj = new JSONObject();
+		int userId = 0;
+		if(request.getParameter("userId") != null)
+			userId = Integer.parseInt(request.getParameter("userId"));
+		
+		int result = iUserService.updateAddress(request.getParameter("postAddress1"), 
+				request.getParameter("postAddress2"), request.getParameter("street"), 
+				request.getParameter("surbub"), request.getParameter("state"), 
+				request.getParameter("postCode"), request.getParameter("mobileNo"),
+				userId);
+		if(result > 0) {
+			myObj.put("success", true);
+			myObj.put("message", "Address saved successfully!");
+		}
+		else {
+			myObj.put("success", false);
+			myObj.put("message", "Record not updated");
+		}
+		out.println(myObj.toString());
+        out.close();
+		
+	}
+	@RequestMapping(value="/user", method=RequestMethod.GET)
+	@ResponseBody
+	public AppUser getUser(HttpServletRequest request, 
+			HttpServletResponse response, 
+			@RequestParam(value="username")String username ) {
+		AppUser appUser = iUserService.getUserByUsername(username);
+		return appUser;
+	}
 }

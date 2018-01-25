@@ -2,6 +2,8 @@ package com.adpostm.domain.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.Column;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -78,6 +80,43 @@ public class UserDAOImpl implements IUserDAO{
 		catch(Exception ex) {
 			System.out.println("Exception in updateUser(AppUser appUser): " + ex );
 		}
+	}
+
+	@Override
+	public int updateAddress(String postAddress1, String postAddress2,
+			String street, String surbub, String state, String postCode, 
+			String mobileNo, int userId) {
+		int result = 0;
+		String queryString = "update UserDetail set postAddress1 = :postAddress1, "
+						+ " postAddress2 = :postAddress2," 
+						+ "	street = :street, surbub = :surbub, "
+						+ " state = :state, postCode = :postCode, " 
+						+ "	mobileNo = :mobileNo"
+						+ " where userDetailId = :userDetailId";
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			Query query = session.createQuery("from AppUser"
+					+ " where appUserId = :userId");
+			query.setParameter("userId", userId);
+			AppUser appUser = (AppUser)query.list().get(0);
+			appUser.getUserDetail().setPostAddress1(postAddress1);
+			appUser.getUserDetail().setPostAddress2(postAddress2);
+			appUser.getUserDetail().setStreet(street);
+			appUser.getUserDetail().setSurbub(surbub);
+			appUser.getUserDetail().setState(state);
+			appUser.getUserDetail().setPostcode(postCode);
+			appUser.getUserDetail().setMobileNo(mobileNo);
+			session.update(appUser);
+			session.getTransaction().commit();
+			session.close();
+			result = 1;
+		}
+		catch(Exception e) {
+			System.out.println("Failed to update address. \n" + e);
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 }
