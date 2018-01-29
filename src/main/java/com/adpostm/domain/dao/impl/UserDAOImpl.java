@@ -1,5 +1,6 @@
 package com.adpostm.domain.dao.impl;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -114,6 +115,32 @@ public class UserDAOImpl implements IUserDAO{
 		}
 		catch(Exception e) {
 			System.out.println("Failed to update address. \n" + e);
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int updateLastLogin(String username) {
+		int result = 0;
+		AppUser appUser = null;
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			Query query = session.createQuery("from AppUser"
+					+ " where email = :username");
+			query.setParameter("username", username);
+			appUser = (AppUser)query.list().get(0);
+			if(appUser != null) {
+				appUser.setLastLoginDate(new Date(System.currentTimeMillis()));
+				session.update(appUser);
+				result = 1;
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
+		catch(Exception e) {
+			System.out.println("Exception during update of lastLogin " + e);
 			e.printStackTrace();
 		}
 		return result;

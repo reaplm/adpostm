@@ -93,6 +93,10 @@ public class UserServiceImpl implements UserDetailsService, IUserService{
 				state, postCoce, mobileNo, userDetailId);
 		
 	}
+	@Override
+	public int updateLastLogin(String username) {
+		return iUserDAO.updateLastLogin(username);
+	}
 	
 	
 }

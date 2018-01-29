@@ -16,4 +16,5 @@ public interface IUserService {
 	public int updateAddress(String postAddress1, String postAddress2,
 			String street, String surbub, String state, String postCoce, 
 			String mobileNo, int userDetailId);
+	public int updateLastLogin(String username);
 }

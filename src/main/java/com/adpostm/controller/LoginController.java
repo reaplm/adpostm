@@ -11,10 +11,14 @@ public class LoginController {
 
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView login(
-			@RequestParam(value="error", required=false) boolean error){
+			@RequestParam(value="error", required=false) boolean error,
+			@RequestParam(value="logout", required=false) boolean logout){
 		ModelAndView modelAndView = new ModelAndView("login");
 		if(error){
 			modelAndView.addObject("msg", "<p class='errorMsg'>Invalid email or password</p>");
+		}
+		if(logout) {
+			modelAndView.addObject("msg", "<p class='text-success'>You have successfully logged out!</p>");
 		}
 		return modelAndView;
 	}
