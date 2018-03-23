@@ -8,7 +8,7 @@
 <div id="pg-home">
 	
 	<div class="container">
-		<div class="row mb-3" >
+		<div class="row mb-5" >
 			<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
 		</div>
 		<div class="row">

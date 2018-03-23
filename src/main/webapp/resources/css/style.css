@@ -1,7 +1,6 @@
 @CHARSET "ISO-8859-1";
 body{
 	background-color: #e9eef2;
-	margin-top: 30px;
 	font-size: .8125rem;
 }
 /*=========================LOGIN/REG======================================*/
@@ -63,6 +62,7 @@ body{
 /*=========================HEADER MENU======================================*/
 #top-menu{
 	text-transform: uppercase;
+	font-size: 9pt;
 	width: 100%;
 	color: #fff;
 }
@@ -77,6 +77,11 @@ body{
 	color: #f7547a;
 	text-decoration: underline;
 }
+#top-menu-toggle{
+	width: 80%;
+	float: right;
+}
+
 .list-unstyled{
 	margin-bottom: 0px;
 }
@@ -85,7 +90,7 @@ body{
 	min-height: 400px;
 }
 #pg-home .container{
-	margin-top: 1.2rem;
+	/*margin-top: 1.2rem;*/
 }
 #pg-home .category{
 	text-transform: Capitalize;
@@ -94,10 +99,10 @@ body{
 }
 #pg-home .category img{
 	width: 40px;
-	
+	margin-right: 5px;
 }
 #pg-home .category a, #pg-home .category a:visited{
-	color: #2c2a33;
+	color: #666;
 }
 #pg-home .category a:hover, #pg-home .category a:active{
 	color: #f7547a;
