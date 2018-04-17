@@ -304,11 +304,28 @@ function OpenActiveAcc(){
 window.onload = function() {
 	 //OpenActiveAcc();
 }
+function FillMenuSelect(element, menuList, title){
+	if(menuList.length > 0){
+		$(element).empty();
+		$(element).append("<option value=0>" + title + "</option>");
+		for(var i=0; i< menuList.length; i++){
+			$(element).append("<option value="+menuList[i].menuId+">" +
+					menuList[i].menuName+"</option>");
+		}
+	}
+}
 /**
  * 
  */
 $(document).ready(
 	function(){
+		if($("#search-bar").is(":visible")){
+			//get category menu
+			GetMenuList("/adpostm/menus?type=home", function(menuList){
+				FillMenuSelect("#search-category", menuList, "Category");
+				alert("done");
+			});
+		}
 //=============================dialogs=============================================		
 		/**
 		 * OnClick for links to details and edits
@@ -439,6 +456,7 @@ $(document).ready(
 			$("#address-edit-modal").modal("toggle");
 			window.location.reload();
 		});
+		
 		
 	}
 );

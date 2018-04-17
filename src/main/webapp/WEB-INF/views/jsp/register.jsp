@@ -24,7 +24,7 @@
 				<form id="form-register" action="/adpostm/register" method="post" class="form-horizontal">
 						<div class="form-group clearfix has-danger">
 							<div class="col-sm-6">
-								<input type="text" name="fname"
+								<input type="text" id="fname" name="fname"
 								class = "form-control" placeholder="First Name" />
 								<div class="error-div">
 									<label id="fname-error" class="form-control-danger" 
@@ -32,7 +32,7 @@
 								</div>
 							</div>
 							<div class="col-sm-6">
-								<input type="text" name="lname"
+								<input type="text" id="lname" name="lname"
 								class = "form-control" placeholder="Last Name" />
 								<div class="error-div">
 									<label id="lname-error" class="form-control-danger" 
@@ -41,7 +41,7 @@
 							</div>
 						</div>
 						<div class="form-group has-danger">
-							<input type="text" name="email"
+							<input type="text" id="email" name="email"
 								class = "form-control" placeholder="Email" />
 								<div class="error-div">
 									<label id="email-error" class="form-control-danger" 
@@ -50,7 +50,7 @@
 						</div>
 						<div class="form-group clearfix has-danger">
 							<div class="col-sm-6">
-								<input type="password" name="password"
+								<input type="password" id="password" name="password"
 								class = "form-control" placeholder="Password" />
 								<div class="error-div">
 									<label id="password-error" class="form-control-danger" 
@@ -58,7 +58,7 @@
 								</div>
 							</div>
 							<div class="col-sm-6">
-								<input type="password" name="passRepeat"
+								<input type="password" id="passRepeat" name="passRepeat"
 								class = "form-control" placeholder="Re-type Password" />
 								<div class="error-div">
 									<label id="passRepeat-error" class="form-control-danger" 

@@ -14,16 +14,12 @@
 				<div class="col-sm-4" >
 					<h3>About</h3>
 
-						My name is Pearl  Molefe. I am an oracle certified software engineer 
-						with accreditations in Oracle Forms, PL/SQL and Oracle database administration. 
-						Currently, I work as an analyst programmer at BEC. Check out my <a href="https://www.
-						linkedin.com/in/pearl-m/">LinkedIn Profile</a> for more about me. I am looking for commercial experience
-						in Java where I can hopefully expand on my knowledge and advance my development career.
 		
 					
 				</div>
 				<div class="col-sm-4">
 						<h3>Contact</h3>
+						<!-- 
 					<div>
 					<img src="<%=request.getContextPath()%>/resources/images/
 					locate-places-on-maps.png" /> 
@@ -36,7 +32,7 @@
 					<div>
 					<img src="<%=request.getContextPath()%>/resources/images/
 						close-envelope.png"/> pdm.molefe@gmail.com
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<br>

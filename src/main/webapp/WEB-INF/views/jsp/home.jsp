@@ -5,21 +5,25 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <jsp:include page="/WEB-INF/views/jspinc/head.jsp"></jsp:include>
+
 <div id="pg-home">
 	
 	<div class="container">
-		<div class="row mb-5" >
+		<div class="row mb-3" >
 			<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
+		</div>
+		<div class="row mb-5" >
+			<jsp:include page="/WEB-INF/views/jspinc/searchbar.jsp"></jsp:include>
 		</div>
 		<div class="row">
 			<%int colCount = 0; %>
 			<c:if test="${fn: length(menus) > 0}">
 				<c:forEach items="${menus}" var="menu">
-					<div class="col-6 col-sm-4 category mb-2">
+					<div class="col-6 col-sm-3 category mb-2">
 							<div class="clearfix">
 								<img src="<%=request.getContextPath()%>/resources/
 									images/menu/${menu.getIcon()}" class="float-left"/>
-							<h4 class="pt-2"><a href="${menu.getUrl()}">${menu.getMenuName()}</a></h4>
+							<h5 class="pt-2"><a href="${menu.getUrl()}">${menu.getMenuName()}</a></h5>
 							</div>
 						
 						<c:forEach items="${menu.subMenu}" var="subMenu">

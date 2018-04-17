@@ -23,6 +23,7 @@ import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Role;
 import com.adpostm.domain.model.UserDetail;
 import com.adpostm.mail.MailAgent;
+import com.adpostm.security.EncryptPassword;
 
 @Controller
 public class RegistrationController {
@@ -79,7 +80,7 @@ public class RegistrationController {
 		List<Role> roles = new ArrayList<Role>();
 		Role role = new Role();
 		appUser.setEmail(email);
-		appUser.setPassword(password);
+		appUser.setPassword(EncryptPassword.getEncryptedPassword(password));
 		appUser.setRegistrationDate(now);
 		userDetails.setFirstName(firstName);
 		userDetails.setLastName(lastName);
