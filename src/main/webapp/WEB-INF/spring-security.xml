@@ -27,16 +27,21 @@
         		invalidate-session="false"/> <!-- invalidate-session is true by default -->
     	<csrf disabled="true"/>
     </http>
+    
     <authentication-manager>
-        <authentication-provider user-service-ref="UserServiceImpl" />
+        <authentication-provider user-service-ref="UserServiceImpl">
+         	<password-encoder ref="passwordEncoder" />
+         </authentication-provider>
     </authentication-manager>
       <beans:bean id="loginSuccessHandler" class="com.adpostm.security.LoginAuthenticationSuccessHandler" />
       <beans:bean id="logoutHandler" class="com.adpostm.security.LogoutHandler" />
       <beans:bean id="UserServiceImpl" class="com.adpostm.service.impl.UserServiceImpl" />
       <beans:bean id="iUserDAO" class="com.adpostm.domain.dao.impl.UserDAOImpl" />
       <beans:bean id="iUserService" class="com.adpostm.service.impl.UserServiceImpl" />
-         <beans:bean id="iMenuDAO" class="com.adpostm.domain.dao.impl.MenuDAOImpl" />
+      <beans:bean id="iMenuDAO" class="com.adpostm.domain.dao.impl.MenuDAOImpl" />
       <beans:bean id="iMenuService" class="com.adpostm.service.impl.MenuServiceImpl" />
+      
+      <beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
       
     <context:component-scan base-package="com.adpostm"/> 
    </beans:beans>

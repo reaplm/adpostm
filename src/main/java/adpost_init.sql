@@ -1,5 +1,6 @@
 INSERT INTO app_user(pk_user_id, email, password,reg_dt)
-	VALUES(null, 'admin@email', 'administrator',(select sysdate() from dual));
+	VALUES(null, 'admin@email', (select MD5('administrator') from dual),
+		(select sysdate() from dual));
 INSERT INTO user_detail(pk_user_detail_id, first_name)
 	VALUES(null, 'Administrator Account');
 INSERT INTO AppUser_roles

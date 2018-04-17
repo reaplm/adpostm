@@ -24,6 +24,7 @@ import com.adpostm.domain.dao.IUserDAO;
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Menu;
 import com.adpostm.domain.model.Role;
+import com.adpostm.security.EncryptPassword;
 import com.adpostm.service.IUserService;
 
 
