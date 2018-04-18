@@ -29,7 +29,7 @@
 						<a href="/adpostm/home" class="nav-link">home</a>
 					</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link">post ad</a>
+						<a href="/adpostm/advert/newpost" class="nav-link">post ad</a>
 					</li>
 					<li class="nav-item">
 						<a href="/adpostm/admin/dashboard" class="nav-link">my account</a>

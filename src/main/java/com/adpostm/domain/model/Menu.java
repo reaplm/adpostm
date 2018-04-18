@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.DynamicUpdate;
 
 import com.adpostm.domain.enumerated.MenuType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -22,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="menu")
-@DynamicUpdate(value=true)
 public class Menu {
 	@Id
 	@GeneratedValue
@@ -48,6 +46,9 @@ public class Menu {
 	@JoinColumn(name="fk_menu_id")
 	@JsonBackReference
 	private Menu menu;
+	
+	@OneToMany(mappedBy="menu")
+	private List<Advert> adverts;
 	
 	public int getMenuId(){
 		return this.menuId;
@@ -99,9 +100,15 @@ public class Menu {
 		this.menu = menu;
 	}
 	public MenuType getMenuType() {
-		return menuType;
+		return this.menuType;
 	}
 	public void setMenuType(MenuType menuType) {
 		this.menuType = menuType;
+	}
+	public List<Advert> getAdverts() {
+		return this.adverts;
+	}
+	public void setAdverts(List<Advert> adverts) {
+		this.adverts = adverts;
 	}
 }

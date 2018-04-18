@@ -22,7 +22,10 @@
     	<mapping class="com.adpostm.domain.model.AppUser" />
     	<mapping class="com.adpostm.domain.model.UserDetail" />
     	<mapping class="com.adpostm.domain.model.Menu" />
+    	<mapping class="com.adpostm.domain.model.Advert" />
+    	<mapping class="com.adpostm.domain.model.AdvertDetail" />
     	<mapping class="com.adpostm.domain.enumerated.MenuType" />
+    	<mapping class="com.adpostm.domain.enumerated.AdvertStatus" />
     	
     	
     </session-factory>

@@ -40,6 +40,8 @@
       <beans:bean id="iUserService" class="com.adpostm.service.impl.UserServiceImpl" />
       <beans:bean id="iMenuDAO" class="com.adpostm.domain.dao.impl.MenuDAOImpl" />
       <beans:bean id="iMenuService" class="com.adpostm.service.impl.MenuServiceImpl" />
+      <beans:bean id="iAdvertService" class="com.adpostm.service.impl.AdvertServiceImpl" />
+      
       
       <beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
       

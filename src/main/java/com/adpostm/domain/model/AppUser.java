@@ -10,10 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -31,6 +31,9 @@ public class AppUser {
 	
 	@ElementCollection
 	private List<Role> roles;
+	
+	@OneToMany(mappedBy="appUser", cascade=CascadeType.REMOVE)
+	private List<Advert> adverts;
 	
 	@Column(name="password")
 	private String password;
@@ -92,5 +95,11 @@ public class AppUser {
 	}
 	public void setLastLoginDate(Date lastLoginDate){
 		this.lastLoginDate = lastLoginDate;
+	}
+	public List<Advert> getAdverts(){
+		return this.adverts;
+	}
+	public void setAdverts(List<Advert> adverts){
+		this.adverts = adverts;
 	}
 }

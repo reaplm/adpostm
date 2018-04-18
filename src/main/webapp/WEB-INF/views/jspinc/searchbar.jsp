@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-	<div class="" id="search-bar" class="">
+	<div class="" id="search-bar" class="clearfix">
 		 
 		<a class="float-left" href="/adpostm/home" >
 			
@@ -17,3 +17,4 @@
 			</form>	
 			
 	</div>
+<div class="clear"></div>

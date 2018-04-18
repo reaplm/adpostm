@@ -216,7 +216,149 @@ body{
 	background-color: #2c2a33;
 	
 }
+/*==========================ADVERTS PAGE====================================*/
+#pg-adverts{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+/*--------------------------AD DETAILS PAGE---------------------------------*/
+#ad-dtl{
+}
+#ad-dtl .ad-dtl-top-header{
+	width: 100%;
+	
+}
+#ad-dtl .ad-dtl-top-header img{
+	width: 70px;
+	height: 70px;
+	margin-left: 30px;
+}
+#ad-dtl .user-pic-text{
+	width: 20%;
+	height: 90px;
+}
+#ad-dtl .user-pic-text .img-text{
+	width: 100%;
+}
+#ad-dtl .ad-dtl-top-header h1{
+	width: 75%;
+	text-align: center;
+}
+#ad-dtl .ad-dtl-bot-header{
+	width: 98%;
+	height: 20px;
+	color: #fff;
+	background-color: #f8d650;
+	text-transform: uppercase;
+	margin-left: 10px;
+}
+#ad-dtl .ad-dtl-bot-header h3{
+	float: right;
+	margin-right: 5px;
+	font-size: 10pt;
+}
+#ad-dtl .ad-dtl-body{
+	width: 50%;
+	margin-left: 10px;
+	float: left;
 
+}
+#ad-dtl .ad-dtl-body-txt{
+	width: 100%;
+	min-height: 300px;
+}
+#ad-dtl .ad-dtl-contact{
+	width: 100%;
+}
+
+#ad-dtl .ad-dtl-pictures{
+	width: 45%;
+	height: 45%;
+	float: left;
+	min-height: 350px;
+	border: solid 1px #e9eef2;
+	text-align: center;
+	
+}
+#ad-dtl .ad-dtl-pictures img{
+	object-fit: contain;
+	
+}
+.ad-dtl-pictures .img-slide{
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+.ad-dtl-pictures .fade{
+	-webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/*==========================POST ADVERT PAGE====================================*/
+#pg-add-advert{
+	
+	border-color: #e9eef2;
+	padding-left: 10px;
+	
+}
+
+#pg-add-advert input[type=text]{
+	width: 300px;
+	height: 30px;
+}
+#pg-add-advert select{
+	width: 300px;
+	height: 30px;
+	outline: none;
+}
+#pg-add-advert p{
+	margin-bottom: 0px;
+}
+#pg-add-advert .text{
+	font-family: calibri;
+	background-color: #f8ecc1;
+	opacity: .8;
+	font-size: 14pt;
+	font-weight: bold;
+	border: solid;
+	border-width: 1px;
+	border-color: #fa6247;
+	margin-bottom: 5px;
+	color: #2c2a33;
+	
+}
+#pg-add-advert .text:focus{
+	border-width: 2px;
+	outline: none;
+}
+
+
+#pg-add-advert .img-button{
+	width: 50px;
+	height: 50px;
+	margin-left: 10px;
+	
+}
+.uploadcare--widget__button_type_open {
+    background-color: #d94d4d;
+    width: 200px;
+	height: 45px;
+	float: left;
+}
+.uploadcare--widget__button_type_open:hover{
+    background-color: #f8d650;
+}
 /*=============================MODAL====================*/
 .modal-content{
 	color: #2c2a33;
@@ -298,4 +440,7 @@ body{
     -moz-transition: width 2s ease;
     -o-transition: width 2s ease;
     transition: width 2s ease;
+}
+.clear{
+	clear: both;
 }

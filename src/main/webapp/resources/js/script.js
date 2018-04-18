@@ -323,7 +323,12 @@ $(document).ready(
 			//get category menu
 			GetMenuList("/adpostm/menus?type=home", function(menuList){
 				FillMenuSelect("#search-category", menuList, "Category");
-				alert("done");
+			});
+		}
+		if($("#search-bar").is(":visible")){
+			//get category menu
+			GetMenuList("/adpostm/menus?type=home", function(menuList){
+				FillMenuSelect("#menuId", menuList, "Category");
 			});
 		}
 //=============================dialogs=============================================		
