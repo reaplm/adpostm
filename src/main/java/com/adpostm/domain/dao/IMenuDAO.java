@@ -7,7 +7,8 @@ import com.adpostm.domain.model.Menu;
 public interface IMenuDAO {
 	public List<Menu> getMenusWithoutSub();
 	public List<Menu> getMenuByType(String type);
+	public List<Menu> getMenuList();
 	public Menu getMenuById(int id);
-	public void updateMenu(Menu menu);
+	public boolean updateMenu(Menu menu);
 	public int createMenu(Menu menu);
 }

@@ -4,27 +4,27 @@
     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-	<div id="pg-add-advert" class="content">
+
 		<form id = "add-advert-form" method="post" action="/adpostm/advert/add">
 			<div class="form-row">
 				<p>CATEGORY: </p>
 				<select id="menuId" class="text" 
-				name="menuId" path="menuId">
-						<option value="-1"> </option>
+				name="menuId" path="menuId" >
+						<option value="-1" disabled selected>Category</option>
 					<c:forEach var="menu" items="${menuList}">
 						<option value="${menu.getMenuId()}">${menu.getMenuName()}</option>
 					</c:forEach>
 				</select>	
 				
 				<select id="subMenuId" class="text" 
-					name="subMenuId" path="subMenuId">
-					<option value="-1"> </option>
+					name="subMenuId" path="subMenuId" placeholder="Sub-Menu">
+					<option value="-1" disabled selected>Sub-Category</option>
 				</select>
 			</div>
 			<div class="form-row">
 			
 				<p>LOCATION: </p>
-				<input type="text" placeholder="location" class="text" 
+				<input type="text" placeholder="location" class="text form-control" 
 							id="adLocation" name="adLocation" path="adLocation"/>
 						
 			</div>
@@ -33,14 +33,14 @@
 				<input type="text" class="text" placeholder="subject"
 								id="adSubject" name="adSubject" path="adSubject"/> <br />
 				<textarea rows="10" cols="100"	id="adBody" name="adBody"
-				path="adBody" class="text" ></textarea>
+				path="adBody" class="text form-control" ></textarea>
 						
 			</div>
 			<div class="form-row">
 				<p>CONTACT: </p>
-				<input type="text" placeholder="phone" class="text" 
+				<input type="text" placeholder="phone" class="text " 
 								id="contactNo" name="contactNo" path="contactNo"/>
-				<input type="text" placeholder="email" class="text" 
+				<input type="text" placeholder="email" class="text form-control" 
 								name="contactEmail" id="contactEmail" path="contactEmail"/>
 			</div>
 			<br />
@@ -54,4 +54,4 @@
 			</div>
 			<br />
 		</form>	
-	</div>		
+	

@@ -49,6 +49,7 @@ public class Menu {
 	
 	@OneToMany(mappedBy="menu")
 	private List<Advert> adverts;
+
 	
 	public int getMenuId(){
 		return this.menuId;
@@ -110,5 +111,77 @@ public class Menu {
 	}
 	public void setAdverts(List<Advert> adverts) {
 		this.adverts = adverts;
+	}
+	public Menu() {}
+	private Menu(MenuBuilder menuBuilder) {
+		 this.menuId = menuBuilder.menuId;
+		 this.menuName = menuBuilder.menuName;
+		 this.menuDesc = menuBuilder.menuDesc;
+		 this.label = menuBuilder.label;
+		 this.url = menuBuilder.url;
+		 this.icon = menuBuilder.icon;
+		 this.menuType = menuBuilder.menuType;
+		 this.subMenu = menuBuilder.subMenu;
+		 this.menu = menuBuilder.menu;
+		 this.adverts = menuBuilder.adverts;
+		 
+	 }
+	
+	//Builder Class
+	public static class MenuBuilder{
+		private int menuId;
+		private String menuName;
+		private String menuDesc;
+		private String label;
+		private String url;
+		private String icon;
+		private MenuType menuType;
+		private List<Menu> subMenu;
+		private Menu menu;
+		private List<Advert> adverts;
+		
+		public MenuBuilder setMenuId(int menuId){
+			this.menuId = menuId;
+			return this;
+		}
+		public MenuBuilder setMenuName(String menuName){
+			this.menuName = menuName;
+			return this;
+		}
+		public MenuBuilder setMenuDesc(String menuDesc){
+			this.menuDesc = menuDesc;
+			return this;
+		}
+		public MenuBuilder setUrl(String url){
+			this.url = url;
+			return this;
+		}
+		public MenuBuilder setIcon(String icon){
+			this.icon = icon;
+			return this;
+		}
+		public MenuBuilder setLabel(String label){
+			this.label = label;
+			return this;
+		}
+		public MenuBuilder setSubMenu(List<Menu> subMenu){
+			this.subMenu = subMenu;
+			return this;
+		}
+		public MenuBuilder setMenu(Menu menu){
+			this.menu = menu;
+			return this;
+		}
+		public MenuBuilder setMenuType(MenuType menuType) {
+			this.menuType = menuType;
+			return this;
+		}
+		public MenuBuilder setAdverts(List<Advert> adverts) {
+			this.adverts = adverts;
+			return this;
+		}
+		public Menu build() {
+			return new Menu(this);
+		}
 	}
 }

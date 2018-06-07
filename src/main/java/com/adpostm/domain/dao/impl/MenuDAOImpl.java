@@ -75,9 +75,26 @@ public class MenuDAOImpl implements IMenuDAO{
 		}
 		return menu;
 	}
-
+	public List<Menu> getMenuList(){
+		List<Menu> result = null;
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			Query query = session.createQuery("from Menu");
+			result = (List<Menu>)query.list();
+			session.flush();
+			session.getTransaction().commit();
+			session.close();
+		}
+		catch(Exception ex) {
+			
+		}
+		return result;
+	}
 	@Override
-	public void updateMenu(Menu menu) {
+	public boolean updateMenu(Menu menu) {
+		boolean success = false;
+		
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			session.getTransaction().begin();
@@ -85,11 +102,13 @@ public class MenuDAOImpl implements IMenuDAO{
 			session.flush();
 			session.getTransaction().commit();
 			session.close();
-			
+			success = true;
 		}
 		catch(Exception ex) {
+			
 			System.out.println("Exception in updateMenu(Menu menu).\nError thrown is: " + ex );
 		}
+		return success;
 	}
 
 	@Override

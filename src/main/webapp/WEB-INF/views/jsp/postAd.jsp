@@ -5,10 +5,14 @@
     <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
 	<jsp:include page="/WEB-INF/views/jspinc/head.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/jspinc/header.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/jspinc/searchbar.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/jsp/newAdForm.jsp"></jsp:include>	
-
-		<jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
+	<jsp:include page="/WEB-INF/views/jspinc/searchbar.jsp" />
+	<div id="pg-add-advert" class="content" >
+		<div class="container">
+			<div class="row mb-5" >
+				<jsp:include page="/WEB-INF/views/jsp/newAdForm.jsp"></jsp:include>	
+			</div>
+		</div>
+	</div>
+	<jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>

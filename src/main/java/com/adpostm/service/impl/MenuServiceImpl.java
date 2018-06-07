@@ -28,8 +28,8 @@ public class MenuServiceImpl implements IMenuService{
 	}
 
 	@Override
-	public void updateMenu(Menu menu) {
-		iMenuDAO.updateMenu(menu);
+	public boolean updateMenu(Menu menu) {
+		return iMenuDAO.updateMenu(menu);
 		
 	}
 
@@ -37,5 +37,10 @@ public class MenuServiceImpl implements IMenuService{
 	public int createMenu(Menu menu) {
 		return iMenuDAO.createMenu(menu);
 		
+	}
+
+	@Override
+	public List<Menu> getMenuList() {
+		return iMenuDAO.getMenuList();
 	}
 }

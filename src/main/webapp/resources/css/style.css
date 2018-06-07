@@ -10,7 +10,7 @@ body{
 }
 
 .form-control:focus{
-	border: solid 1px #f8d650;
+	border: solid 1px #999;
 }
 .form-group .error-div{
 	font-size: 10pt;
@@ -322,8 +322,10 @@ body{
 	height: 30px;
 	outline: none;
 }
+#pg-add-advert select:invalid { color: gray; }
 #pg-add-advert p{
 	margin-bottom: 0px;
+	color: #666;
 }
 #pg-add-advert .text{
 	font-family: calibri;
