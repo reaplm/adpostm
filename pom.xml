@@ -17,9 +17,10 @@
     <springframework.security-web.version>4.0.2.RELEASE</springframework.security-web.version>
   	<springframework.security-config.version>4.0.1.RELEASE</springframework.security-config.version>
   	<hibernate.version>4.3.11.Final</hibernate.version>
-  	<javax.servlet.version>2.5</javax.servlet.version>
   	<javax.mail.version>1.5.5</javax.mail.version>
-  	
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.8</maven.compiler.target>
+	<maven.compiler.source>1.8</maven.compiler.source>
   </properties>
   <!-- Test Libraries -->
   <dependencies>
@@ -117,12 +118,14 @@
     	<version>${mysql.connector.version}</version>
     </dependency>
   	<!-- JAVA -->
+	<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>servlet-api</artifactId>
-		<version>${javax.servlet.version}</version>
-		<scope>provided</scope>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>3.1.0</version>
+	    <scope>provided</scope>
 	</dependency>
+
 	<dependency>
 		<groupId>com.sun.mail</groupId>
 		<artifactId>javax.mail</artifactId>
@@ -152,7 +155,20 @@
 		<version>1.2</version>
 	</dependency>
   </dependencies>
+  
   <build>
+
     <finalName>adpostm</finalName>
-  </build>
+    <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-war-plugin</artifactId>
+      <version>3.0.0</version>
+      <configuration>
+        <webappDirectory>src/main/webapp</webappDirectory>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+
 </project>

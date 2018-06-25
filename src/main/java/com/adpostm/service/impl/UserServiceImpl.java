@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserDetailsService, IUserService{
 		return iUserDAO.usernameValid(username);
 	}
 	@Override
-	public int createuser(AppUser appUser) {
+	public int createUser(AppUser appUser) {
 		return iUserDAO.createUser(appUser);
 	}
 	@Override
@@ -97,6 +97,11 @@ public class UserServiceImpl implements UserDetailsService, IUserService{
 	@Override
 	public int updateLastLogin(String username) {
 		return iUserDAO.updateLastLogin(username);
+	}
+	@Override
+	public AppUser getUserById(int userId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

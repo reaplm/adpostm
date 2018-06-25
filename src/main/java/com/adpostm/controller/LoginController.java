@@ -8,7 +8,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
-
+	/**
+	 * Authenticate user on login or logout user
+	 * @param error
+	 * @param logout
+	 * @return
+	 */
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView login(
 			@RequestParam(value="error", required=false) boolean error,

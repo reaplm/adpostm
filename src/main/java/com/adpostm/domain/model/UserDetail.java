@@ -126,4 +126,97 @@ public class UserDetail {
 	public void setImageUuid(String imageUuid){
 		this.imageUuid= imageUuid;
 	}
+	public UserDetail() {}
+	private UserDetail(UserDetailBuilder userDetailBuilder) {
+		this.userDetailId = userDetailBuilder.userDetailId;
+		this.appUser = userDetailBuilder.appUser;
+		this.firstName = userDetailBuilder.firstName;
+		this.lastName = userDetailBuilder.lastName;
+		this.postAddress1 = userDetailBuilder.postAddress1;
+		this.postAddress2 = userDetailBuilder.postAddress2;
+		this.street = userDetailBuilder.street;
+		this.surbub = userDetailBuilder.surbub;
+		this.state = userDetailBuilder.state;
+		this.postCode = userDetailBuilder.postCode;
+		this.mobileNo = userDetailBuilder.mobileNo;
+		this.imageCdn = userDetailBuilder.imageCdn;
+		this.imageName = userDetailBuilder.imageName;
+		this.imageUuid = userDetailBuilder.imageUuid;
+	}
+	public static class UserDetailBuilder{
+		private int userDetailId;
+		private AppUser appUser;
+		private String firstName;
+		private String lastName;
+		private String postAddress1;
+		private String postAddress2;
+		private String street;
+		private String surbub;
+		private String state;
+		private String postCode;
+		private String mobileNo;
+		private String imageCdn;
+		private String imageName;
+		private String imageUuid;
+		
+		public UserDetailBuilder setFirstName(String firstName){
+			this.firstName = firstName;
+			return this;
+		}
+		public UserDetailBuilder setLastName(String lastName){
+			this.lastName = lastName;
+			return this;
+		}
+		public UserDetailBuilder setPostAddress1(String postAddress1){
+			this.postAddress1 = postAddress1;
+			return this;
+		}
+		public UserDetailBuilder setPostAddress2(String postAddress2){
+			this.postAddress2 = postAddress2;
+			return this;
+		}
+		public UserDetailBuilder setStreet(String street){
+			this.street = street;
+			return this;
+		}
+		public UserDetailBuilder setSurbub(String surbub){
+			this.surbub = surbub;
+			return this;
+		}
+		public UserDetailBuilder setState(String state){
+			this.state = state;
+			return this;
+		}
+		public UserDetailBuilder setPostcode(String postcode){
+			this.postCode = postcode;
+			return this;
+		}
+		public UserDetailBuilder setMobileNo(String mobileNo){
+			this.mobileNo = mobileNo;
+			return this;
+		}
+		public UserDetailBuilder setAppUser(AppUser appUser){
+			this.appUser = appUser;
+			return this;
+		}
+		public UserDetailBuilder setImageCdn(String imageCdn){
+			this.imageCdn = imageCdn;
+			return this;
+		}
+		public UserDetailBuilder getImageName(String imageName){
+			this.imageName = imageName;
+			return this;
+		}
+		public UserDetailBuilder setImageName(String imageName){
+			this.imageName = imageName;
+			return this;
+		}
+		public UserDetailBuilder setImageUuid(String imageUuid){
+			this.imageUuid= imageUuid;
+			return this;
+		}
+		public UserDetail build() {
+			return new UserDetail(this);
+		}
+	}
 }

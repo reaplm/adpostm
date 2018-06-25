@@ -1,8 +1,6 @@
 package com.adpostm.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -24,72 +22,108 @@ import com.adpostm.domain.model.Role;
 import com.adpostm.domain.model.UserDetail;
 import com.adpostm.mail.MailAgent;
 import com.adpostm.security.EncryptPassword;
+import com.adpostm.service.IUserService;
 
 @Controller
 public class RegistrationController {
 
 	@Autowired
-	IUserDAO iUserService;
+	IUserService iUserService;
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public ModelAndView registeration(){
 		return new ModelAndView("register");
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public ModelAndView submitRegisteration(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, AddressException, 
+	public ModelAndView submitRegistration(HttpServletRequest request,
+			HttpServletResponse response) throws AddressException, 
 			MessagingException{
 		ModelAndView modelAndView = new ModelAndView("register");
-		int userId = createAppUser(request.getParameter("fname"),
-				request.getParameter("lname"),request.getParameter("email"),
-				request.getParameter("password"));
+		String fName = request.getParameter("fname");
+		String lName = request.getParameter("lname");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+		int userId = createAppUser(fName, lName, email, password);
 	
 		if(userId > 0){
-			/*MailAgent mailAgent = new MailAgent
-					(request.getParameter("email"), "pdm.molefe@gmail.com", 
-							"pmolefe@bec.co.bw", null,
-							"adpostm registration activation", 
-							"Congradulations you have successfully registered on adpostm", 
-							"localhost");
-			
-			mailAgent.sendMessage();*/
-			
-			modelAndView.addObject("msg","<p  class='bg-info'>You have successfully registered. "
-					+ "You will be redirected to the login page.</p>" );
-			response.setHeader("refresh", "5;url=/adpostm/login");
+			if(sendMessage(lName, fName, email)) {
+				//update notification sent column
+				AppUser appUser = iUserService.getUserById(userId);
+				appUser.setNotified(1);
+				iUserService.updateUser(appUser);
+				modelAndView.addObject("msg","<p  class='bg-info'>You have successfully registered. "
+						+ "You will be redirected to the login page.</p>" );
+				response.setHeader("refresh", "5;url=/adpostm/login");
+			}
 		}
 		else{
-			modelAndView.addObject("msg","<p  class='bg-info'>An internal error occured. "
+			//response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			modelAndView.addObject("msg","<p  class='bg-info'>Registration failed. "
 					+ "Please try again later.</p>" );
 		}
+	
+
 		return modelAndView;
 	}
 	@RequestMapping(value="/usernameValid", method=RequestMethod.POST)
 	@ResponseBody
-	public String usernameExists(HttpServletRequest request,
-			HttpServletResponse response){
+	public String usernameExists(HttpServletRequest request, HttpServletResponse response){
 		if(iUserService.usernameValid(request.getParameter("email")))
 			return "true";
+		
 		else return "false";
 	}
 	private int createAppUser(String firstName, String lastName,
 			String email, String password){
-		Date now = new Date((System.currentTimeMillis()));
-		AppUser appUser = new AppUser();
-		UserDetail userDetails = new UserDetail();
 		List<Role> roles = new ArrayList<Role>();
+		Date now = new Date((System.currentTimeMillis()));
+		
 		Role role = new Role();
-		appUser.setEmail(email);
-		appUser.setPassword(EncryptPassword.getEncryptedPassword(password));
-		appUser.setRegistrationDate(now);
-		userDetails.setFirstName(firstName);
-		userDetails.setLastName(lastName);
-		appUser.setUserDetail(userDetails);
 		role.setRoleName("ROLE_USER");
 		roles.add(role);
-		appUser.setRoles(roles);
+		
+		UserDetail userDetails = new UserDetail.UserDetailBuilder()
+										.setFirstName(firstName)
+										.setLastName(lastName)
+										.build();
+		AppUser appUser = new AppUser.AppUserBuilder()
+									.setEmail(email)
+									.setPassword(EncryptPassword.getEncryptedPassword(password))
+									.setRoles(roles)
+									.setUserDetail(userDetails)
+									.setRegistrationDate(now)
+									.build();
+	
 		return iUserService.createUser(appUser);
 		
+	}
+	/**
+	 * MailAgent mailAgent = new MailAgent(to, from, cc, bcc, subject, content, smtphost)
+	 * @param fName
+	 * @param lName
+	 * @param email
+	 * @return
+	 */
+	private boolean sendMessage(String fName, String lName, String email) {
+		boolean sent = false;
+		try {
+			MailAgent mailAgent = new MailAgent
+					(email, "pdm.molefe@gmail.com", 
+							"pmolefe@bec.co.bw", null,
+							"adpostm registration activation", 
+							"Congradulations" + fName + " you have "
+									+ "successfully registered on adpostm", 
+							"localhost");
+			
+			mailAgent.sendMessage();
+			sent = true;
+		}
+		catch(MessagingException ex) {
+			System.out.println("Messaging Exception: Failed to send email to " + fName + " "+ lName);
+			ex.printStackTrace();
+		}
+		return sent;
 	}
 	
 }

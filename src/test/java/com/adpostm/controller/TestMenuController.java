@@ -55,7 +55,7 @@ public class TestMenuController{
 	public void setup() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		//initialize the mockMvc object in the @Before annotated method, 
-		//so that we don’t need to initialize it inside every test.
+		//so that we don't need to initialize it inside every test.
 		//this.mockMvc = MockMvcBuilders.webAppContextSetup(this.weApp).build();
 		mockMvc = MockMvcBuilders.standaloneSetup(menuController).build();
 	}
@@ -145,7 +145,7 @@ public class TestMenuController{
 				.andExpect(MockMvcResultMatchers.jsonPath("$.menuId").value(1))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.menuName").value("menu1"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.menuType").value("HOME"))
-				.andDo(MockMvcResultHandlers.print())
+				//.andDo(MockMvcResultHandlers.print())
 				.andReturn();
 	}
 	@Test
