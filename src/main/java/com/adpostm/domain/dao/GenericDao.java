@@ -20,11 +20,12 @@ public interface GenericDao<T, PK extends Serializable> {
 	 * @param transientObject
 	 * @return
 	 */
-	void update(T transientObject);
+	void update(T transientObject) throws Exception;
 	/**
 	 * Remove an object from the database
 	 * @param persistentObject
 	 * @return
+	 * @throws Exception 
 	 */
-	void delete(T persistentObject);
+	void delete(T persistentObject) throws Exception;
 }

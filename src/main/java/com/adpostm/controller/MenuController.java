@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.Menu;
-import com.adpostm.service.IMenuService;
+import com.adpostm.service.MenuService;
 
 @Controller
 public class MenuController {
 
 	@Autowired
-	IMenuService iMenuService;
+	MenuService menuService;
 	
 	/**
 	 * Get a list of menus based on type of menu.
@@ -54,37 +54,42 @@ public class MenuController {
 	@RequestMapping(value="/menus/detail", method=RequestMethod.GET)
 	@ResponseBody
 	public Menu getMenuDetail(HttpServletRequest request, 
-			HttpServletResponse response, @RequestParam("id")int id){
-		return iMenuService.getMenuById(id);
+			HttpServletResponse response, @RequestParam("id")Long id){
+		return menuService.read(id);
 	}
 	@RequestMapping(value="/menus/update", method=RequestMethod.POST)
 	@ResponseBody
 	public String submitEditMenu(HttpServletRequest request,
 			HttpServletResponse response, @ModelAttribute("menu") Menu menu) {
-		
-		return String.valueOf( iMenuService.updateMenu(menu));
-		
+		String result = "success";
+		try {
+			menuService.update(menu);
+		}
+		catch(Exception ex) {
+			result = "fail";
+		}
+		return result;
 	}
 	@RequestMapping(value="/menus/add")
 	public 	@ResponseBody String submitAddMenu(HttpServletRequest request,
 			HttpServletResponse response){
 		String message =  "fail";
-		int menuId = 0;
+		Long menuId = 0L;
 		try {
-			int parentId = Integer.parseInt(request.getParameter("parentId"));
+			Long parentId = Long.parseLong(request.getParameter("parentId"));
 			
 			Menu menu = createMenu(request.getParameter("menuName"),
 					request.getParameter("menuDesc"),request.getParameter("icon"));
 	
 			if(parentId > 0) {//this is a submenu
-				Menu parentMenu = iMenuService.getMenuById(parentId);
+				Menu parentMenu = menuService.read(parentId);
 				menu.setMenu(parentMenu);
 				menu.setMenuType(MenuType.SUBMENU);
 			}
 			else {
 				menu.setMenuType(MenuType.HOME);
 			}
-			menuId = iMenuService.createMenu(menu);
+			menuId = menuService.create(menu);
 			message = menuId > 0 ? "success":"fail";
 		}
 		catch(NumberFormatException ex) {
@@ -94,7 +99,7 @@ public class MenuController {
 		return message;
 	}
 	private List<Menu> getAllMenus(){
-		return iMenuService.getMenuList();
+		return menuService.getMenuList();
 	}
 	private Menu createMenu(String menuName, String menuDesc,
 			String icon) {

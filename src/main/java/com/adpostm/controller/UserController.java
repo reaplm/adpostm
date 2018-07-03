@@ -35,20 +35,27 @@ public class UserController {
 		AppUser user = null;
 		String result = "fail";
 		String username = (String)session.getAttribute("username");
-		if(username != null) {
-			user = userService.getUserByUsername(username);
-			if((uuid != null) && (cdnUrl != null) && (imgName != null)) {
-				System.out.println(uuid+"->"+cdnUrl+"->"+imgName);
-				user.getUserDetail().setImageCdn(cdnUrl);
-				user.getUserDetail().setImageName(imgName);
-				user.getUserDetail().setImageUuid(uuid);
-				userService.update(user);
-				result = "success";
+		
+		try {
+			if(username != null) {
+				user = userService.getUserByUsername(username);
+				if((uuid != null) && (cdnUrl != null) && (imgName != null)) {
+					System.out.println(uuid+"->"+cdnUrl+"->"+imgName);
+					user.getUserDetail().setImageCdn(cdnUrl);
+					user.getUserDetail().setImageName(imgName);
+					user.getUserDetail().setImageUuid(uuid);
+					userService.update(user);
+					result = "success";
+				}
 			}
+			if(result.equals("success"))
+				session.setAttribute("profileImage", cdnUrl);
 		}
-		if(result.equals("success"))
-			session.setAttribute("profileImage", cdnUrl);
-		return result;
+		catch(Exception ex) {
+			System.out.println("Exception caught in updateProfilePic: " + ex);
+			ex.printStackTrace();
+		}
+			return result;
 	}
 	@RequestMapping(value="/user/update/address", method=RequestMethod.POST)
 	@ResponseBody

@@ -26,7 +26,7 @@ import com.adpostm.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("classpath:spring-security.xml")
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring-security.xml"})
 public class TestRegistrationController {
 	
 

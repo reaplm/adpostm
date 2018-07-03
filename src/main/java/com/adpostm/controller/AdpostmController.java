@@ -13,13 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Menu;
-import com.adpostm.service.IMenuService;
+import com.adpostm.service.MenuService;
 import com.adpostm.service.UserService;
 
 @Controller
 public class AdpostmController {
 	@Autowired
-	IMenuService iMenuService;
+	MenuService iMenuService;
 	@Autowired
 	UserService userService;
 	

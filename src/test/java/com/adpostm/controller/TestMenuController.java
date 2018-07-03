@@ -29,20 +29,20 @@ import static org.mockito.Mockito.when;
 
 import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.Menu;
-import com.adpostm.service.IMenuService;
+import com.adpostm.service.MenuService;
 import com.adpostm.controller.MenuController;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("classpath:spring-security.xml")
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring-security.xml"})
 public class TestMenuController{
 	@Mock
 	private HttpServletRequest request;
 	@Mock
 	private HttpServletResponse response;
 	@Mock
-	private IMenuService iMenuService;
+	private MenuService menuService;
 	@Mock
 	private WebApplicationContext weApp;
 
@@ -73,7 +73,7 @@ public class TestMenuController{
 				.setMenuType(MenuType.SIDEBAR)
 				.build());
 		
-		when(iMenuService.getMenuList()).thenReturn(menus);
+		when(menuService.getMenuList()).thenReturn(menus);
 		
 		MvcResult expected = mockMvc.perform(MockMvcRequestBuilders
 							.get("/menus")
@@ -102,7 +102,7 @@ public class TestMenuController{
 				.setMenuName("menu2")
 				.setMenuType(MenuType.SIDEBAR)
 				.build());
-		when(iMenuService.getMenuList()).thenReturn(menus);
+		when(menuService.getMenuList()).thenReturn(menus);
 		
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders
 				.get("/menus"))
@@ -134,8 +134,8 @@ public class TestMenuController{
 				.setMenuType(MenuType.SIDEBAR)
 				.build());
 		
-		int menuId = 1;
-		when(iMenuService.getMenuById(menuId)).thenReturn(menus.get(0));
+		Long menuId = 1L;
+		when(menuService.read(menuId)).thenReturn(menus.get(0));
 		
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders
 				.get("/menus/detail")
@@ -155,18 +155,18 @@ public class TestMenuController{
 				.setMenuName("menu1")
 				.build();
 		
-		when(iMenuService.updateMenu(Mockito.any(Menu.class))).thenReturn(true);
+		//when(menuService.update(Mockito.any(Menu.class))).thenReturn(true);
 
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/menus/update")
 				.param("menuId", "1")
 				.param("menuName", "menu1"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-				.andExpect(MockMvcResultMatchers.content().string("true"))
+				.andExpect(MockMvcResultMatchers.content().string("success"))
 				.andReturn();
 		
 		//String content = result.getResponse().getContentAsString();
-		Mockito.verify(iMenuService, Mockito.times(1)).updateMenu(Mockito.refEq(menu));
+		Mockito.verify(menuService, Mockito.times(1)).update(Mockito.refEq(menu));
 				
 		assertNotNull(result);
 	}
@@ -177,8 +177,8 @@ public class TestMenuController{
 				.setMenuName("parentMenu")
 				.build();
 		
-		when(iMenuService.createMenu(Mockito.any(Menu.class))).thenReturn(1);
-		when(iMenuService.getMenuById(Mockito.anyInt())).thenReturn(menu);
+		when(menuService.create(Mockito.any(Menu.class))).thenReturn(1L);
+		when(menuService.read(Mockito.anyLong())).thenReturn(menu);
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menus/add")
 									.param("parentId",	"1")
 									.param("menuName",	"menu1"))
@@ -197,8 +197,8 @@ public class TestMenuController{
 				.setMenuName("parentMenu")
 				.build();
 		
-		when(iMenuService.createMenu(Mockito.any(Menu.class))).thenReturn(1);
-		when(iMenuService.getMenuById(Mockito.anyInt())).thenReturn(menu);
+		when(menuService.create(Mockito.any(Menu.class))).thenReturn(1L);
+		when(menuService.read(Mockito.anyLong())).thenReturn(menu);
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menus/add")
 									.param("parentId",	"error")
 									.param("menuName",	"menu1"))

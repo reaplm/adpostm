@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	UserDao userDao;
 	
 	@Override
-	public boolean updateLastLogin(String username) {
+	public boolean updateLastLogin(String username) throws Exception {
 		return userDao.updateLastLogin(username);
 	}
 
@@ -39,12 +39,12 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 		return userDao.read(id);
 	}
 	@Override
-	public void update(AppUser transientObject) {
+	public void update(AppUser transientObject) throws Exception {
 		userDao.update(transientObject);
 		
 	}
 	@Override
-	public void delete(AppUser persistentObject) {
+	public void delete(AppUser persistentObject) throws Exception {
 		userDao.update(persistentObject);
 		
 	}

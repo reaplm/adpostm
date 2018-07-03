@@ -30,12 +30,12 @@ public class GenericDaoImpl<T, PK extends Serializable>
 	}
 	@Override
 	@Transactional(rollbackOn=RuntimeException.class)
-	public void update(T transientObject) {
+	public void update(T transientObject) throws Exception{
 		getSession().update(transientObject);
 		
 	}
 	@Override
-	public void delete(T persistentObject) {
+	public void delete(T persistentObject) throws Exception{
 		getSession().delete(persistentObject);
 	}
 	protected Session getSession() {

@@ -45,23 +45,31 @@ public class RegistrationController {
 		
 		Long userId = createAppUser(fName, lName, email, password);
 	
-		if(userId > 0){
-			if(sendMessage(lName, fName, email)) {
-				//update notification sent column
-				AppUser appUser = userService.read(userId);
-				appUser.setNotified(1);
-				userService.update(appUser);
-				modelAndView.addObject("msg","<p  class='bg-info'>You have successfully registered. "
-						+ "You will be redirected to the login page.</p>" );
-				response.setHeader("refresh", "5;url=/adpostm/login");
+		try {
+			if(userId > 0){
+				if(sendMessage(lName, fName, email)) {
+					//update notification sent column
+					AppUser appUser = userService.read(userId);
+					appUser.setNotified(1);
+					userService.update(appUser);
+					modelAndView.addObject("msg","<p  class='bg-info'>You have successfully registered. "
+							+ "You will be redirected to the login page.</p>" );
+					response.setHeader("refresh", "5;url=/adpostm/login");
+				}
+			}
+			else{
+				//response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				modelAndView.addObject("msg","<p  class='bg-info'>Registration failed. "
+						+ "Please try again later.</p>" );
 			}
 		}
-		else{
-			//response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		catch(Exception ex) {
 			modelAndView.addObject("msg","<p  class='bg-info'>Registration failed. "
 					+ "Please try again later.</p>" );
+			
+			System.out.println("Exception in submitRegistration: " + ex);
+			ex.printStackTrace();
 		}
-	
 
 		return modelAndView;
 	}

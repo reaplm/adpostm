@@ -16,7 +16,7 @@ import com.adpostm.domain.dao.UserDao;
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.hibernate.dao.HibernateUtil;
 
-public class UserDaoImpl implements UserDao { // 
+public class UserDaoImpl implements UserDao { 
 
 	Session session = null;
 
@@ -33,12 +33,12 @@ public class UserDaoImpl implements UserDao { //
 		return genericDao.read(id);
 	}
 	@Override
-	public void update(AppUser transientObject) {
+	public void update(AppUser transientObject) throws Exception {
 		genericDao.update(transientObject);
 		
 	}
 	@Override
-	public void delete(AppUser persistentObject) {
+	public void delete(AppUser persistentObject) throws Exception {
 		genericDao.delete(persistentObject);
 	}
 	@Override
@@ -64,6 +64,7 @@ public class UserDaoImpl implements UserDao { //
 		return isValid;
 	}
 	@Override
+	@Transactional(rollbackOn=RuntimeException.class)
 	public int updateAddress(String postAddress1, String postAddress2,
 			String street, String surbub, String state, String postCode, 
 			String mobileNo, int userId) {
@@ -107,8 +108,8 @@ public class UserDaoImpl implements UserDao { //
 		return result;
 	}
 	@Override
-	@Transactional
-	public boolean updateLastLogin(String username) {
+	@Transactional(rollbackOn=RuntimeException.class)
+	public boolean updateLastLogin(String username) throws Exception {
 		boolean success = false;
 		AppUser appUser = null;
 

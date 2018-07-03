@@ -12,5 +12,5 @@ public interface UserService extends GenericDao<AppUser, Long>{
 	public int updateAddress(String postAddress1, String postAddress2,
 			String street, String surbub, String state, String postCoce, 
 			String mobileNo, int userDetailId);
-	public boolean updateLastLogin(String username);
+	public boolean updateLastLogin(String username) throws Exception;
 }
