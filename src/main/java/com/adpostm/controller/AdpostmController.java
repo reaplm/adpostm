@@ -14,14 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Menu;
 import com.adpostm.service.IMenuService;
-import com.adpostm.service.IUserService;
+import com.adpostm.service.UserService;
 
 @Controller
 public class AdpostmController {
 	@Autowired
 	IMenuService iMenuService;
 	@Autowired
-	IUserService iUserService;
+	UserService userService;
 	
 	@RequestMapping(value="/home")
 	public ModelAndView home(){
@@ -41,7 +41,7 @@ public class AdpostmController {
 		AppUser user = null;
 		
 		if(username != null)
-			user = iUserService.getUserByUsername(username);
+			user = userService.getUserByUsername(username);
 
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("sideMenu", menus);

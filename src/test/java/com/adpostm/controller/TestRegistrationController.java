@@ -22,7 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.adpostm.domain.model.AppUser;
-import com.adpostm.service.IUserService;
+import com.adpostm.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -33,7 +33,7 @@ public class TestRegistrationController {
 	private MockMvc mockMvc;
 
 	@Mock
-	private IUserService iUserService;
+	private UserService iUserService;
 	@InjectMocks
 	private RegistrationController registrationController;
 	

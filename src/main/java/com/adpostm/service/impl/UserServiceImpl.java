@@ -10,33 +10,50 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-
-
-
-
-
-
-
-
-import com.adpostm.domain.dao.IMenuDAO;
-import com.adpostm.domain.dao.IUserDAO;
+import com.adpostm.domain.dao.UserDao;
 import com.adpostm.domain.model.AppUser;
-import com.adpostm.domain.model.Menu;
 import com.adpostm.domain.model.Role;
-import com.adpostm.security.EncryptPassword;
-import com.adpostm.service.IUserService;
+import com.adpostm.service.UserService;
 
-
-public class UserServiceImpl implements UserDetailsService, IUserService{
+public class UserServiceImpl implements UserDetailsService, UserService{
 	@Autowired
-	IUserDAO iUserDAO;
+	UserDao userDao;
+	
+	@Override
+	public boolean updateLastLogin(String username) {
+		return userDao.updateLastLogin(username);
+	}
+
+	@Override
+	public AppUser getUserByUsername(String username) {
+		return userDao.getUserByUsername(username);
+	}
+	@Override
+	public Long create(AppUser newInstance) {
+		return userDao.create(newInstance);
+	}
+	@Override
+	public AppUser read(Long id) {
+		return userDao.read(id);
+	}
+	@Override
+	public void update(AppUser transientObject) {
+		userDao.update(transientObject);
+		
+	}
+	@Override
+	public void delete(AppUser persistentObject) {
+		userDao.update(persistentObject);
+		
+	}
 	
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		//Fetch user from the database
-				AppUser user = iUserDAO.getUserByUsername(username);
+				AppUser user = userDao.getUserByUsername(username);
 				if(user == null){
 					throw new UsernameNotFoundException("Failed to fetch "
 							+ "userDetails from the database.");
@@ -71,38 +88,18 @@ public class UserServiceImpl implements UserDetailsService, IUserService{
 	}
 	@Override
 	public boolean usernameValid(String username) {
-		return iUserDAO.usernameValid(username);
-	}
-	@Override
-	public int createUser(AppUser appUser) {
-		return iUserDAO.createUser(appUser);
-	}
-	@Override
-	public AppUser getUserByUsername(String username) {
-		return iUserDAO.getUserByUsername(username);
-	}
-	@Override
-	public void updateUser(AppUser appUser) {
-		iUserDAO.updateUser(appUser);
-		
+		return userDao.usernameValid(username);
 	}
 	@Override
 	public int updateAddress(String postAddress1, String postAddress2, 
 			String street, String surbub, String state, String postCoce, 
 			String mobileNo, int userDetailId) {
-		return iUserDAO.updateAddress(postAddress1, postAddress2, street, surbub, 
+		return userDao.updateAddress(postAddress1, postAddress2, street, surbub, 
 				state, postCoce, mobileNo, userDetailId);
 		
 	}
-	@Override
-	public int updateLastLogin(String username) {
-		return iUserDAO.updateLastLogin(username);
-	}
-	@Override
-	public AppUser getUserById(int userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+	
 	
 	
 }

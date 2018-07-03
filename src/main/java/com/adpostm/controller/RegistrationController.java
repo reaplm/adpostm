@@ -16,19 +16,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.adpostm.domain.dao.IUserDAO;
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Role;
 import com.adpostm.domain.model.UserDetail;
 import com.adpostm.mail.MailAgent;
 import com.adpostm.security.EncryptPassword;
-import com.adpostm.service.IUserService;
+import com.adpostm.service.UserService;
 
 @Controller
 public class RegistrationController {
 
 	@Autowired
-	IUserService iUserService;
+	UserService userService;
 	
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public ModelAndView registeration(){
@@ -44,14 +43,14 @@ public class RegistrationController {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		int userId = createAppUser(fName, lName, email, password);
+		Long userId = createAppUser(fName, lName, email, password);
 	
 		if(userId > 0){
 			if(sendMessage(lName, fName, email)) {
 				//update notification sent column
-				AppUser appUser = iUserService.getUserById(userId);
+				AppUser appUser = userService.read(userId);
 				appUser.setNotified(1);
-				iUserService.updateUser(appUser);
+				userService.update(appUser);
 				modelAndView.addObject("msg","<p  class='bg-info'>You have successfully registered. "
 						+ "You will be redirected to the login page.</p>" );
 				response.setHeader("refresh", "5;url=/adpostm/login");
@@ -69,12 +68,12 @@ public class RegistrationController {
 	@RequestMapping(value="/usernameValid", method=RequestMethod.POST)
 	@ResponseBody
 	public String usernameExists(HttpServletRequest request, HttpServletResponse response){
-		if(iUserService.usernameValid(request.getParameter("email")))
+		if(userService.usernameValid(request.getParameter("email")))
 			return "true";
 		
 		else return "false";
 	}
-	private int createAppUser(String firstName, String lastName,
+	private Long createAppUser(String firstName, String lastName,
 			String email, String password){
 		List<Role> roles = new ArrayList<Role>();
 		Date now = new Date((System.currentTimeMillis()));
@@ -95,7 +94,7 @@ public class RegistrationController {
 									.setRegistrationDate(now)
 									.build();
 	
-		return iUserService.createUser(appUser);
+		return userService.create(appUser);
 		
 	}
 	/**

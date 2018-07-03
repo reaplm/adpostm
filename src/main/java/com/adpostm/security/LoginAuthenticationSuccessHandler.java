@@ -22,7 +22,7 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.adpostm.domain.model.AppUser;
-import com.adpostm.service.IUserService;
+import com.adpostm.service.UserService;
 
 /**
  * 
@@ -34,7 +34,7 @@ public class LoginAuthenticationSuccessHandler
 	implements AuthenticationSuccessHandler{
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	@Autowired
-	IUserService iUserService;
+	UserService userService;
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication) 
@@ -63,7 +63,7 @@ public class LoginAuthenticationSuccessHandler
 		HttpSession session = request.getSession();
 		User authUser = (User)SecurityContextHolder.getContext().
 				getAuthentication().getPrincipal();
-		AppUser appUser = iUserService.getUserByUsername(authUser.getUsername());	
+		AppUser appUser = userService.getUserByUsername(authUser.getUsername());	
 		appUser.setLastLoginDate(new Date(System.currentTimeMillis()));
 		session.setAttribute("username", authUser.getUsername());
 		session.setAttribute("firstName", appUser.getUserDetail().getFirstName());

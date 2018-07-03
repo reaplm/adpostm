@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-import com.adpostm.service.IUserService;
+import com.adpostm.service.UserService;
 
 public class LogoutHandler implements LogoutSuccessHandler{
 	@Autowired
-	IUserService iUserService;
+	UserService userService;
 	
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, 
@@ -26,7 +26,7 @@ public class LogoutHandler implements LogoutSuccessHandler{
 				//Invalidates this session then unbinds any objects bound to it
 				request.getSession().invalidate();
 				//update database
-				int result = iUserService.updateLastLogin(username);
+				boolean result = userService.updateLastLogin(username);
 				System.out.println("username: " + username );
 			}
 			catch(Exception e) {

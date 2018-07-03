@@ -1,19 +1,13 @@
 package com.adpostm.domain.dao;
 
-import java.sql.Date;
-
 import com.adpostm.domain.model.AppUser;
 
-public interface IUserDAO {
+public interface UserDao extends GenericDao<AppUser, Long>{ //
 
-	public int createUser(AppUser appUser);
-	public void updateUser(AppUser appUser);
-	public void deleteUser(AppUser appUser);
 	public AppUser getUserByUsername(String username);
-	public AppUser getUserById(int id);
 	public boolean usernameValid(String username);
 	public int updateAddress(String postAddress1, String postAddress2,
 			String street, String surbub, String state, String postCoce, 
 			String mobileNo, int userDetailId);
-	public int updateLastLogin(String username);
+	public boolean updateLastLogin(String username);
 }

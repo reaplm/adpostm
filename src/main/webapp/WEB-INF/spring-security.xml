@@ -29,18 +29,21 @@
     </http>
     
     <authentication-manager>
-        <authentication-provider user-service-ref="UserServiceImpl">
+        <authentication-provider user-service-ref="userService">
          	<password-encoder ref="passwordEncoder" />
          </authentication-provider>
     </authentication-manager>
       <beans:bean id="loginSuccessHandler" class="com.adpostm.security.LoginAuthenticationSuccessHandler" />
       <beans:bean id="logoutHandler" class="com.adpostm.security.LogoutHandler" />
-      <beans:bean id="UserServiceImpl" class="com.adpostm.service.impl.UserServiceImpl" />
-      <beans:bean id="iUserDAO" class="com.adpostm.domain.dao.impl.UserDAOImpl" />
-      <beans:bean id="iUserService" class="com.adpostm.service.impl.UserServiceImpl" />
-      <beans:bean id="iMenuDAO" class="com.adpostm.domain.dao.impl.MenuDAOImpl" />
+      <beans:bean id="userService" class="com.adpostm.service.impl.UserServiceImpl" />
       <beans:bean id="iMenuService" class="com.adpostm.service.impl.MenuServiceImpl" />
       <beans:bean id="iAdvertService" class="com.adpostm.service.impl.AdvertServiceImpl" />
+      
+      <beans:bean id="userDao" class="com.adpostm.domain.dao.impl.UserDaoImpl" />
+
+      <beans:bean id="iMenuDAO" class="com.adpostm.domain.dao.impl.MenuDAOImpl" />
+      
+      
       
       
       <beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>

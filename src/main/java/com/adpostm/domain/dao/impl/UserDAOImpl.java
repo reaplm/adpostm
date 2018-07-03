@@ -3,129 +3,66 @@ package com.adpostm.domain.dao.impl;
 import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.NonUniqueResultException;
+import javax.transaction.Transactional;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.adpostm.domain.dao.IUserDAO;
+import com.adpostm.domain.dao.GenericDao;
+import com.adpostm.domain.dao.UserDao;
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.hibernate.dao.HibernateUtil;
 
-public class UserDAOImpl implements IUserDAO{
-	/**
-	 * 
-	 */
+public class UserDaoImpl implements UserDao { // 
+
 	Session session = null;
+
+	@Autowired
+	GenericDao<AppUser, Long> genericDao;
 	
-	@Override
-	public AppUser getUserByUsername(String username) {
-		session = HibernateUtil.getSessionFactory().openSession();
-		List<AppUser> result = null;
-		AppUser appUser = null;
-		try {
-			session.beginTransaction();
-			Query query = session.createQuery("from AppUser "
-					+ "where email = :username");
-			query.setParameter("username", username);
-			result = (List<AppUser>)query.list();
-			session.flush();
-			session.getTransaction().commit();
-	
-			if(result.size() != 1)
-				appUser = null;
-			
-			else appUser = result.get(0);
-		}
-		catch(Exception sqlException) {
-			System.out.println("Error in getUserByUsername: " + sqlException);
-			sqlException.printStackTrace();
-		}
-		finally {
-			if(session != null)
-				session.close();
-		}
-		return appUser;
-	}
 
 	@Override
+	public Long create(AppUser newInstance) {
+		return genericDao.create(newInstance);
+	}
+	@Override
+	public AppUser read(Long id) {
+		return genericDao.read(id);
+	}
+	@Override
+	public void update(AppUser transientObject) {
+		genericDao.update(transientObject);
+		
+	}
+	@Override
+	public void delete(AppUser persistentObject) {
+		genericDao.delete(persistentObject);
+	}
+	@Override
+	@Transactional
 	public boolean usernameValid(String username) {
 		Long count = -1L;
 		boolean isValid = false;
 		
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			Query query = session.createQuery("select count(*) as count from AppUser "
-					+ " where email = :email");
-			query.setParameter("email", username);
-			count = (Long)query.uniqueResult();
-			session.flush();
-			session.getTransaction().commit();
+				count = (Long)getSession()
+						.createQuery("select count(*) as count from AppUser "
+								+ "where email = :email")
+						.setParameter("email", username)
+						.uniqueResult();
 		
 			if(count == 0)
 				isValid = true;//username is valid
 		}
-		catch(Exception sqlException) {
-			System.out.println("Error in getUserByUsername: " + sqlException);
-			sqlException.printStackTrace();
-		}
-		finally {
-			if(session != null)
-				session.close();
+		catch(NonUniqueResultException ex) {
+			System.out.println("NonUnique Result in usernameValid: " + ex);
+			ex.printStackTrace();
 		}
 		return isValid;
 	}
-
-	@Override
-	public int createUser(AppUser appUser) {
-		int userId = -1;
-		try{
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.getTransaction().begin();
-			session.save(appUser);
-			userId = appUser.getAppUserId();
-			session.flush();
-			session.getTransaction().commit();
-			
-		}
-		catch(Exception ex){
-			//rollback transaction
-			if(session.getTransaction() != null)
-				session.getTransaction().rollback();
-			
-			System.out.println("Error persisting appUser: " + ex);
-			ex.printStackTrace();
-		}
-		finally {
-			if(session != null)
-				session.close();
-		}
-		return userId;
-	}
-
-	@Override
-	public void updateUser(AppUser appUser) {
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			session.update(appUser);
-			session.flush();
-			session.getTransaction().commit();
-		}
-		catch(Exception sqlException) {
-			if(session.getTransaction() != null)
-				session.getTransaction().rollback();
-				
-			System.out.println("Error in updateUser: " + sqlException);
-			sqlException.printStackTrace();
-		}
-		finally {
-			if(session != null)
-				session.close();
-		}
-	}
-
 	@Override
 	public int updateAddress(String postAddress1, String postAddress2,
 			String street, String surbub, String state, String postCode, 
@@ -169,57 +106,47 @@ public class UserDAOImpl implements IUserDAO{
 		}
 		return result;
 	}
-
 	@Override
-	public int updateLastLogin(String username) {
-		int result = 0;
+	@Transactional
+	public boolean updateLastLogin(String username) {
+		boolean success = false;
 		AppUser appUser = null;
+
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			Query query = session.createQuery("from AppUser"
-					+ " where email = :username");
-			query.setParameter("username", username);
-			appUser = (AppUser)query.list().get(0);
+				appUser = (AppUser)getSession()
+					.createQuery("from AppUser where email = :username")
+					.setParameter("username", username)
+					.uniqueResult();
+
 			if(appUser != null) {
 				appUser.setLastLoginDate(new Date(System.currentTimeMillis()));
-				session.update(appUser);
-				result = 1;
+				update(appUser);
+				success = true;
 			}
-			session.getTransaction().commit();
-			session.close();
 		}
-		catch(Exception e) {
-			System.out.println("Exception during update of lastLogin " + e);
-			e.printStackTrace();
+		catch(NonUniqueResultException ex) {
+			System.out.println("NonUnique Result in updateLastLogin: " + ex);
 		}
-		return result;
+		return success;	
 	}
-
 	@Override
-	public AppUser getUserById(int userId) {
-		AppUser user = null;
+	@Transactional
+	public AppUser getUserByUsername(String username) {
+		AppUser appUser = null;
+		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-			Query query = session.createQuery("from AppUser where appUserId = :userId");
-			query.setParameter("üserId", userId);
+			appUser = (AppUser)getSession()
+								.createQuery("from AppUser where email = :username")
+								.setParameter("username", username)
+								.uniqueResult();
 		}
-		catch(Exception sqlException) {
-			System.out.println("Error in getUserById: " + sqlException);
-			sqlException.printStackTrace();
+		catch(NonUniqueResultException ex) {
+			System.out.println("NonUnique Result in getUserByUsername: " + ex);
 		}
-		finally {
-			if(session != null)
-				session.close();
-		}
-		return user;
+		return appUser;
 	}
-
-	@Override
-	public void deleteUser(AppUser appUser) {
-		// TODO Auto-generated method stub
-		
+	private Session getSession() {
+		return HibernateUtil.getSessionFactory().openSession();
 	}
-	
 }
