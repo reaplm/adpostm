@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.adpostm.domain.model.Address;
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Menu;
 import com.adpostm.service.MenuService;
@@ -45,6 +46,7 @@ public class AdpostmController {
 
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("sideMenu", menus);
+		modelAndView.addObject("address", new Address());
 		return modelAndView;
 	}
 	@RequestMapping(value="/admin/preferences")

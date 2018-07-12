@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.adpostm.domain.dao.UserDao;
@@ -21,6 +22,8 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	@Autowired
 	UserDao userDao;
 	
+	public UserServiceImpl() {}
+	
 	@Override
 	public boolean updateLastLogin(String username) throws Exception {
 		return userDao.updateLastLogin(username);
@@ -31,7 +34,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 		return userDao.getUserByUsername(username);
 	}
 	@Override
-	public Long create(AppUser newInstance) {
+	public AppUser create(AppUser newInstance){
 		return userDao.create(newInstance);
 	}
 	@Override
@@ -45,7 +48,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	}
 	@Override
 	public void delete(AppUser persistentObject) throws Exception {
-		userDao.update(persistentObject);
+		userDao.delete(persistentObject);
 		
 	}
 	
@@ -90,16 +93,5 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	public boolean usernameValid(String username) {
 		return userDao.usernameValid(username);
 	}
-	@Override
-	public int updateAddress(String postAddress1, String postAddress2, 
-			String street, String surbub, String state, String postCoce, 
-			String mobileNo, int userDetailId) {
-		return userDao.updateAddress(postAddress1, postAddress2, street, surbub, 
-				state, postCoce, mobileNo, userDetailId);
-		
-	}
 
-	
-	
-	
 }

@@ -37,7 +37,7 @@ function UpdateProfileImage(cdnUrl, name, uuid){
 		url:	"/adpostm/user/updatepic?cdnUrl="+cdnUrl+"&name="+name+"&uuid="+uuid,
 		contentType: "application/json",
 		error: function(jqXHr, textStatus, errorThrown){
-			alert("Error fetching menu details.\n Error thrown is: " + errorThrown)
+			alert("Error updating image.\n Error thrown is: " + errorThrown)
 			window.location.reload();
 		} ,
 		success: function(data){
@@ -380,11 +380,11 @@ $(document).ready(
 			e.preventDefault();
 			var url = $(this).attr("href");
 			GetUserDetail(url, function(user){
-				document.getElementById("postAddress1").value = user.userDetail.postAddress1;
-				document.getElementById("postAddress2").value = user.userDetail.postAddress2;
-				document.getElementById("surbub").value = user.userDetail.surbub;
-				document.getElementById("state").value = user.userDetail.state;
-				document.getElementById("postCode").value = user.userDetail.postCode;
+				document.getElementById("postAddress1").value = user.userDetail.address.postAddress1;
+				document.getElementById("postAddress2").value = user.userDetail.address.postAddress2;
+				document.getElementById("surbub").value = user.userDetail.address.surbub;
+				document.getElementById("state").value = user.userDetail.address.state;
+				document.getElementById("postCode").value = user.userDetail.address.postCode;
 				document.getElementById("mobileNo").value = user.userDetail.mobileNo;
 				document.getElementById("userId").value = user.appUserId;
 				document.getElementById("userDetailId").value = user.userDetail.userDetailId;
@@ -451,12 +451,7 @@ $(document).ready(
 		$(document).on("click", "#submitAddressEdit", function(e){
 			e.preventDefault();
 			SubmitEditAddress(function(data){
-				if(data.success){
-					alert(data.message);
-				}
-				else{
-					alert(data.message);
-				}
+					alert("Address update " + data);
 			});
 			$("#address-edit-modal").modal("toggle");
 			window.location.reload();

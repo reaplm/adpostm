@@ -20,7 +20,7 @@
 						<div class="row border-btm">
 							<form:form action="/adpostm/user/update/address" 
 								method="post" class="form-horizontal w-100 " 
-									id="edit-address-form" >
+									id="edit-address-form" modelAttribute="address">
 								<div class="form-group row">
 									<div class="col-sm-12">
 										<label for="country" class="w-50">Country
@@ -33,8 +33,8 @@
 								<div class="form-group row has-danger">
 									<div class="col-sm-6">
 										<label for="address1">Address 1
-											<input type="text" name="postAddress1"
-												id="postAddress1" class="form-control" />
+											<form:input type="text" name="postAddress1"
+												id="postAddress1" path="postAddress1" class="form-control" />
 										</label>
 										<div class="error-div">
 											<label id="postAddress1-error" class="form-control-danger"
@@ -43,8 +43,8 @@
 									</div>
 									<div class="col-sm-6">
 										<label for="postAddress2">Address 2
-											<input type="text" name="postAddress2"
-												id="postAddress2" class="form-control"/>
+											<form:input type="text" name="postAddress2"
+												id="postAddress2" path="postAddress2" class="form-control"/>
 										</label>
 										<div class="error-div">
 											<label id="postAddress2-error" class="form-control-danger"
@@ -56,8 +56,8 @@
 								<div class="form-group row has-danger">
 									<div class="col-sm-4">
 										<label for="surbub">City
-												<input type="text" name="surbub"
-											id="surbub" class="form-control"/>
+												<form:input type="text" name="surbub"
+											id="surbub" path="surbub" class="form-control"/>
 										</label>
 										<div class="error-div">
 											<label id="surbub-error" class="form-control-danger"
@@ -66,8 +66,8 @@
 									</div>
 									<div class="col-sm-4">
 										<label for="state">State/District
-											<input type="text" name="state"
-												id="state" class="form-control"/>
+											<form:input type="text" name="state"
+												id="state" path="state" class="form-control"/>
 										</label>
 										<div class="error-div">
 											<label id="state-error" class="form-control-danger"
@@ -76,8 +76,8 @@
 									</div>
 									<div class="col-sm-4">
 										<label for="postCode">Post Code
-											<input type="text" name="postCode"
-												id="postCode" class="form-control"/>
+											<form:input type="text" name="postCode"
+												id="postCode" path="postCode" class="form-control"/>
 										</label>
 										<div class="error-div">
 											<label id="postCode-error" class="form-control-danger"

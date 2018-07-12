@@ -11,10 +11,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.adpostm.domain.model.Address;
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.service.UserService;
 
@@ -59,31 +62,32 @@ public class UserController {
 	}
 	@RequestMapping(value="/user/update/address", method=RequestMethod.POST)
 	@ResponseBody
-	public  void updateAddress(HttpServletRequest request, 
-			HttpServletResponse response) throws IOException, JSONException {
-		PrintWriter out = response.getWriter();
-        response.setContentType("application/json");
-		JSONObject myObj = new JSONObject();
-		int userId = 0;
-		if(request.getParameter("userId") != null)
-			userId = Integer.parseInt(request.getParameter("userId"));
-		
-		int result = userService.updateAddress(request.getParameter("postAddress1"), 
-				request.getParameter("postAddress2"), request.getParameter("street"), 
-				request.getParameter("surbub"), request.getParameter("state"), 
-				request.getParameter("postCode"), request.getParameter("mobileNo"),
-				userId);
-		if(result > 0) {
-			myObj.put("success", true);
-			myObj.put("message", "Address saved successfully!");
+	public  String updateAddress(HttpServletRequest request, 
+			HttpServletResponse response, 
+			@ModelAttribute("address")Address address){
+		boolean success = false;
+		Long userId = 0L;
+		AppUser appUser = null;
+		try {
+				userId = Long.parseLong(request.getParameter("userId"));
+				appUser = userService.read(userId);
+				
+				if(appUser != null) {	
+					//address.setUserDetail(appUser.getUserDetail());
+					appUser.getUserDetail().setAddress(address);
+					userService.update(appUser);
+					
+					success = true;
+				}
 		}
-		else {
-			myObj.put("success", false);
-			myObj.put("message", "Record not updated");
+		catch(NumberFormatException ex) {
+			System.out.println("Invalid userId");
+			ex.printStackTrace();
+		} catch (Exception ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
 		}
-		out.println(myObj.toString());
-        out.close();
-		
+		return String.valueOf(success);
 	}
 	@RequestMapping(value="/user", method=RequestMethod.GET)
 	@ResponseBody

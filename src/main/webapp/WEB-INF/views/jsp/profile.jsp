@@ -90,11 +90,11 @@
 								<hr>
 								<div class="d-flex  justify-content-between">
 									<p class="w-25">Address</p>
-									<p class="">${user.userDetail.getPostAddress1()}<br />
-										${user.userDetail.getPostAddress2()}
-										${user.userDetail.getSurbub()}
-										${user.userDetail.getPostCode()}<br />
-										${user.userDetail.getSurbub()}
+									<p class="">${user.userDetail.getAddress().getPostAddress1()}<br />
+										${user.userDetail.getAddress().getPostAddress2()}
+										${user.userDetail.getAddress().getSurbub()}
+										${user.userDetail.getAddress().getPostCode()}<br />
+										${user.userDetail.getAddress().getState()}
 									</p>
 									<a
 										href="/adpostm/user?username=<%=session.getAttribute("username")%>"

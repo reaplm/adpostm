@@ -8,7 +8,7 @@ public interface GenericDao<T, PK extends Serializable> {
 	 * @param newInstance
 	 * @return
 	 */
-	PK create(T newInstance);
+	T create(T newInstance);
 	/**
 	 * Retrieve an object from the database with the given primary key
 	 * @param id

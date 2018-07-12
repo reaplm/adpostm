@@ -13,6 +13,8 @@ public class MenuServiceImpl implements MenuService{
 	@Autowired
 	MenuDao menuDao;
 	
+
+	
 	@Override
 	public List<Menu> getMenusWithoutSub() {
 		return menuDao.getMenusWithoutSub();
@@ -29,7 +31,7 @@ public class MenuServiceImpl implements MenuService{
 	}
 
 	@Override
-	public Long create(Menu newInstance) {
+	public Menu create(Menu newInstance){
 		return menuDao.create(newInstance);
 	}
 

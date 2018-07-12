@@ -1,14 +1,18 @@
 package com.adpostm.domain.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="user_detail")
@@ -16,26 +20,23 @@ public class UserDetail {
 	@Id
 	@GeneratedValue
 	@Column(name="pk_user_detail_id")
-	private int userDetailId;
+	private Long userDetailId;
 	
 	@OneToOne
 	@PrimaryKeyJoinColumn
 	@JsonBackReference
 	private AppUser appUser;
 	
+	@OneToOne(mappedBy="userDetail", 
+			cascade= {CascadeType.ALL},
+			fetch=FetchType.EAGER)
+	@JsonManagedReference
+	private Address address;
+	
 	@Column(name = "first_name")
 	private String firstName;
 	@Column(name = "last_name")
 	private String lastName;
-	@Column(name = "post_addr1")
-	private String postAddress1;
-	@Column(name = "post_addr2")
-	private String postAddress2;
-	private String street;
-	private String surbub;
-	private String state;
-	@Column(name = "post_code")
-	private String postCode;
 	@Column(name = "mobile_no")
 	private String mobileNo;
 	
@@ -60,41 +61,11 @@ public class UserDetail {
 	public void setLastName(String lastName){
 		this.lastName = lastName;
 	}
-	public String getPostAddress1(){
-		return this.postAddress1;
+	public Address getAddress(){
+		return this.address;
 	}
-	public void setPostAddress1(String postAddress1){
-		this.postAddress1 = postAddress1;
-	}
-	public String getPostAddress2(){
-		return this.postAddress2;
-	}
-	public void setPostAddress2(String postAddress2){
-		this.postAddress2 = postAddress2;
-	}
-	public String getStreet(){
-		return this.street;
-	}
-	public void setStreet(String street){
-		this.street = street;
-	}
-	public String getSurbub(){
-		return this.surbub;
-	}
-	public void setSurbub(String surbub){
-		this.surbub = surbub;
-	}
-	public String getState(){
-		return this.state;
-	}
-	public void setState(String state){
-		this.state = state;
-	}
-	public String getPostCode(){
-		return this.postCode;
-	}
-	public void setPostcode(String postcode){
-		this.postCode = postcode;
+	public void setAddress(Address address){
+		this.address = address;
 	}
 	public String getMobileNo(){
 		return this.mobileNo;
@@ -132,28 +103,18 @@ public class UserDetail {
 		this.appUser = userDetailBuilder.appUser;
 		this.firstName = userDetailBuilder.firstName;
 		this.lastName = userDetailBuilder.lastName;
-		this.postAddress1 = userDetailBuilder.postAddress1;
-		this.postAddress2 = userDetailBuilder.postAddress2;
-		this.street = userDetailBuilder.street;
-		this.surbub = userDetailBuilder.surbub;
-		this.state = userDetailBuilder.state;
-		this.postCode = userDetailBuilder.postCode;
+		this.address = userDetailBuilder.address;
 		this.mobileNo = userDetailBuilder.mobileNo;
 		this.imageCdn = userDetailBuilder.imageCdn;
 		this.imageName = userDetailBuilder.imageName;
 		this.imageUuid = userDetailBuilder.imageUuid;
 	}
 	public static class UserDetailBuilder{
-		private int userDetailId;
+		private Long userDetailId;
 		private AppUser appUser;
 		private String firstName;
 		private String lastName;
-		private String postAddress1;
-		private String postAddress2;
-		private String street;
-		private String surbub;
-		private String state;
-		private String postCode;
+		private Address address;
 		private String mobileNo;
 		private String imageCdn;
 		private String imageName;
@@ -167,28 +128,8 @@ public class UserDetail {
 			this.lastName = lastName;
 			return this;
 		}
-		public UserDetailBuilder setPostAddress1(String postAddress1){
-			this.postAddress1 = postAddress1;
-			return this;
-		}
-		public UserDetailBuilder setPostAddress2(String postAddress2){
-			this.postAddress2 = postAddress2;
-			return this;
-		}
-		public UserDetailBuilder setStreet(String street){
-			this.street = street;
-			return this;
-		}
-		public UserDetailBuilder setSurbub(String surbub){
-			this.surbub = surbub;
-			return this;
-		}
-		public UserDetailBuilder setState(String state){
-			this.state = state;
-			return this;
-		}
-		public UserDetailBuilder setPostcode(String postcode){
-			this.postCode = postcode;
+		public UserDetailBuilder setAddress(Address address){
+			this.address = address;
 			return this;
 		}
 		public UserDetailBuilder setMobileNo(String mobileNo){

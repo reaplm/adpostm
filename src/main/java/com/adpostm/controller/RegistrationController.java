@@ -43,13 +43,12 @@ public class RegistrationController {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		Long userId = createAppUser(fName, lName, email, password);
+		AppUser appUser = createAppUser(fName, lName, email, password);
 	
 		try {
-			if(userId > 0){
+			if(appUser != null){
 				if(sendMessage(lName, fName, email)) {
 					//update notification sent column
-					AppUser appUser = userService.read(userId);
 					appUser.setNotified(1);
 					userService.update(appUser);
 					modelAndView.addObject("msg","<p  class='bg-info'>You have successfully registered. "
@@ -81,7 +80,7 @@ public class RegistrationController {
 		
 		else return "false";
 	}
-	private Long createAppUser(String firstName, String lastName,
+	private AppUser createAppUser(String firstName, String lastName,
 			String email, String password){
 		List<Role> roles = new ArrayList<Role>();
 		Date now = new Date((System.currentTimeMillis()));

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.adpostm.domain.enumerated.MenuType;
+import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Menu;
 import com.adpostm.service.MenuService;
 
@@ -74,7 +75,7 @@ public class MenuController {
 	public 	@ResponseBody String submitAddMenu(HttpServletRequest request,
 			HttpServletResponse response){
 		String message =  "fail";
-		Long menuId = 0L;
+		AppUser appUser = null;
 		try {
 			Long parentId = Long.parseLong(request.getParameter("parentId"));
 			
@@ -89,8 +90,8 @@ public class MenuController {
 			else {
 				menu.setMenuType(MenuType.HOME);
 			}
-			menuId = menuService.create(menu);
-			message = menuId > 0 ? "success":"fail";
+			menu = menuService.create(menu);
+			message = menu == null ? "fail":"success";
 		}
 		catch(NumberFormatException ex) {
 			System.out.println("Exception caught: " + ex);

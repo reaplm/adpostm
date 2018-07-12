@@ -22,7 +22,7 @@ public class AppUser {
 	@Id
 	@GeneratedValue
 	@Column(name="pk_user_id")
-	private int appUserId;
+	private Long appUserId;
 	
 	@OneToOne(mappedBy="appUser", cascade=CascadeType.ALL,
 			fetch=FetchType.EAGER)
@@ -32,7 +32,7 @@ public class AppUser {
 	@ElementCollection
 	private List<Role> roles;
 	
-	@OneToMany(mappedBy="appUser", cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy="appUser")
 	private List<Advert> adverts;
 	
 	@Column(name="password")
@@ -52,10 +52,10 @@ public class AppUser {
 	@Column(name="last_login_dt")
 	private Date lastLoginDate;
 	
-	public int getAppUserId(){
+	public Long getAppUserId(){
 		return this.appUserId;
 	}
-	public void setAppUserId(int appUserId){
+	public void setAppUserId(Long appUserId){
 		this.appUserId = appUserId;
 	}
 	public void setNotified(int notified) {
@@ -135,7 +135,7 @@ public class AppUser {
 	}
 	
 	public static class AppUserBuilder{
-		private int appUserId;
+		private Long appUserId;
 		private int notified;
 		private int activated;
 		private UserDetail userDetail;
@@ -148,7 +148,7 @@ public class AppUser {
 		private Date registrationDate;
 		private Date lastLoginDate;
 		
-		public AppUserBuilder setAppUserId(int appUserId){
+		public AppUserBuilder setAppUserId(Long appUserId){
 			this.appUserId = appUserId;
 			return this;
 		}

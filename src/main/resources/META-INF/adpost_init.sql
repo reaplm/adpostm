@@ -5,6 +5,8 @@ INSERT INTO user_detail(pk_user_detail_id, first_name)
 	VALUES(null, 'Administrator Account');
 INSERT INTO AppUser_roles
 	VALUES(1,'ROLE_USER'),(1,'ROLE_ADMIN');
+INSERT INTO address(pk_address_id, post_addr1, state, fk_detail_id)
+	VALUES(null, 'P O Box2361','gaborone', 1);
 INSERT INTO menu(pk_menu_id, menu_type, menu_name, label,icon, fk_menu_id)
 	VALUES(1, 'HOME', 'vehicles', 'vehicles','car.png',null),
 		(2, 'HOME', 'property', 'property','building.png',null),
