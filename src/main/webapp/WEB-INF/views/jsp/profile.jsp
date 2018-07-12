@@ -48,12 +48,10 @@
 								<div class="d-flex  justify-content-between">
 									<p class="d-inline-block">Account Type</p>
 									<p class="d-inline-block">Free</p>
-									<a href="#">Edit</a>
 								</div>
 								<div class="d-flex  justify-content-between">
 									<p class="d-inline-block">Username</p>
 									<p class="d-inline-block"><%=session.getAttribute("username")%></p>
-									<a href="#">Edit</a>
 								</div>
 								<div class="d-flex  justify-content-between">
 									<p class="d-inline-block">Password</p>
@@ -104,11 +102,12 @@
 									<p class="w-25">Mobile No</p>
 									<p class="">${user.userDetail.getMobileNo()}</p>
 									<p class="ml-auto"></p>
+									<a href="/adpostm/user/id?id=${user.getAppUserId()}" 
+										class="ml-auto" id="edit-contact">Edit</a>
 								</div>
 								<div class="d-flex  justify-content-between">
 									<p class="w-25">Location</p>
 									<p class="pl-5"></p>
-									<a href="#" class="ml-auto">Edit</a>
 								</div>
 							</div>
 						</div>
@@ -125,5 +124,7 @@
 		<jsp:include page="/WEB-INF/views/jsp/editMenuForm.jsp"></jsp:include>
 		<jsp:include page="/WEB-INF/views/jsp/newMenuForm.jsp"></jsp:include>
 		<jsp:include page="/WEB-INF/views/jsp/address.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/jsp/contact.jsp"></jsp:include>
+		
 	</div>
 </div>

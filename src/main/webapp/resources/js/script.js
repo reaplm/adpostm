@@ -131,6 +131,27 @@ function GetMenuList(url, callback){
 	});
 }
 /**
+ * Submit edit contact no
+ * @param callback
+ * @returns
+ */
+function SubmitEditContact(callback){
+	var url = $("#edit-contact-form").attr("action");
+	var formData = $("#edit-contact-form").serializeArray();
+	$.ajax({
+		url: url,
+		type: "get",
+		data: formData,
+		dataType: "json",
+		error: function(jqHxr, textStatus, errorThrown){
+			alert("An error occured while submitting contact.");
+		},
+		success: function(data){
+			callback(data);
+		}
+	});
+}
+/**
  * Submit update of address
  * @param callback
  * @returns
@@ -392,6 +413,16 @@ $(document).ready(
 			//open bootstrap modal
 			$("#address-edit-modal").modal();
 		});
+		$(document).on("click", "#edit-contact", function(e){
+			e.preventDefault();
+			var url = $(this).attr("href");
+			GetUserDetail(url, function(user){
+				document.getElementById("mobileNo").value = user.userDetail.mobileNo;
+				document.getElementById("co-userId").value = user.appUserId;
+			});
+			//open bootstrap modal
+			$("#contact-edit-modal").modal();
+		});
 		$(document).on("click", "#newMenuBtn", function(){
 			//parentId select
 			GetMenuList("/adpostm/menus?type=home", function(menuList){
@@ -456,7 +487,17 @@ $(document).ready(
 			$("#address-edit-modal").modal("toggle");
 			window.location.reload();
 		});
-		
+		/**
+		 * Edit Contact Number Modal
+		 */
+		$(document).on("click", "#submitContactEdit", function(e){
+			e.preventDefault();
+			SubmitEditContact(function(data){
+					alert("Contact No update " + data);
+			});
+			$("#contact-edit-modal").modal("toggle");
+			window.location.reload();
+		});
 		
 	}
 );

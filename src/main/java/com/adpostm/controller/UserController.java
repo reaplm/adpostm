@@ -89,12 +89,47 @@ public class UserController {
 		}
 		return String.valueOf(success);
 	}
+	@RequestMapping(value="/user/update/contact", method=RequestMethod.GET)
+	@ResponseBody
+	public  String updateContact(HttpServletRequest request, 
+			HttpServletResponse response,
+			@RequestParam("co-userId")Long id){
+		boolean success = false;
+		AppUser appUser = null;
+		try {
+				//userId = Long.parseLong(request.getParameter("userId"));
+				appUser = userService.read(id);
+				
+				if(appUser != null) {	
+					appUser.getUserDetail().setMobileNo(request.getParameter("mobileNo"));
+					userService.update(appUser);
+					
+					success = true;
+				}
+		}
+		catch(NumberFormatException ex) {
+			System.out.println("Invalid userId");
+			ex.printStackTrace();
+		} catch (Exception ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+		return String.valueOf(success);
+	}
 	@RequestMapping(value="/user", method=RequestMethod.GET)
 	@ResponseBody
 	public AppUser getUser(HttpServletRequest request, 
 			HttpServletResponse response, 
 			@RequestParam(value="username")String username ) {
 		AppUser appUser = userService.getUserByUsername(username);
+		return appUser;
+	}
+	@RequestMapping(value="/user/id", method=RequestMethod.GET)
+	@ResponseBody
+	public AppUser getUser(HttpServletRequest request, 
+			HttpServletResponse response, 
+			@RequestParam(value="id")Long id ) {
+		AppUser appUser = userService.read(id);
 		return appUser;
 	}
 }
