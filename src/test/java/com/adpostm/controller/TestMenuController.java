@@ -63,12 +63,12 @@ public class TestMenuController{
 	public void TestGetMenuDetailWithStringParam() throws Exception {
 		List<Menu> menus = new ArrayList<Menu>();
 		menus.add(new Menu.MenuBuilder()
-					.setMenuId(1)
+					.setMenuId(1L)
 					.setMenuName("menu1")
 					.setMenuType(MenuType.HOME)
 					.build());
 		menus.add(new Menu.MenuBuilder()
-				.setMenuId(1)
+				.setMenuId(1L)
 				.setMenuName("menu2")
 				.setMenuType(MenuType.SIDEBAR)
 				.build());
@@ -93,12 +93,12 @@ public class TestMenuController{
 	public void testGetMenuDetailWithNullStringParam() throws Exception {
 		List<Menu> menus = new ArrayList<Menu>();
 		menus.add(new Menu.MenuBuilder()
-						.setMenuId(1)
+						.setMenuId(1L)
 						.setMenuName("menu1")
 						.setMenuType(MenuType.HOME)
 						.build());
 		menus.add(new Menu.MenuBuilder()
-				.setMenuId(2)
+				.setMenuId(2L)
 				.setMenuName("menu2")
 				.setMenuType(MenuType.SIDEBAR)
 				.build());
@@ -124,12 +124,12 @@ public class TestMenuController{
 	public void testGetMenuDetailWithIntParam() throws Exception {
 		List<Menu> menus = new ArrayList<Menu>();
 		menus.add(new Menu.MenuBuilder()
-						.setMenuId(1)
+						.setMenuId(1L)
 						.setMenuName("menu1")
 						.setMenuType(MenuType.HOME)
 						.build());
 		menus.add(new Menu.MenuBuilder()
-				.setMenuId(2)
+				.setMenuId(2L)
 				.setMenuName("menu2")
 				.setMenuType(MenuType.SIDEBAR)
 				.build());
@@ -151,7 +151,7 @@ public class TestMenuController{
 	@Test
 	public void testSubmitEditMenu() throws Exception {
 		Menu menu = new Menu.MenuBuilder()
-				.setMenuId(1)
+				.setMenuId(1L)
 				.setMenuName("menu1")
 				.build();
 		
@@ -173,11 +173,11 @@ public class TestMenuController{
 	@Test
 	public void testSubmitAddMenu() throws Exception {
 		Menu menu = new Menu.MenuBuilder()
-				.setMenuId(1)
+				.setMenuId(1L)
 				.setMenuName("parentMenu")
 				.build();
 		
-		when(menuService.create(Mockito.any(Menu.class))).thenReturn(1L);
+		when(menuService.create(Mockito.any(Menu.class))).thenReturn(menu);
 		when(menuService.read(Mockito.anyLong())).thenReturn(menu);
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menus/add")
 									.param("parentId",	"1")
@@ -193,11 +193,11 @@ public class TestMenuController{
 	@Test
 	public void testNumberFormatExceptionCaught() throws Exception {
 		Menu menu = new Menu.MenuBuilder()
-				.setMenuId(1)
+				.setMenuId(1L)
 				.setMenuName("parentMenu")
 				.build();
 		
-		when(menuService.create(Mockito.any(Menu.class))).thenReturn(1L);
+		//when(menuService.create(Mockito.any(Menu.class))).thenReturn(1L);
 		when(menuService.read(Mockito.anyLong())).thenReturn(menu);
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menus/add")
 									.param("parentId",	"error")

@@ -8,7 +8,7 @@
 		<form id = "add-advert-form" method="post" action="/adpostm/advert/add">
 			<div class="form-row">
 				<p>CATEGORY: </p>
-				<select id="menuId" class="text" 
+				<select id="menuId" class="text rounded-box" 
 				name="menuId" path="menuId" >
 						<option value="-1" disabled selected>Category</option>
 					<c:forEach var="menu" items="${menuList}">
@@ -16,7 +16,7 @@
 					</c:forEach>
 				</select>	
 				
-				<select id="subMenuId" class="text" 
+				<select id="subMenuId" class="text rounded-box" 
 					name="subMenuId" path="subMenuId" placeholder="Sub-Menu">
 					<option value="-1" disabled selected>Sub-Category</option>
 				</select>
@@ -30,7 +30,7 @@
 			</div>
 			<div class="form-row">
 				<p>AD DETAILS: </p>
-				<input type="text" class="text" placeholder="subject"
+				<input type="text" class="text form-control" placeholder="subject"
 								id="adSubject" name="adSubject" path="adSubject"/> <br />
 				<textarea rows="10" cols="100"	id="adBody" name="adBody"
 				path="adBody" class="text form-control" ></textarea>
@@ -38,7 +38,7 @@
 			</div>
 			<div class="form-row">
 				<p>CONTACT: </p>
-				<input type="text" placeholder="phone" class="text " 
+				<input type="text" placeholder="phone" class="text form-control" 
 								id="contactNo" name="contactNo" path="contactNo"/>
 				<input type="text" placeholder="email" class="text form-control" 
 								name="contactEmail" id="contactEmail" path="contactEmail"/>

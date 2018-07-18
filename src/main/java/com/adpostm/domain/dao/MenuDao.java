@@ -8,4 +8,5 @@ public interface MenuDao extends GenericDao<Menu, Long>{
 	public List<Menu> getMenusWithoutSub();
 	public List<Menu> getMenuByType(String type);
 	public List<Menu> getMenuList();
+	public List<Menu> getSubMenus(Long parentId);
 }

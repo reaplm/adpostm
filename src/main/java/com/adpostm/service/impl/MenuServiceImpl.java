@@ -51,4 +51,9 @@ public class MenuServiceImpl implements MenuService{
 		menuDao.delete(persistentObject);
 		
 	}
+
+	@Override
+	public List<Menu> getSubMenus(Long parentId) {
+		return menuDao.getSubMenus(parentId);
+	}
 }

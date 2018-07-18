@@ -25,7 +25,7 @@ public class Menu {
 	@Id
 	@GeneratedValue
 	@Column(name="pk_menu_id")
-	private int menuId;
+	private Long menuId;
 	@Column(name="menu_name")
 	private String menuName;
 	@Column(name="menu_desc")
@@ -51,10 +51,10 @@ public class Menu {
 	private List<Advert> adverts;
 
 	
-	public int getMenuId(){
+	public Long getMenuId(){
 		return this.menuId;
 	}
-	public void setMenuId(int menuId){
+	public void setMenuId(Long menuId){
 		this.menuId = menuId;
 	}
 	public String getMenuName(){
@@ -129,7 +129,7 @@ public class Menu {
 	
 	//Builder Class
 	public static class MenuBuilder{
-		private int menuId;
+		private Long menuId;
 		private String menuName;
 		private String menuDesc;
 		private String label;
@@ -140,7 +140,7 @@ public class Menu {
 		private Menu menu;
 		private List<Advert> adverts;
 		
-		public MenuBuilder setMenuId(int menuId){
+		public MenuBuilder setMenuId(Long menuId){
 			this.menuId = menuId;
 			return this;
 		}

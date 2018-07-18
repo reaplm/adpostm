@@ -51,7 +51,13 @@ public class MenuController {
 
 		else return menus;
 	}
-	
+	@RequestMapping(value="/menus/submenus", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Menu> getSubMenus(HttpServletRequest request,
+			HttpServletResponse response, 
+			@RequestParam("parentId")Long parentId){
+		return menuService.getSubMenus(parentId);
+	}
 	@RequestMapping(value="/menus/detail", method=RequestMethod.GET)
 	@ResponseBody
 	public Menu getMenuDetail(HttpServletRequest request, 

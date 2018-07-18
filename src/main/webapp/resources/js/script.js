@@ -91,6 +91,34 @@ function GetMenuDetail(url, callback){
 		}
 	});
 }
+function GetMenuList(url, callback){
+	$.ajax({
+		type: "get",
+		url: url,
+		dataType: "json",
+		error: function(jqHxrerrorText, errorThrown){
+			alert("Error fetching menu list.\n Error thrown is: " + errorThrown)
+		},
+		success: function(data){
+			callback(data);
+		}
+	});
+}
+function GetSubMenu(url, callback){
+	$.ajax({
+		url: url,
+		type: "get",
+		dataType: "json",
+		error: function(jqxHr,errorText,errorThrown){
+			alert("Failed to fetch sub-category");
+		},
+		success: function(data){
+			callback(data);
+		}
+	});
+}
+//============================================SUBMIT===============================
+
 function SubmitUpdateMenu(url, data){
 	$.ajax({
 		type: "post",
@@ -117,19 +145,7 @@ function SubmitAddMenu(url, formData){
 		}
 	});
 }
-function GetMenuList(url, callback){
-	$.ajax({
-		type: "get",
-		url: url,
-		dataType: "json",
-		error: function(jqHxrerrorText, errorThrown){
-			alert("Error fetching menu list.\n Error thrown is: " + errorThrown)
-		},
-		success: function(data){
-			callback(data);
-		}
-	});
-}
+
 /**
  * Submit edit contact no
  * @param callback
@@ -334,24 +350,36 @@ function FillMenuSelect(element, menuList, title){
 					menuList[i].menuName+"</option>");
 		}
 	}
+	else{
+		$(element).empty();
+		$(element).append("<option value='-1' disabled selected>" + title + "</option>");
+	}
 }
 /**
  * 
  */
 $(document).ready(
 	function(){
+		//=============================select=============================================		
+
 		if($("#search-bar").is(":visible")){
 			//get category menu
 			GetMenuList("/adpostm/menus?type=home", function(menuList){
 				FillMenuSelect("#search-category", menuList, "category");
 			});
 		}
-		if($("#search-bar").is(":visible")){
+		if($("#add-advert-form").is(":visible")){
 			//get category menu
 			GetMenuList("/adpostm/menus?type=home", function(menuList){
-				FillMenuSelect("#menuId", menuList, "Category");
+				FillMenuSelect("#menuId", menuList, "category");
 			});
 		}
+	$("#menuId").on("change", function(e){
+		var selectedId = $("#menuId").val();
+		GetSubMenu("/adpostm/menus/submenus?parentId="+selectedId, function(menuList){
+			FillMenuSelect("#subMenuId", menuList, "Sub-Category");
+		});
+	});
 //=============================dialogs=============================================		
 		/**
 		 * OnClick for links to details and edits
@@ -453,6 +481,8 @@ $(document).ready(
 		$(".nav-link").each(function(){
 			if(this.href == url){
 				$(this).addClass("active");
+				//add active to li item
+				$(this).closest('li').addClass("active");
 			}
 		});
 		//sidebar navigation highlight

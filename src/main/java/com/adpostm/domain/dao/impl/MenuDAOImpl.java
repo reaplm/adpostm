@@ -51,4 +51,13 @@ public class MenuDaoImpl extends GenericDaoImpl<Menu, Long> implements MenuDao{
 				.createQuery("from Menu")
 				.getResultList();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Menu> getSubMenus(Long parentId) {
+		return (List<Menu>)em
+				.createQuery("from Menu where menu.menuId = :parentId")
+				.setParameter("parentId", parentId)
+				.getResultList();
+	}
 }
