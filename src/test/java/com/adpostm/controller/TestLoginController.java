@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring-security.xml"})
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring-security.xml"})
 public class TestLoginController {
 
 	private MockMvc mockMvc;

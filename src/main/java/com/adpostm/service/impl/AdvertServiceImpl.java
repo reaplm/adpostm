@@ -2,34 +2,56 @@ package com.adpostm.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.adpostm.domain.dao.AdvertDao;
 import com.adpostm.domain.model.Advert;
-import com.adpostm.service.IAdvertService;
+import com.adpostm.domain.model.AdvertDetail;
+import com.adpostm.service.AdvertService;
 
-public class AdvertServiceImpl implements IAdvertService{
-
+public class AdvertServiceImpl implements AdvertService{
 	
+	@Autowired
+	AdvertDao advertDao;
+
 	@Override
-	public List<Advert> getAdvertByCategory(String category) {
-		// TODO Auto-generated method stub
-		return null;
+	public Advert create(Advert newInstance) {
+		return advertDao.create(newInstance);
 	}
 
 	@Override
-	public Advert getAdvertById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Advert read(Long id) {
+		return advertDao.read(id);
 	}
 
 	@Override
-	public void updateAdvert(Advert advert) {
-		// TODO Auto-generated method stub
+	public void update(Advert transientObject) throws Exception {
+		advertDao.update(transientObject);
 		
 	}
 
 	@Override
-	public int createAdvert(Advert advert) {
+	public void delete(Advert persistentObject) throws Exception {
+		advertDao.delete(persistentObject);
+		
+	}
+
+	@Override
+	public List<Advert> findAll() {
+		return advertDao.findAll();
+	}
+
+	@Override
+	public List<Advert> findByCategory(String category) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
+	}
+
+	@Override
+	public List<Advert> search(String searchText, Long category) 
+			throws InterruptedException {
+		return advertDao.search(searchText, category);
+
 	}
 
 }

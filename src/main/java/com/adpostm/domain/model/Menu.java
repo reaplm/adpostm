@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.adpostm.domain.enumerated.MenuType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -48,6 +49,7 @@ public class Menu {
 	private Menu menu;
 	
 	@OneToMany(mappedBy="menu")
+	@JsonManagedReference
 	private List<Advert> adverts;
 
 	

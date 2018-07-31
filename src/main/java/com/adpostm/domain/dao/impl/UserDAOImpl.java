@@ -1,26 +1,16 @@
 package com.adpostm.domain.dao.impl;
 
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NonUniqueResultException;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import com.adpostm.domain.dao.GenericDao;
 import com.adpostm.domain.dao.UserDao;
 import com.adpostm.domain.model.AppUser;
-import com.adpostm.domain.model.Menu;
-import com.adpostm.hibernate.dao.HibernateUtil;
+
 
 @Repository
 public class UserDaoImpl extends GenericDaoImpl<AppUser, Long> implements UserDao { 

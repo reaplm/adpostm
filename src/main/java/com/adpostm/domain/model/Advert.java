@@ -12,7 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
+//import org.hibernate.search.annotations.Indexed;
+
 import com.adpostm.domain.enumerated.AdvertStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="advert")
@@ -20,11 +24,12 @@ public class Advert {
 	@Id
 	@GeneratedValue
 	@Column(name="pk_advert_id")
-	private int advertId;
-	@OneToOne(mappedBy="advert", cascade=CascadeType.REMOVE)
+	private Long advertId;
+	@OneToOne(mappedBy="advert", cascade=CascadeType.ALL)
 	private AdvertDetail advertDetail;
 	@ManyToOne
 	@JoinColumn(name="fk_menu_id", nullable=false)
+	@JsonBackReference
 	private Menu menu;
 	@ManyToOne
 	@JoinColumn(name="fk_appuser_id", nullable=false)
@@ -97,5 +102,74 @@ public class Advert {
 	}
 	public void setAdvertStatus(AdvertStatus advertStatus) {
 		this.advertStatus = advertStatus;
+	}
+	public Advert() {}
+	public Advert(AdvertBuilder advertBuilder) {
+		this.advertId = advertBuilder.advertId;
+		this.advertDetail = advertBuilder.advertDetail;
+		this.menu = advertBuilder.menu;
+		this.appUser = advertBuilder.appUser;
+		this.postedDate = advertBuilder.postedDate;
+		this.publishedDate = advertBuilder.publishedDate;
+		this.approvedDate = advertBuilder.approvedDate;
+		this.submittedDate = advertBuilder.submittedDate;
+		this.rejectedDate = advertBuilder.rejectedDate;
+		this.advertStatus = advertBuilder.advertStatus;
+	}
+	public static class AdvertBuilder{
+		private Long advertId;
+		private AdvertDetail advertDetail;
+		private Menu menu;
+		private AppUser appUser;
+		private Date postedDate;
+		private Date publishedDate;
+		private Date approvedDate;
+		private Date submittedDate;
+		private Date rejectedDate;
+		private AdvertStatus advertStatus;
+		
+		public AdvertBuilder setAdvertId(Long advertId) {
+			this.advertId = advertId;
+			return this;
+		}
+		public AdvertBuilder setMenu(Menu menu) {
+			this.menu = menu;
+			return this;
+		}
+		public AdvertBuilder setAppUser(AppUser appUser) {
+			this.appUser = appUser;
+			return this;
+		}
+		public AdvertBuilder setAdvertDetail(AdvertDetail advertDetail) {
+			this.advertDetail = advertDetail;
+			return this;
+		}
+		public AdvertBuilder setPostedDate(Date postedDate) {
+			this.postedDate = postedDate;
+			return this;
+		}
+		public AdvertBuilder setPublishedDate(Date publishedDate) {
+			this.publishedDate = publishedDate;
+			return this;
+		}
+		public AdvertBuilder setApprovedDate(Date approvedDate) {
+			this.approvedDate = approvedDate;
+			return this;
+		}
+		public AdvertBuilder setSubmittedDate(Date submittedDate) {
+			this.submittedDate = submittedDate;
+			return this;
+		}
+		public AdvertBuilder setRejectedDate(Date rejectedDate) {
+			this.rejectedDate = rejectedDate;
+			return this;
+		}
+		public AdvertBuilder setAdvertStatus(AdvertStatus advertStatus) {
+			this.advertStatus = advertStatus;
+			return this;
+		}
+		public Advert build() {
+			return new Advert(this);
+		}
 	}
 }

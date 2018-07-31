@@ -16,8 +16,6 @@
     	<class>com.adpostm.domain.model.Menu</class>
     	<class>com.adpostm.domain.model.Advert</class>
     	<class>com.adpostm.domain.model.AdvertDetail</class>
-    	<class>com.adpostm.domain.enumerated.MenuType</class>
-    	<class>com.adpostm.domain.enumerated.AdvertStatus</class>
     	
     	<properties>
 	        <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/ad_post" />

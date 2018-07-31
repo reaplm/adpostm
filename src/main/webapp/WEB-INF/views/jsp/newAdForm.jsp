@@ -6,10 +6,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 		<form id = "add-advert-form" method="post" action="/adpostm/advert/add">
-			<div class="form-row">
+			<div class="form-row has-danger">
 				<p>CATEGORY: </p>
 				<select id="menuId" class="text rounded-box" 
-				name="menuId" path="menuId" >
+				name="menuId" >
 						<option value="-1" disabled selected>Category</option>
 					<c:forEach var="menu" items="${menuList}">
 						<option value="${menu.getMenuId()}">${menu.getMenuName()}</option>
@@ -17,31 +17,31 @@
 				</select>	
 				
 				<select id="subMenuId" class="text rounded-box" 
-					name="subMenuId" path="subMenuId" placeholder="Sub-Menu">
+					name="subMenuId" placeholder="Sub-Menu">
 					<option value="-1" disabled selected>Sub-Category</option>
 				</select>
 			</div>
-			<div class="form-row">
+			<div class="form-row has-danger">
 			
 				<p>LOCATION: </p>
 				<input type="text" placeholder="location" class="text form-control" 
-							id="adLocation" name="adLocation" path="adLocation"/>
+							id="adLocation" name="adLocation"/>
 						
 			</div>
-			<div class="form-row">
+			<div class="form-row has-danger">
 				<p>AD DETAILS: </p>
 				<input type="text" class="text form-control" placeholder="subject"
-								id="adSubject" name="adSubject" path="adSubject"/> <br />
+								id="adSubject" name="adSubject"/> <br />
 				<textarea rows="10" cols="100"	id="adBody" name="adBody"
-				path="adBody" class="text form-control" ></textarea>
+					class="text form-control" ></textarea>
 						
 			</div>
-			<div class="form-row">
+			<div class="form-row has-danger">
 				<p>CONTACT: </p>
 				<input type="text" placeholder="phone" class="text form-control" 
-								id="contactNo" name="contactNo" path="contactNo"/>
+								id="contactNo" name="contactNo"/>
 				<input type="text" placeholder="email" class="text form-control" 
-								name="contactEmail" id="contactEmail" path="contactEmail"/>
+								name="contactEmail" id="contactEmail"/>
 			</div>
 			<br />
 			<div class="form-row">
@@ -49,7 +49,7 @@
 						role="uploadcare-uploader" data-images-only="true" 
 						data-multiple="true" data-multiple-max="4" path="uploadCareUrl"/> 
 						<button class="img-button button" type="button"
-					onclick="SubmitAdvert(); return false;"></button>
+					onclick="ValidateSubmitAdvert()">></button>
 				
 			</div>
 			<br />

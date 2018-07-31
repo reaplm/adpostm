@@ -37,9 +37,11 @@
       <beans:bean id="logoutHandler" class="com.adpostm.security.LogoutHandler" />
       <beans:bean id="userService" class="com.adpostm.service.impl.UserServiceImpl" />
       <beans:bean id="menuService" class="com.adpostm.service.impl.MenuServiceImpl" />
-      <beans:bean id="iAdvertService" class="com.adpostm.service.impl.AdvertServiceImpl" />
+      <beans:bean id="advertService" class="com.adpostm.service.impl.AdvertServiceImpl" />
       <beans:bean id="userDao" class="com.adpostm.domain.dao.impl.UserDaoImpl" />
       <beans:bean id="menuDao" class="com.adpostm.domain.dao.impl.MenuDaoImpl" />
+      <beans:bean id="advertDao" class="com.adpostm.domain.dao.impl.AdvertDaoImpl" />
+      
       
       
       

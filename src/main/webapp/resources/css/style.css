@@ -20,10 +20,6 @@ body{
 	color: #666;
 }
 
-.form-control-danger{
-	color: #d94d4d;
-}
-
 #pg-login .has-danger .form-control 
 	,#pg-register .has-danger .form-control{
 	background-color: #f9f2a2;
@@ -324,7 +320,6 @@ body{
 	padding-left: 10px;
 	
 }
-
 #pg-add-advert input[type=text]{
 	width: 300px;
 	height: 30px;
@@ -335,23 +330,21 @@ body{
 	outline: none;
 	text-transform: Capitalize;
 }
+#pg-add-advert .form-control-danger{
+	border: solid px #e9eef2;
+}
 #pg-add-advert select:invalid { color: gray; }
 #pg-add-advert p{
 	margin-bottom: 0px;
 	color: #666;
 }
 #pg-add-advert .text{
-	font-family: calibri;
-	background-color: #f8ecc1;
 	opacity: .8;
-	font-size: 14pt;
-	font-weight: bold;
-	border: solid;
-	border-width: 1px;
-	border-color: #fa6247;
+	border: none;
 	margin-bottom: 5px;
 	color: #2c2a33;
-	
+	border: none;
+	border-bottom: solid 1px #f8d650;
 }
 #pg-add-advert .text:focus{
 	border-width: 2px;
@@ -362,7 +355,6 @@ body{
 #pg-add-advert .img-button{
 	width: 50px;
 	height: 50px;
-	margin-left: 10px;
 	
 }
 .uploadcare--widget__button_type_open {

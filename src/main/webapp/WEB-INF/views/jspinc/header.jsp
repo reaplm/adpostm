@@ -15,7 +15,11 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 		<ul  id = "top-menu-toggle"class="nav justify-content-end" >
+			
 			<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
+				<li class="nav-item">
+					<a href="/adpostm/advert/search" class="nav-link">adverts</a>
+				</li>
 				<li class="nav-item">
 					<a href="/adpostm/login" class="nav-link">sign in</a>
 				</li>
@@ -28,6 +32,10 @@
 					<li class="nav-item">
 						<a href="/adpostm/home" class="nav-link">home</a>
 					</li>
+					<li class="nav-item">
+						<a href="/adpostm/advert/search" class="nav-link">adverts</a>
+					</li>
+					
 					<li class="nav-item">
 						<a href="/adpostm/advert/newpost" class="nav-link">post ad</a>
 					</li>

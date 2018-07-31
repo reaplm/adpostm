@@ -62,11 +62,31 @@ function GetUserDetail(url, callback){
 		url: url,
 		type: "get",
 		dataType: "json",
-		error: function(jqXfr, textStatus, errorThrown){
+		error: function(jqXhr, textStatus, errorThrown){
 			alert("There was an error fetching your details.");
 		},
 		success: function(data){
 			callback(data);
+		}
+	});
+}
+function SubmitAdvert(){
+	var formData = $("#add-advert-form").serializeArray();
+	var url = $("#add-advert-form").attr("action");
+	
+	$.ajax({
+		url: url,
+		type: "post",
+		data: formData,
+		error: function(jqXhr, textStatus, errorThrown){
+			alert("Failed to submit advert.")
+		},
+		success: function(data){
+			if(data == "success"){
+				alert("Advert successfully submitted!");
+				window.location
+			}
+			else{alert("Failed to submit advert.")}
 		}
 	});
 }
@@ -321,6 +341,40 @@ function SubmitRegistration(){
 		alert("All Good!");
 	}
 }
+function ValidateSubmitAdvert(){
+	var validator = $("#add-advert-form").validate({
+		errorClass: "form-control-danger",
+		rules:{
+			menuId:{
+				required: true
+			},
+			subMenuId:{
+				required: true
+			},
+			adSubject:{
+				required: true
+			},
+			adBody:{
+				required: true
+			},
+			contactNo:{
+				required: true
+			},
+			contactEmail:{
+				required: false,
+				email: true
+			}
+		},
+		errorPlacement: function() {
+	        return false;//prevent display of error message
+	    }
+		
+	});
+	if(validator.form()){
+		SubmitAdvert();
+	}
+}
+//==================================================================
 function SaveActiveAcc(active){
 	var dataStore = window.sessionStorage;
 	try{
@@ -344,7 +398,7 @@ window.onload = function() {
 function FillMenuSelect(element, menuList, title){
 	if(menuList.length > 0){
 		$(element).empty();
-		$(element).append("<option value='-1' disabled selected>" + title + "</option>");
+		$(element).append("<option value='-1' selected>" + "----All----" + "</option>");
 		for(var i=0; i< menuList.length; i++){
 			$(element).append("<option value="+menuList[i].menuId+">" +
 					menuList[i].menuName+"</option>");
@@ -365,7 +419,7 @@ $(document).ready(
 		if($("#search-bar").is(":visible")){
 			//get category menu
 			GetMenuList("/adpostm/menus?type=home", function(menuList){
-				FillMenuSelect("#search-category", menuList, "category");
+				FillMenuSelect("#s-category", menuList, "category");
 			});
 		}
 		if($("#add-advert-form").is(":visible")){
