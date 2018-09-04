@@ -8,26 +8,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-//import org.hibernate.search.annotations.Field;
-//import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.Field;
 
 @Entity
-
 @Table(name="advert_detail")
 public class AdvertDetail {
 	@Id
 	@GeneratedValue
 	@Column(name="pk_detail_id")
 	private Long detailId;
+	
+	//@Field //defaults: index=Index.YES, analyze=Analyze.YES and store=Store.NO 
 	private String title;
 	
+	@Field
 	private String body;
+	
 	@Column(name="contact_email")
 	private String contactEmail;
+	
 	@Column(name="contact_phone")
 	private String contactPhone;
+	
 	@Column(name="location")
 	private String location;
+	
+	//@ContainedIn //To make sure Lucene document is updated when its advert changes
 	@OneToOne
 	@JoinColumn(name="fk_advert_id")
 	private Advert advert;

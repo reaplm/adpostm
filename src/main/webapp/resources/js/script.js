@@ -84,7 +84,7 @@ function SubmitAdvert(){
 		success: function(data){
 			if(data == "success"){
 				alert("Advert successfully submitted!");
-				window.location
+				window.location = '/adpostm/advert/search?search=&s-category=-1';
 			}
 			else{alert("Failed to submit advert.")}
 		}

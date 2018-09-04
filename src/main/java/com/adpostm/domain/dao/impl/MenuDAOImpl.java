@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import com.adpostm.domain.dao.MenuDao;
 import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.Menu;
+import com.adpostm.hibernate.dao.JPAUtil;
 
 public class MenuDaoImpl extends GenericDaoImpl<Menu, Long> implements MenuDao{
 
@@ -16,6 +17,7 @@ public class MenuDaoImpl extends GenericDaoImpl<Menu, Long> implements MenuDao{
 	public MenuDaoImpl() {
 		super(Menu.class);
 		em = super.getEntityManager();
+		
 	}
 	
 	@SuppressWarnings("unchecked")

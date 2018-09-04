@@ -21,7 +21,7 @@ id="WebApp_ID" version="3.0">
   </filter-mapping>
   <!-- 
   <listener>
-    <listener-class>com.adpostm.listener.HibernateContextListener</listener-class>
+    <listener-class>com.adpostm.listener.EMF</listener-class>
   </listener>
   -->
   <listener>

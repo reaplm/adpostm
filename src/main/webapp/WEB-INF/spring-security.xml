@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-    xmlns:beans="http://www.springframework.org/schema/beans"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
-    http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-4.1.xsd
-           http://www.springframework.org/schema/mvc
-       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
-    http://www.springframework.org/schema/security
-    http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:beans="http://www.springframework.org/schema/beans"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+http://www.springframework.org/schema/data/jpa
+http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+http://www.springframework.org/schema/mvc 
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+ http://www.springframework.org/schema/security
+  http://www.springframework.org/schema/security/spring-security-4.0.xsd">
     
     <http auto-config="true">
         <intercept-url pattern="/" access="permit-all" />
@@ -41,12 +48,23 @@
       <beans:bean id="userDao" class="com.adpostm.domain.dao.impl.UserDaoImpl" />
       <beans:bean id="menuDao" class="com.adpostm.domain.dao.impl.MenuDaoImpl" />
       <beans:bean id="advertDao" class="com.adpostm.domain.dao.impl.AdvertDaoImpl" />
-      
-      
-      
-      
-      
-      <beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
+    
+    <!-- Entity Manager Factory -->
+    <beans:bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <beans:property name="persistenceUnitName" value="JPAPersistence" />
+    </beans:bean>
+    
+    <!-- Enable Annotation based Declarative Transaction Management -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <!-- Initialization for TransactionManager -->
+   <beans:bean id = "transactionManager" 
+   			class = "org.springframework.orm.jpa.JpaTransactionManager">
+      <beans:property name="entityManagerFactory" ref="entityManagerFactory" />
+   </beans:bean>
+
+     <beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
       
     <context:component-scan base-package="com.adpostm"/> 
     

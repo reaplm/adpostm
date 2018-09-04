@@ -44,9 +44,11 @@ public class AdvertController {
 			HttpServletResponse response){
 			ModelAndView modelAndView = new ModelAndView("adverts");
 			String search = request.getParameter("search");
+			String category = request.getParameter("s-category");
+			
 			List<Advert> advertList = null;
 			try {
-				Long menuId = Long.parseLong(request.getParameter("s-category"));
+				Long menuId = Long.parseLong(category);
 				
 				if(search.isEmpty() && menuId == -1) {
 					advertList = advertService.findAll();

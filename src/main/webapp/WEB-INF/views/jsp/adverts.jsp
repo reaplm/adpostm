@@ -8,29 +8,27 @@
 	<jsp:include page="/WEB-INF/views/jspinc/head.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
 	<jsp:include page="/WEB-INF/views/jspinc/searchbar.jsp" />
-	<div id="pg-add-advert" class="content" >
+	<div id="pg-adverts">
 		<div class="container">
-			<div class="row mb-5" >
-				 <div id="pg-adverts" class="content float-left">
-			    	<c:if test="${fn: length(advertList) > 0}">
-			    	<hr />
-						<c:forEach var="advert" items="${advertList}">
-							
-							<div class="advert-list" >
-								<p>
-									<a href="/AdPost/adverts?id=${advert.getAdvertId()}" 
-										class="advert-details-link">${advert.advertDetail.getAdSubject()}</a>
-								</p>
-								 <div>
-								 	<p>${advert.advertDetail.getAdBody().subString(0,5)}</p>
-							 	</div>
+	    	<c:if test="${fn: length(advertList) > 0}">
+	    		<hr />
+				<c:forEach var="advert" items="${advertList}">
+					<div class="row mb-3 advert-list">	
+							<div class="col-sm-3">
+								<img src="<%=request.getContextPath()%>/resources/
+									images/no-image-icon.png"/>
+							</div>
+							<div class="col-sm-9" >
+								<h5><a href="/AdPost/adverts?id=${advert.getAdvertId()}" 
+									class="advert-details-link title">
+									${advert.advertDetail.getTitle()}</a></h5>
+							 	<p>${advert.advertDetail.getBody()}</p>
 							 </div>
-							 <hr />
-						</c:forEach>
+					</div>
+					 <hr />
+				</c:forEach>
 						
-					</c:if>											
-				</div>
+			</c:if>											
 			</div>
 		</div>
-	</div>
 	<jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>
