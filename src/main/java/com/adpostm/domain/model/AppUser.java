@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -33,6 +34,7 @@ public class AppUser {
 	private List<Role> roles;
 	
 	@OneToMany(mappedBy="appUser")
+	@JsonBackReference
 	private List<Advert> adverts;
 	
 	@Column(name="password")

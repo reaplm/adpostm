@@ -22,6 +22,7 @@
 								<h5><a href="/AdPost/adverts?id=${advert.getAdvertId()}" 
 									class="advert-details-link title">
 									${advert.advertDetail.getTitle()}</a></h5>
+									<p>${advert.advertDetail.getLocation()}</p>
 							 	<p>${advert.advertDetail.getBody()}</p>
 							 </div>
 					</div>

@@ -5,7 +5,7 @@
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-		<form id = "add-advert-form" method="post" action="/adpostm/advert/add">
+		<form id = "add-advert-form" method="post" action="/adpostm/advert/add" class="card-header">
 			<div class="form-row has-danger">
 				<p>CATEGORY: </p>
 				<select id="menuId" class="text rounded-box" 
@@ -44,12 +44,13 @@
 								name="contactEmail" id="contactEmail"/>
 			</div>
 			<br />
-			<div class="form-row">
+			<div class="form-row form-footer">
 				<input name="uploadCareUrl" type="hidden" id="uploadcareWidget"
 						role="uploadcare-uploader" data-images-only="true" 
-						data-multiple="true" data-multiple-max="4" path="uploadCareUrl"/> 
-						<button class="img-button button" type="button"
-					onclick="ValidateSubmitAdvert()">></button>
+						data-multiple="true" data-multiple-max="4" path="uploadCareUrl" class="float-left"/> 
+				<button class="img-button button" type="button"
+					onclick="ValidateSubmitAdvert()"><img src="<%=request.getContextPath()%>/resources/
+									images/right_arrow.png" width="40px" /></button>
 				
 			</div>
 			<br />

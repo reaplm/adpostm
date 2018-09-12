@@ -431,7 +431,7 @@ $(document).ready(
 	$("#menuId").on("change", function(e){
 		var selectedId = $("#menuId").val();
 		GetSubMenu("/adpostm/menus/submenus?parentId="+selectedId, function(menuList){
-			FillMenuSelect("#subMenuId", menuList, "Sub-Category");
+			FillMenuSelect("#subMenuId", menuList, "sub-category");
 		});
 	});
 //=============================dialogs=============================================		

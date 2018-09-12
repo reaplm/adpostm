@@ -20,6 +20,7 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 
 import com.adpostm.domain.enumerated.AdvertStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 //@Indexed
@@ -42,6 +43,7 @@ public class Advert {
 	
 	@ManyToOne
 	@JoinColumn(name="fk_appuser_id", nullable=false)
+	@JsonManagedReference
 	private AppUser appUser;
 
 	@Column(name="posted_date")
@@ -74,7 +76,7 @@ public class Advert {
 	public Menu getMenu() {
 		return this.menu;
 	}
-	public AppUser getAppUser(AppUser appUser) {
+	public AppUser getAppUser() {
 		return this.appUser;
 	}
 	public void setAppUser(AppUser appUser) {

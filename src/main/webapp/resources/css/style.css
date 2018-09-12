@@ -89,8 +89,9 @@ body{
 }
 #search-bar input[type=text],
 #search-bar select{
-	font-size: 9pt;
+	font-size: 10pt;
 	color: #666;
+	text-transform: capitalize
 }
 
 #search-bar form{
@@ -203,7 +204,9 @@ body{
 .odd-row{
 	background-color: #f9f2a2;
 }
-
+.even-row{
+	background-color: #fff;
+}
 
 .acc-logo{
 	background-color: #f8d650;
@@ -331,10 +334,9 @@ body{
 
 /*==========================POST ADVERT PAGE====================================*/
 #pg-add-advert{
-	
+	color: #2c2a33;
 	border-color: #e9eef2;
 	padding-left: 10px;
-	
 }
 #pg-add-advert input[type=text]{
 	width: 300px;
@@ -349,18 +351,17 @@ body{
 #pg-add-advert .form-control-danger{
 	border: solid px #e9eef2;
 }
-#pg-add-advert select:invalid { color: gray; }
+#pg-add-advert select:invalid { color: #666;}
 #pg-add-advert p{
 	margin-bottom: 0px;
 	color: #666;
 }
 #pg-add-advert .text{
 	opacity: .8;
-	border: none;
 	margin-bottom: 5px;
 	color: #2c2a33;
 	border: none;
-	border-bottom: solid 1px #f8d650;
+	border: solid 1px #e9eef2;
 }
 #pg-add-advert .text:focus{
 	border-width: 2px;
@@ -369,18 +370,25 @@ body{
 
 
 #pg-add-advert .img-button{
-	width: 50px;
-	height: 50px;
+	background: transparent;
+	border: none;
 	
 }
+#add-advert-form{
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
 .uploadcare--widget__button_type_open {
-    background-color: #d94d4d;
+    background-color: #2e202b;
     width: 200px;
 	height: 45px;
+}
+.uploadcare--widget {
 	float: left;
 }
 .uploadcare--widget__button_type_open:hover{
-    background-color: #f8d650;
+    background-color: #2c2a33;
 }
 /*=============================MODAL====================*/
 .modal-content{
@@ -434,6 +442,7 @@ body{
 .footer .social-links img{
 	width: 30px;
 }
+
 .bs-card-color{
 	background-color: #f7f7f9;
 }

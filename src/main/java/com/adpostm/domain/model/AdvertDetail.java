@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.search.annotations.ContainedIn;
@@ -36,7 +37,7 @@ public class AdvertDetail {
 	
 	//@ContainedIn //To make sure Lucene document is updated when its advert changes
 	@OneToOne
-	@JoinColumn(name="fk_advert_id")
+	@PrimaryKeyJoinColumn
 	private Advert advert;
 
 	public void setTitle(String title) {

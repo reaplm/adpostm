@@ -12,17 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.adpostm.domain.model.Address;
+import com.adpostm.domain.model.Advert;
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Menu;
+import com.adpostm.service.AdvertService;
 import com.adpostm.service.MenuService;
 import com.adpostm.service.UserService;
 
 @Controller
 public class AdpostmController {
 	@Autowired
-	MenuService iMenuService;
+	private MenuService iMenuService;
 	@Autowired
-	UserService userService;
+	private UserService userService;
+	@Autowired
+	private AdvertService advertService;
 	
 	@RequestMapping(value="/home")
 	public ModelAndView home(){
@@ -89,8 +93,11 @@ public class AdpostmController {
 	@RequestMapping(value="/admin/posts")
 	public ModelAndView posts(){
 		ModelAndView model = new ModelAndView("posts");
+		List<Advert> adverts = getAdverts();
 		List<Menu> menus= getMenuByType("sidebar");
 		model.addObject("sideMenu", menus);
+		model.addObject("adverts", adverts);
+
 		return model;
 	}
 	@RequestMapping(value="/admin/users")
@@ -102,5 +109,8 @@ public class AdpostmController {
 	}
 	private List<Menu> getMenuByType(String type){
 		return iMenuService.getMenuByType(type);
+	}
+	private List<Advert> getAdverts(){
+		return advertService.findAll();
 	}
 }
