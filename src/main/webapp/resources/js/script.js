@@ -137,6 +137,25 @@ function GetSubMenu(url, callback){
 		}
 	});
 }
+/**
+ * Get advert details and return to calling function
+ * @param url
+ * @param callback
+ * @returns
+ */
+function GetAdvertDetail(url, callback){
+	$.ajax({
+		url: url,
+		type: "get",
+		dataType: "json",
+		error: function(jqxHr,errorText,errorThrown){
+			alert("Failed to fetch advertDetails");
+		},
+		success: function(data){
+			callback(data);
+		}
+	});
+}
 //============================================SUBMIT===============================
 
 function SubmitUpdateMenu(url, data){
@@ -522,6 +541,31 @@ $(document).ready(
 		});
 		$(document).on("click","#sidebar-accordion ul li a",function(){
 			
+		});
+		/**
+		 * OnClick for links to details and edits
+		 */
+		$(document).on("click", ".ad-dtl-link", function(e){
+			e.preventDefault();
+			var url = $(this).attr("href");
+			GetAdvertDetail(url, function(advert){
+				var submitDate = new Date(advert.submittedDate);
+
+				$("#spanHeading").text(advert.advertDetail.title);
+				$("#spanTitle").text(advert.advertDetail.title);
+				$("#spanUser").text(advert.appUser.userDetail.firstName +
+						" "+advert.appUser.userDetail.lastName);
+				$("#spanSubmitDate").text(submitDate.getDate()+"/"
+						+(submitDate.getMonth() + 1)+"/"+submitDate.getFullYear());
+				$("#spanBody").text(advert.advertDetail.body);
+				$("#spanContactEmail").text(advert.advertDetail.contactEmail+"\n");
+				$("#spanContactPhone").text(advert.advertDetail.contactPhone);
+		
+				/*$(".modal-header img").attr("src", "/adpostm/resources" +
+						"/images/menu/" + menu.icon);*/
+			});
+			//open bootstrap modal
+			$("#advert-detail-modal").modal();
 		});
 		/*$("#sidebar-accordion").on("show.bs.collapse", function(e){
 			var index = e.target.id;

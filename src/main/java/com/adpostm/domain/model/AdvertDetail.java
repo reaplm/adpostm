@@ -12,6 +12,9 @@ import javax.persistence.Table;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="advert_detail")
 public class AdvertDetail {
@@ -38,6 +41,7 @@ public class AdvertDetail {
 	//@ContainedIn //To make sure Lucene document is updated when its advert changes
 	@OneToOne
 	@PrimaryKeyJoinColumn
+	@JsonBackReference
 	private Advert advert;
 
 	public void setTitle(String title) {

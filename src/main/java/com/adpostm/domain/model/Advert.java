@@ -34,6 +34,7 @@ public class Advert {
 	//@IndexedEmbedded
 	@OneToOne(mappedBy="advert", cascade=CascadeType.ALL,
 			fetch=FetchType.EAGER)
+	@JsonManagedReference
 	private AdvertDetail advertDetail;
 	
 	@ManyToOne

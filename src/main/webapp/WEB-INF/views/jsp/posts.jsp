@@ -16,7 +16,6 @@
 				<div id="content-menu" class="menu-list">
 						<h1>Posts</h1>
 				</div>
-				<%SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy"); %>
 				<div id="pg-post-category">
 					<c:if test="${fn: length(adverts) > 0}">
 						<table class="w-100">
@@ -38,8 +37,8 @@
 									<tr class="even-row">
 									<%}%>
 										<td class="text-capitalize pl-1 w-25"><a
-											href="/adpostm/adverts/detail?id=${advert.getAdvertId()}"
-											class="dtl-link">${advert.advertDetail.getTitle()}</a></td>
+											href="/adpostm/advert/detail?id=${advert.getAdvertId()}"
+											class="ad-dtl-link">${advert.advertDetail.getTitle()}</a></td>
 										<td class="w-25">${advert.appUser.userDetail.getFirstName()} 
 										</td>
 										<td class="w-25">${advert.getAdvertStatus()}</td>
@@ -69,6 +68,5 @@
 			<jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>
 		</div>
 	</div>
-	<jsp:include page="/WEB-INF/views/jsp/editMenuForm.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/jsp/newMenuForm.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/jsp/postDetail.jsp"></jsp:include>
 </div>
