@@ -1,10 +1,14 @@
 package com.adpostm.domain.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -12,6 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 
+import com.adpostm.domain.model.AdPicture.AdPictureBuilder;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -43,6 +48,20 @@ public class AdvertDetail {
 	@PrimaryKeyJoinColumn
 	@JsonBackReference
 	private Advert advert;
+	
+	@OneToMany(mappedBy="advertDetail", cascade= {CascadeType.ALL})
+	 @JsonManagedReference
+	private List<AdPicture> adPictures = new ArrayList<AdPicture>();
+	
+	//image group information
+	@Column(name="group_cdn")
+	private String groupCdnUrl;
+	@Column(name="group_uuid")
+	private String groupUuid;
+	@Column(name="group_count")
+	private int groupCount;
+	@Column(name="group_size")
+	private Long groupSize;
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -80,6 +99,44 @@ public class AdvertDetail {
 	public Advert getAdvert() {
 		return this.advert;
 	}
+	public void addAdPicture(AdPicture adPicture) {
+		adPictures.add(adPicture);
+		adPicture.setAdvertDetail(this);
+	}
+	public void removeAdPicture(AdPicture adPicture) {
+		adPictures.remove(adPicture);
+		adPicture.setAdvertDetail(null);
+	}
+	public void setAdPicture(List<AdPicture> adPicture) {
+		this.adPictures = adPicture;
+	}
+	public List<AdPicture> getAdPicture() {
+		return this.adPictures;
+	}
+	public void setGroupCdnUrl(String groupCdnUrl) {
+		this.groupCdnUrl = groupCdnUrl;
+	}
+	public String getGroupCdnUrl() {
+		return this.groupCdnUrl;
+	}
+	public void setGroupUuid(String groupUuid) {
+		this.groupUuid = groupUuid;
+	}
+	public String getGroupUuid() {
+		return this.groupUuid;
+	}
+	public void setGroupCount(int groupCount) {
+		this.groupCount = groupCount;
+	}
+	public int getGroupCount() {
+		return this.groupCount;
+	}
+	public void setGroupSize(Long groupSize) {
+		this.groupSize = groupSize;
+	}
+	public Long getGroupSize() {
+		return this.groupSize;
+	}
 	public AdvertDetail() {}
 	public AdvertDetail(AdvertDetailBuilder advertDetailBuilder) {
 		this.detailId = advertDetailBuilder.detailId;
@@ -89,6 +146,11 @@ public class AdvertDetail {
 		this.contactPhone = advertDetailBuilder.contactPhone;
 		this.location = advertDetailBuilder.location;
 		this.advert = advertDetailBuilder.advert;
+		this.adPictures = advertDetailBuilder.adPictures;
+		this.groupCdnUrl = advertDetailBuilder.groupCdnUrl;
+		this.groupUuid = advertDetailBuilder.groupUuid;
+		this.groupCount = advertDetailBuilder.groupCount;
+		this.groupSize = advertDetailBuilder.groupSize;
 	}
 	public static class AdvertDetailBuilder{
 		private Long detailId;
@@ -98,6 +160,11 @@ public class AdvertDetail {
 		private String contactPhone;
 		private String location;
 		private Advert advert;
+		private List<AdPicture> adPictures = new ArrayList<AdPicture>();
+		private String groupCdnUrl;
+		private String groupUuid;
+		private int groupCount;
+		private Long groupSize;
 		
 		public AdvertDetailBuilder setTitle(String title) {
 			this.title = title;
@@ -121,6 +188,26 @@ public class AdvertDetail {
 		}
 		public AdvertDetailBuilder setAdvert(Advert advert) {
 			this.advert = advert;
+			return this;
+		}
+		public AdvertDetailBuilder setAdPicture(List<AdPicture> adPicture) {
+			this.adPictures = adPicture;
+			return this;
+		}
+		public AdvertDetailBuilder setGroupCdnUrl(String groupCdnUrl) {
+			this.groupCdnUrl = groupCdnUrl;
+			return this;
+		}
+		public AdvertDetailBuilder setGroupUuid(String groupUuid) {
+			this.groupUuid = groupUuid;
+			return this;
+		}
+		public AdvertDetailBuilder setGroupCount(int groupCount) {
+			this.groupCount = groupCount;
+			return this;
+		}
+		public AdvertDetailBuilder setGroupSize(Long groupSize) {
+			this.groupSize = groupSize;
 			return this;
 		}
 		public AdvertDetail build() {

@@ -16,14 +16,15 @@
     	<class>com.adpostm.domain.model.Menu</class>
     	<class>com.adpostm.domain.model.Advert</class>
     	<class>com.adpostm.domain.model.AdvertDetail</class>
+    	<class>com.adpostm.domain.model.AdPicture</class>
     	
     	<properties>
 	        <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/ad_post" />
 	        <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 	        <property name="hibernate.connection.username" value="developer" />
 	        <property name="hibernate.connection.password" value="Sweet05p06=" />
-	        <property name="hibernate.connection.pool_size" value="1" />
-	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />       
+	        <property name="hibernate.connection.pool_size" value="10" />
+	        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />       
 	        <property name="hibernate.show_sql" value="true" />
 	        <property name="current_session_context_class" value="thread" />
 	        <property name="hibernate.hbm2ddl.auto" value="create" />
@@ -37,9 +38,6 @@
 			<property name="hibernate.id.new_generator_mappings" value="false" />
 			
 			<!-- Hibernate Search -->
-			<property name="hibernate.search.default.directory_provider" value="filesystem"/>
-
-			<property name="hibernate.search.default.indexBase" value="C:/Users/pmolefe.BEC/git/indexes"/>
-		</properties>
+			</properties>
     </persistence-unit>
 </persistence>

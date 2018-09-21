@@ -19,8 +19,8 @@
 									images/no-image-icon.png"/>
 							</div>
 							<div class="col-sm-9" >
-								<h5><a href="/AdPost/adverts?id=${advert.getAdvertId()}" 
-									class="advert-details-link title">
+								<h5><a href="/adpostm/advert/detail?id=${advert.getAdvertId()}" 
+									class="ad-dtl-link title">
 									${advert.advertDetail.getTitle()}</a></h5>
 									<p>${advert.advertDetail.getLocation()}</p>
 							 	<p>${advert.advertDetail.getBody()}</p>
@@ -33,3 +33,5 @@
 			</div>
 		</div>
 	<jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/jsp/postDetail.jsp"></jsp:include>
+	

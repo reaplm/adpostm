@@ -5,54 +5,56 @@
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-		<form id = "add-advert-form" method="post" action="/adpostm/advert/add" class="card-header">
+		<form:form id = "add-advert-form" method="post" action="/adpostm/advert/add" 
+			modelAttribute="advertInfo" class="card-header">
 			<div class="form-row has-danger">
 				<p>CATEGORY: </p>
-				<select id="menuId" class="text rounded-box" 
-				name="menuId" >
+				<form:select id="menuId" class="text rounded-box" 
+				name="menuId" path="menuId">
 						<option value="-1" disabled selected>Category</option>
 					<c:forEach var="menu" items="${menuList}">
 						<option value="${menu.getMenuId()}">${menu.getMenuName()}</option>
 					</c:forEach>
-				</select>	
+				</form:select>	
 				
-				<select id="subMenuId" class="text rounded-box" 
-					name="subMenuId" placeholder="Sub-Menu">
+				<form:select id="subMenuId" class="text rounded-box" 
+					name="subMenuId" path="subMenuId" placeholder="Sub-Menu">
 					<option value="-1" disabled selected>Sub-Category</option>
-				</select>
+				</form:select>
 			</div>
 			<div class="form-row has-danger">
 			
 				<p>LOCATION: </p>
-				<input type="text" placeholder="location" class="text form-control" 
-							id="adLocation" name="adLocation"/>
+				<form:input type="text" placeholder="location" class="text form-control" 
+							id="location" name="location" path="location"/>
 						
 			</div>
 			<div class="form-row has-danger">
 				<p>AD DETAILS: </p>
-				<input type="text" class="text form-control" placeholder="subject"
-								id="adSubject" name="adSubject"/> <br />
-				<textarea rows="10" cols="100"	id="adBody" name="adBody"
-					class="text form-control" ></textarea>
+				<form:input type="text" class="text form-control" placeholder="subject"
+								id="subject" name="subject" path="subject"/> <br />
+				<form:textarea rows="10" cols="100"	id="body" name="body"
+					path="body" class="text form-control" ></form:textarea>
 						
 			</div>
 			<div class="form-row has-danger">
 				<p>CONTACT: </p>
-				<input type="text" placeholder="phone" class="text form-control" 
-								id="contactNo" name="contactNo"/>
-				<input type="text" placeholder="email" class="text form-control" 
-								name="contactEmail" id="contactEmail"/>
+				<form:input type="text" placeholder="phone" class="text form-control" 
+								id="contactNo" name="contactNo" path="contactNo"/>
+				<form:input type="text" placeholder="email" class="text form-control" 
+								name="contactEmail" id="contactEmail" path="contactEmail"/>
 			</div>
 			<br />
 			<div class="form-row form-footer">
 				<input name="uploadCareUrl" type="hidden" id="uploadcareWidget"
 						role="uploadcare-uploader" data-images-only="true" 
-						data-multiple="true" data-multiple-max="4" path="uploadCareUrl" class="float-left"/> 
+						data-multiple="true" data-multiple-max="4" 
+						class="float-left"/> 
 				<button class="img-button button" type="button"
 					onclick="ValidateSubmitAdvert()"><img src="<%=request.getContextPath()%>/resources/
 									images/right_arrow.png" width="40px" /></button>
 				
 			</div>
 			<br />
-		</form>	
+		</form:form>	
 	

@@ -3,14 +3,10 @@ package com.adpostm.domain.dao.impl;
 import java.io.Serializable;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import javax.transaction.Transactional;
 
 import com.adpostm.domain.dao.GenericDao;
 import com.adpostm.domain.enumerated.PersistenceManager;
-import com.adpostm.listener.EMF;
 
 public class GenericDaoImpl<T, PK extends Serializable>
 	implements GenericDao<T, PK>{

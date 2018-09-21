@@ -370,10 +370,10 @@ function ValidateSubmitAdvert(){
 			subMenuId:{
 				required: true
 			},
-			adSubject:{
+			subject:{
 				required: true
 			},
-			adBody:{
+			body:{
 				required: true
 			},
 			contactNo:{
@@ -561,8 +561,27 @@ $(document).ready(
 				$("#spanContactEmail").text(advert.advertDetail.contactEmail+"\n");
 				$("#spanContactPhone").text(advert.advertDetail.contactPhone);
 		
-				/*$(".modal-header img").attr("src", "/adpostm/resources" +
-						"/images/menu/" + menu.icon);*/
+				//Images
+				$("#lg-img").attr("src", "");
+				$("#sm-img1").attr("src", "");
+				$("#sm-img2").attr("src", "");
+				switch(advert.advertDetail.groupCount){
+				case 0:
+					break;
+				case 1:
+					$("#lg-img").attr("src", advert.advertDetail.adPicture[0].cdnUrl);
+					break;
+				case 2:
+					$("#lg-img").attr("src", advert.advertDetail.adPicture[0].cdnUrl);
+					$("#sm-img1").attr("src", advert.advertDetail.adPicture[1].cdnUrl);
+					break;
+				case 3:
+					$("#lg-img").attr("src", advert.advertDetail.adPicture[0].cdnUrl);
+					$("#sm-img1").attr("src", advert.advertDetail.adPicture[1].cdnUrl);
+					$("#sm-img2").attr("src", advert.advertDetail.adPicture[2].cdnUrl);
+					break;
+				}
+				
 			});
 			//open bootstrap modal
 			$("#advert-detail-modal").modal();
@@ -626,6 +645,65 @@ $(document).ready(
 			$("#contact-edit-modal").modal("toggle");
 			window.location.reload();
 		});
+		//===================================UPLOADCARE WIDGET ONCHANGE=================================
+		if($("#add-advert-form").is(":visible")){
+			var multiWidget = uploadcare.MultipleWidget('#uploadcareWidget');
+			
+			multiWidget.onUploadComplete(function(group){
+				if(group){
+					group;
+					
+					$("#add-advert-form").append(
+							"<input type='hidden' name='groupUuid' " +
+							"value='" + group.uuid + "' path='groupUuid'/>"
+					);
+					$("#add-advert-form").append(
+							"<input type='hidden' name='groupCdnUrl' " +
+							"value='" + group.cdnUrl + "' path='groupCdnUrl'/>"
+					);
+					$("#add-advert-form").append(
+							"<input type='hidden' name='groupCount' " +
+							"value='" + group.count + "' path='groupCount'/>"
+					);
+					$("#add-advert-form").append(
+							"<input type='hidden' name='groupSize' " +
+							"value='" + group.size + "' path='groupSize'/>"
+					);
+				}
+			});
+			multiWidget.onChange(function(group){
+				if(group){
+					group;
+					group.files();
+					
+					$.when.apply(null, group.files()).then(
+						function(){
+							var filesInfo = arguments;
+							for(i=0; i< filesInfo.length; i++){
+								$("#add-advert-form").append(
+										"<input type='hidden' name='imageUuid[" + i + "]'" +
+										"value='"+filesInfo[i].uuid+"' path='imageUuid'/>"
+								);
+								$("#add-advert-form").append(
+										"<input type='hidden' name='imageCdnUrl[" + i + "]'" +
+										"value='"+filesInfo[i].cdnUrl+"' path='imageCdnUrl'/>"
+								);
+								$("#add-advert-form").append(
+										"<input type='hidden' name='imageSize[" + i + "]'" +
+										"value='"+filesInfo[i].size+"' path='imageSize'/>"
+								);
+								$("#add-advert-form").append(
+										"<input type='hidden' name='imageName[" + i + "]'" +
+										"value='"+filesInfo[i].name+"' path='imageName'/>"
+								);
+							}
+						}
+					);	
+				}
+			});
+		}
+
 		
+//=====================================================================================================
 	}
 );

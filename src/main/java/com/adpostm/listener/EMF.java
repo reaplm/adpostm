@@ -1,5 +1,6 @@
 package com.adpostm.listener;
 
+import java.io.File;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-@WebListener
+//@WebListener
 public class EMF implements ServletContextListener{
 	private static EntityManagerFactory emFactory;
 	
@@ -39,6 +40,14 @@ public class EMF implements ServletContextListener{
 			}
 		}
 		
+		String delme = event.getServletContext().getInitParameter("eraseOnExit");
+		if (delme != null && delme.length() > 0) {
+		    File del = new File(delme);
+		    if (del.exists()) {
+		        System.out.println("Deleting file " + delme);
+		        del.delete();
+		    }
+		}
 	}
 
 	private void createEmFactory(){

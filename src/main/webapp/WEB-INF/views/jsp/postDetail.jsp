@@ -6,7 +6,7 @@
 <div id="form-menu-edit">
 	<div class="modal fade" id="advert-detail-modal" tabindex="-1"
 		role="dialog" aria-labelledby="advertDetailModal" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1>
@@ -20,11 +20,13 @@
 				<div class="modal-body">
 					<div class="container">
 						<div class="row">
-							<div class="col-sm-6"></div>
-							<div class="col-sm-6"></div>					
-						</div>
-						<div class="row" class="text-capitalize">
-							<h3 class="text-capitalize "><span id="spanTitle"></span></h3>
+							<div class="col-sm-8 nopadding">
+								<img id="lg-img" width="100%"/>
+							</div>
+							<div class="col-sm-4">
+								<img id="sm-img1" width="100%"/>
+								<img id="sm-img2" width="100%"/>
+							</div>					
 						</div>
 						<div class="row font-weight-bold grey-text">
 							<span id="spanUser"></span>

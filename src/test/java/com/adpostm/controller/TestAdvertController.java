@@ -1,6 +1,8 @@
 package com.adpostm.controller;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +37,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.adpostm.domain.enumerated.AdvertStatus;
 import com.adpostm.domain.model.Advert;
+import com.adpostm.domain.model.AdvertInfo;
 import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Menu;
 import com.adpostm.service.AdvertService;
@@ -100,18 +103,25 @@ public class TestAdvertController {
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/advert/add")
 							.param("menuId", "1")
 							.param("subMenuId", "2")
-							.param("adLocation", "Here")
-							.param("adSubject", "Test")
-							.param("adBody", "This is a test")
-							.param("contactNo", "123")
-							.param("contactEmail", "test@123"))
+							.param("location", "gaborone")
+							.param("subject", "car for sale")
+							.param("body", "car for sale in gaborone")
+							.param("contactEmail", "admin@email")
+							.param("contactNo", "71406569")
+							.param("imageCdnUrl", "cdnUrl1", "cdnUrl2")
+							.param("imageName", "image1", "image2")
+							.param("imageUuid", "uuid1", "uuid2")
+							.param("imageSize", "1024","800")
+							.param("groupUuid", "groupUuid")
+							.param("groupSize", "1824")
+							.param("groupCdnUrl", "groupCdnUrl")
+							.param("groupCount", "2"))
 							.andExpect(MockMvcResultMatchers.status().isOk())
 							.andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
 							.andExpect(MockMvcResultMatchers.content().string("success"))
 							.andDo(MockMvcResultHandlers.print())
 							.andReturn();
-							
-
+			
 							
 		
 	}
