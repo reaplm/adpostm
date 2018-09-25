@@ -2,12 +2,14 @@ package com.adpostm.controller;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -58,7 +60,7 @@ public class AdvertController {
 				Long menuId = Long.parseLong(category);
 				
 				if(search.isEmpty() && menuId == -1) {
-					advertList = advertService.findAll();
+					advertList = advertService.findAll(Advert.class, true, new String[]{"menu"});
 					modelAndView.addObject("advertList", advertList);
 					
 					if(advertList == null) {

@@ -2,6 +2,8 @@ package com.adpostm.service.impl;
 
 import java.util.List;
 
+import javax.persistence.criteria.Order;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.adpostm.domain.dao.GenericDao;
@@ -52,8 +54,17 @@ public class MenuServiceImpl implements MenuService{
 		
 	}
 
-	@Override
+	@Override 
 	public List<Menu> getSubMenus(Long parentId) {
 		return menuDao.getSubMenus(parentId);
+	}
+	@Override
+	public List<Menu> findAll(Class<Menu> clazz, boolean asc, String... orderBy) {
+		return menuDao.findAll(clazz, asc, orderBy);
+	}
+
+	@Override
+	public List<Menu> findAll(Class<Menu> clazz) {
+		return menuDao.findAll(clazz);
 	}
 }

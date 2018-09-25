@@ -140,7 +140,8 @@ public class TestAdvertController {
 				);
 		
 		
-		Mockito.when(advertService.findAll()).thenReturn(advertList);
+		Mockito.when(advertService.findAll(Advert.class,true,new String[]{"menuId"}))
+			.thenReturn(advertList);
 		
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/advert/search")
 								.param("search", "")

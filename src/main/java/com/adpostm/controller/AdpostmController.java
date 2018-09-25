@@ -111,6 +111,6 @@ public class AdpostmController {
 		return iMenuService.getMenuByType(type);
 	}
 	private List<Advert> getAdverts(){
-		return advertService.findAll();
+		return advertService.findAll(Advert.class);
 	}
 }

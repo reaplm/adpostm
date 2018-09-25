@@ -2,6 +2,8 @@ package com.adpostm.service.impl;
 
 import java.util.List;
 
+import javax.persistence.criteria.Order;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.adpostm.domain.dao.AdvertDao;
@@ -37,11 +39,6 @@ public class AdvertServiceImpl implements AdvertService{
 	}
 
 	@Override
-	public List<Advert> findAll() {
-		return advertDao.findAll();
-	}
-
-	@Override
 	public List<Advert> findByCategory(String category) {
 		// TODO Auto-generated method stub
 		return null;
@@ -52,6 +49,16 @@ public class AdvertServiceImpl implements AdvertService{
 			throws InterruptedException {
 		return advertDao.search(searchText, category);
 
+	}
+
+	@Override
+	public List<Advert> findAll(Class<Advert> clazz) {
+		return advertDao.findAll(clazz);
+	}
+
+	@Override
+	public List<Advert> findAll(Class<Advert> clazz, boolean asc, String... orderBy) {
+		return advertDao.findAll(clazz, asc, orderBy);
 	}
 
 }

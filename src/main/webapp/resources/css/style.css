@@ -231,11 +231,14 @@ body{
 #pg-adverts{
 	padding-left: 10px;
 	padding-right: 10px;
+	margin-top: 20px;
 }
 /*--------------------------AD LIST PAGE---------------------------------*/
+#pg-adverts p{
+	margin-bottom: 0;
+}
 #pg-adverts .title{
 	width: 40px;
-	text-transform: Capitalize;
 }
 #pg-adverts .advert-list img{
 	width: 80%;
@@ -245,7 +248,7 @@ body{
 	color: #666;
 }
 #pg-adverts a:hover, #pg-adverts a:active{
-	color: #f7547a;
+	color: #666;
 	text-decoration: underline;
 }
 /*--------------------------AD DETAILS PAGE---------------------------------*/
@@ -414,4 +417,19 @@ body{
 }
 .grey-text{
 	color: #666;
+}
+.dark-bg{
+	color: #e9eef2;
+	background-color: #999;
+}
+.col-layout{
+	-webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -webkit-column-gap: 4em;
+     -moz-column-gap: 4em;
+          column-gap: 4em;
+    -webkit-column-rule: 1px solid #ddd;
+     -moz-column-rule: 1px solid #ddd;
+    column-rule: 1px solid #ddd;
 }

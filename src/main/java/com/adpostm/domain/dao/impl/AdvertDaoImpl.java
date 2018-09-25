@@ -22,18 +22,6 @@ public class AdvertDaoImpl extends GenericDaoImpl<Advert, Long> implements Adver
 		super(Advert.class);
 		em = super.getEntityManager();
 	}
-
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public List<Advert> findAll() {
-		return (List<Advert>)em
-					.createQuery("from Advert")
-					.getResultList();
-					
-	}
-
 	@Override
 	@Transactional
 	public List<Advert> findByCategory(String category) {

@@ -3,6 +3,8 @@ package com.adpostm.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.Order;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -92,6 +94,16 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	@Override
 	public boolean usernameValid(String username) {
 		return userDao.usernameValid(username);
+	}
+
+	@Override
+	public List<AppUser> findAll(Class<AppUser> clazz) {
+		return userDao.findAll(clazz);
+	}
+
+	@Override
+	public List<AppUser> findAll(Class<AppUser> clazz, boolean asc, String... orderBy) {
+		return userDao.findAll(clazz, asc, orderBy);
 	}
 
 }

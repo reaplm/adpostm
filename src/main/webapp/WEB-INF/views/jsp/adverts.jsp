@@ -9,23 +9,27 @@
 	<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
 	<jsp:include page="/WEB-INF/views/jspinc/searchbar.jsp" />
 	<div id="pg-adverts">
-		<div class="container">
+		<div class="container col-layout">
 	    	<c:if test="${fn: length(advertList) > 0}">
-	    		<hr />
+	    		<c:set scope="request" var="menuId" value="0" />
 				<c:forEach var="advert" items="${advertList}">
-					<div class="row mb-3 advert-list">	
-							<div class="col-sm-3">
-								<img src="<%=request.getContextPath()%>/resources/
-									images/no-image-icon.png"/>
-							</div>
-							<div class="col-sm-9" >
-								<h5><a href="/adpostm/advert/detail?id=${advert.getAdvertId()}" 
-									class="ad-dtl-link title">
-									${advert.advertDetail.getTitle()}</a></h5>
-									<p>${advert.advertDetail.getLocation()}</p>
-							 	<p>${advert.advertDetail.getBody()}</p>
-							 </div>
-					</div>
+					
+					<c:if test="${advert.menu.getMenuId() ne menuId}">
+						<h5 class="text-uppercase text-center  font-weight-bold dark-bg">
+							<c:out value = "${advert.menu.getMenuName()}"/>
+						</h5>
+						<c:set scope="request" var="menuId" value="${advert.menu.getMenuId()}" />
+					</c:if>
+					
+						<p class="text-uppercase text-left  font-weight-bold">
+							<a href="/adpostm/advert/detail?id=${advert.getAdvertId()}" 
+							class="ad-dtl-link title">
+							${advert.advertDetail.getTitle()}</a>
+						</p>
+						<p class="text-capitalize">${advert.advertDetail.getLocation()}</p>
+						<br />
+				 	<p class="text-capitalize">${advert.advertDetail.getBody()}</p>
+				
 					 <hr />
 				</c:forEach>
 						

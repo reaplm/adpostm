@@ -1,8 +1,16 @@
 package com.adpostm.domain.dao.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import com.adpostm.domain.dao.GenericDao;
@@ -52,11 +60,35 @@ public class GenericDaoImpl<T, PK extends Serializable>
 	public void delete(T persistentObject) throws Exception{
 		em.remove(persistentObject);
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<T> findAll(Class<T> clazz) {
+		return em
+				.createQuery("from " +
+					clazz.getSimpleName())
+				.getResultList();
+	}
 	public EntityManager getEntityManager() {
 		return this.em;
 	}
-
-	
-
+	@Override
+	public List<T> findAll(Class<T> clazz, boolean asc, String... orderBy) {
+		List<Order> orderList = new ArrayList<Order>();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<T> cq = cb.createQuery(clazz);
+		Root<T> advert = cq.from(clazz);
+		cq.select(advert);
+			
+		orderList = Arrays.asList(orderBy)
+							.stream()
+							.map(a -> advert.get(a))
+							.map(s -> asc? cb.asc(s):cb.desc(s))
+							.collect(Collectors.toList());
+		
+		cq.orderBy(orderList);
+		
+		return em.createQuery(cq).getResultList();
+		
+	}
 }
 //https://www.ibm.com/developerworks/java/library/j-genericdao/
