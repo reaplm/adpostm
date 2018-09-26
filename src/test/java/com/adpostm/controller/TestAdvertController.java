@@ -140,7 +140,7 @@ public class TestAdvertController {
 				);
 		
 		
-		Mockito.when(advertService.findAll(Advert.class,true,new String[]{"menuId"}))
+		Mockito.when(advertService.findAll(Advert.class,true,new String[]{"menu"}))
 			.thenReturn(advertList);
 		
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/advert/search")
@@ -235,6 +235,24 @@ public class TestAdvertController {
 								.andDo(MockMvcResultHandlers.print())
 								.andReturn();
 
+	}
+	@Test
+	public void  testUpdateStatus() throws Exception {		
+		Advert advert = new Advert.AdvertBuilder()
+									.setAdvertId(1L)
+									.setAdvertStatus(AdvertStatus.SUBMITTED)
+									.build();
+			
+		Mockito.when(advertService.read(Mockito.any())).thenReturn(advert);
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/advert/edit/status")
+								.param("checked", "true")
+								.param("id", "1"))
+								.andExpect(MockMvcResultMatchers.status().isOk())
+								.andExpect(MockMvcResultMatchers.content()
+										.contentType("text/plain;charset=ISO-8859-1"))
+								.andExpect(MockMvcResultMatchers.content().string("true"))
+								.andDo(MockMvcResultHandlers.print())
+								.andReturn();
 	}
 	private void setAuthentication() {
 		authentication.setAuthenticated(true);

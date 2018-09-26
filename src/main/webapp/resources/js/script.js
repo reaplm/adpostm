@@ -1,4 +1,25 @@
 /**
+ * 
+ * @param advertId
+ * @returns
+ */
+function UpdateAdStatus(advertId, element){
+	alert("checked is: " + element.checked);
+	$.ajax({
+		url: '/adpostm/advert/edit/status?id='+advertId+'&checked='+element.checked,
+		type: 'get',
+		dataType: 'json',
+		error: function(jqHxr,status,errorThrown){
+			alert("Sorry, an error occured.");
+		},
+		success: function(data){
+			alert("Response from server: " + data);
+			window.location.reload();
+		}
+	})
+}
+/**
+
  * Toggle between edit and save
  * @returns
  */

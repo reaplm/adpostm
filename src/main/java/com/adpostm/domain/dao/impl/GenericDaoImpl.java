@@ -78,7 +78,7 @@ public class GenericDaoImpl<T, PK extends Serializable>
 		CriteriaQuery<T> cq = cb.createQuery(clazz);
 		Root<T> advert = cq.from(clazz);
 		cq.select(advert);
-			
+		
 		orderList = Arrays.asList(orderBy)
 							.stream()
 							.map(a -> advert.get(a))

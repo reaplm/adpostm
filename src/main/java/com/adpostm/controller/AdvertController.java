@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.FormSubmitEvent.MethodType;
 
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.adpostm.domain.dao.AdvertDao;
 import com.adpostm.domain.enumerated.AdvertStatus;
 import com.adpostm.domain.model.AdPicture;
 import com.adpostm.domain.model.Advert;
@@ -157,7 +159,34 @@ public class AdvertController {
 			return advert;
 		}
 		
-		}
+	}
+	@RequestMapping(value="/advert/edit/status", method=RequestMethod.GET)
+	@ResponseBody
+	public String updateStatus(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("id")Long id, 
+			@RequestParam("checked")String checked) {
+		boolean success = false;		
+			try {
+				Advert advert = advertService.read(id);
+				
+				if(advert != null) {
+					if(checked.equals("true")) {
+						advert.setAdvertStatus(AdvertStatus.APPROVED);
+						advert.setApprovedDate(new Date(System.currentTimeMillis()));
+					}
+					else {
+						advert.setAdvertStatus(AdvertStatus.REJECTED);
+						advert.setRejectedDate(new Date(System.currentTimeMillis()));
+					}
+						advertService.update(advert);
+						success = true;
+				}
+			}
+			catch(Exception ex) {
+				System.out.println("Exception when updating status. " + ex);
+			}
+		return String.valueOf(success);
+	}
 	private List<AdPicture> getAdPictures(AdvertInfo advertInfo){
 		List<AdPicture> adPictures = new ArrayList<AdPicture>();
 

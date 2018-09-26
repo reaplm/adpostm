@@ -46,12 +46,14 @@
 											<fmt:formatDate value="${advert.getSubmittedDate()}" 
 												pattern="dd MMM yyyy" />
 										</td>
-										<td><input type="checkbox" name="advertStatus" 
+										<td><input type="checkbox" name="advertStatus" class="adStatusCheck"
 											 <c:if test="${advert.getAdvertStatus() == 'APPROVED'}">
 											 	checked="checked"
 											 </c:if>
-											 />
+											 onchange="UpdateAdStatus(${advert.getAdvertId()}, this)"
+											 class="round"/>
 										</td>
+										
 									</tr>
 									<%odd = !odd;%>
 								</c:forEach>
