@@ -26,6 +26,8 @@
 									<th>Status</th>
 									<th>Submitted</th>
 									<th>Approve</th>
+									<th>Edit</th>
+									<th>Delete</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -53,7 +55,9 @@
 											 onchange="UpdateAdStatus(${advert.getAdvertId()}, this)"
 											 class="round"/>
 										</td>
-										
+										<td>
+											<a href="/adpostm/advert/edit?id=${advert.getAdvertId()}">Edit</a>
+										</td>
 									</tr>
 									<%odd = !odd;%>
 								</c:forEach>
@@ -67,8 +71,9 @@
 		</div>
 		<br />
 		<div class="row">
-			<jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>
+			
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/jsp/postDetail.jsp"></jsp:include>
 </div>
+<jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>

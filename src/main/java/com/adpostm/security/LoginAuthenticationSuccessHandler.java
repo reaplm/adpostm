@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,10 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.AppUser;
+import com.adpostm.domain.model.Menu;
+import com.adpostm.service.MenuService;
 import com.adpostm.service.UserService;
 
 /**
@@ -35,6 +39,9 @@ public class LoginAuthenticationSuccessHandler
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	@Autowired
 	UserService userService;
+	@Autowired
+	MenuService menuService;
+	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication) 
@@ -71,6 +78,7 @@ public class LoginAuthenticationSuccessHandler
 		session.setAttribute("registrationDate", appUser.getRegistrationDate());
 		session.setAttribute("authorities", authentication.getAuthorities());
 		session.setAttribute("loggedIn", true);
+		
 		if(appUser.getUserDetail().getImageCdn() == null) {
 			session.setAttribute("profileImage",
 					"https://ucarecdn.com/d6ae93a9-bd2f-4ba2-a407-16dbd530a11b/ic_account_circle_black_36dp_2x.png");
@@ -78,6 +86,12 @@ public class LoginAuthenticationSuccessHandler
 		else
 			session.setAttribute("profileImage", appUser.getUserDetail().getImageCdn());
 		
+		//Menu Items
+		List<Menu> menuList = menuService.getMenuList().stream()
+								.filter(s -> s.getMenuType().equals(MenuType.HOME))
+								.collect(Collectors.toList());
+		
+		session.setAttribute("menuList", menuList);
 		
 		if(response.isCommitted())
 			return;
@@ -107,5 +121,8 @@ public class LoginAuthenticationSuccessHandler
 		if(roles.contains("ROLE_USER"))
 			return true;
 		else return false;
+	}
+	private void setSessionAttributes() {
+		
 	}
 }

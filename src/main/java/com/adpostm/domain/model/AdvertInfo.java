@@ -3,6 +3,7 @@ package com.adpostm.domain.model;
 import java.util.List;
 
 public class AdvertInfo {
+	private Long advertId;
 	private Long menuId;
 	private Long subMenuId;
 	private String location;
@@ -23,6 +24,12 @@ public class AdvertInfo {
 	private int groupCount;
 	private Long groupSize;
 	
+	public void setAdvertId(Long advertId) {
+		this.advertId = advertId;
+	}
+	public Long getAdvertId() {
+		return this.advertId;
+	}
 	public void setMenuId(Long menuId) {
 		this.menuId = menuId;
 	}
@@ -56,7 +63,7 @@ public class AdvertInfo {
 	public void setContactNo(String contactNo) {
 		this.contactNo = contactNo;
 	}
-	public String getcontactNo() {
+	public String getContactNo() {
 		return this.contactNo;
 	}
 	public void setContactEmail(String contactEmail) {

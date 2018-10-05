@@ -1,3 +1,6 @@
+function CloseEditAd(){
+	window.location = "/adpostm/admin/posts";
+}
 /**
  * 
  * @param advertId
@@ -51,6 +54,7 @@ function openUploadCareDialog(currfile){
 			 });
 		 });
 }
+
 function UpdateProfileImage(cdnUrl, name, uuid){
 	var imageData = {cdnUrl: cdnUrl, name: name, uuid: uuid};
 	$.ajax({
@@ -91,26 +95,7 @@ function GetUserDetail(url, callback){
 		}
 	});
 }
-function SubmitAdvert(){
-	var formData = $("#add-advert-form").serializeArray();
-	var url = $("#add-advert-form").attr("action");
-	
-	$.ajax({
-		url: url,
-		type: "post",
-		data: formData,
-		error: function(jqXhr, textStatus, errorThrown){
-			alert("Failed to submit advert.")
-		},
-		success: function(data){
-			if(data == "success"){
-				alert("Advert successfully submitted!");
-				window.location = '/adpostm/advert/search?search=&s-category=-1';
-			}
-			else{alert("Failed to submit advert.")}
-		}
-	});
-}
+
 /**
  * Ajax call to fetch menu details
  * @param url
@@ -178,7 +163,46 @@ function GetAdvertDetail(url, callback){
 	});
 }
 //============================================SUBMIT===============================
-
+function SubmitAdvert(){
+	var formData = $("#add-advert-form").serializeArray();
+	var url = $("#add-advert-form").attr("action");
+	
+	$.ajax({
+		url: url,
+		type: "post",
+		data: formData,
+		error: function(jqXhr, textStatus, errorThrown){
+			alert("Failed to submit advert.")
+		},
+		success: function(data){
+			if(data == "success"){
+				alert("Advert successfully submitted!");
+				window.location = '/adpostm/advert/search?search=&s-category=-1';
+			}
+			else{alert("Failed to submit advert.")}
+		}
+	});
+}
+function SubmitEditAdvert(){
+	var formData = $("#edit-advert-form").serializeArray();
+	var url = $("#edit-advert-form").attr("action");
+	
+	$.ajax({
+		url: url,
+		type: "post",
+		data: formData,
+		error: function(jqXhr, textStatus, errorThrown){
+			alert("Failed to submit advert.")
+		},
+		success: function(data){
+			if(data == "success"){
+				alert("Advert successfully submitted!");
+				window.location.reload();
+			}
+			else{alert("Failed to submit advert.")}
+		}
+	});
+}
 function SubmitUpdateMenu(url, data){
 	$.ajax({
 		type: "post",
@@ -414,6 +438,39 @@ function ValidateSubmitAdvert(){
 		SubmitAdvert();
 	}
 }
+function ValidateEditAdvert(){
+	var validator = $("#edit-advert-form").validate({
+		errorClass: "form-control-danger",
+		rules:{
+			menuId:{
+				required: true
+			},
+			subMenuId:{
+				required: true
+			},
+			subject:{
+				required: true
+			},
+			body:{
+				required: true
+			},
+			contactNo:{
+				required: true
+			},
+			contactEmail:{
+				required: false,
+				email: true
+			}
+		},
+		errorPlacement: function() {
+	        return false;//prevent display of error message
+	    }
+		
+	});
+	if(validator.form()){
+		SubmitEditAdvert();
+	}
+}
 //==================================================================
 function SaveActiveAcc(active){
 	var dataStore = window.sessionStorage;
@@ -434,6 +491,7 @@ function OpenActiveAcc(){
 }
 window.onload = function() {
 	 //OpenActiveAcc();
+	
 }
 function FillMenuSelect(element, menuList, title){
 	if(menuList.length > 0){
@@ -459,7 +517,7 @@ $(document).ready(
 		if($("#search-bar").is(":visible")){
 			//get category menu
 			GetMenuList("/adpostm/menus?type=home", function(menuList){
-				FillMenuSelect("#s-category", menuList, "category");
+				FillMenuSelect("#s-category", menuList, "select category");
 			});
 		}
 		if($("#add-advert-form").is(":visible")){
@@ -468,10 +526,12 @@ $(document).ready(
 				FillMenuSelect("#menuId", menuList, "category");
 			});
 		}
+		
+
 	$("#menuId").on("change", function(e){
 		var selectedId = $("#menuId").val();
 		GetSubMenu("/adpostm/menus/submenus?parentId="+selectedId, function(menuList){
-			FillMenuSelect("#subMenuId", menuList, "sub-category");
+			FillMenuSelect("#menuId", menuList, "Select Category");
 		});
 	});
 //=============================dialogs=============================================		
@@ -666,6 +726,9 @@ $(document).ready(
 			$("#contact-edit-modal").modal("toggle");
 			window.location.reload();
 		});
+		$(document).on("click", "#close-ad-edit", function(){
+			window.location = "/adpostm/admin/posts";
+		});
 		//===================================UPLOADCARE WIDGET ONCHANGE=================================
 		if($("#add-advert-form").is(":visible")){
 			var multiWidget = uploadcare.MultipleWidget('#uploadcareWidget');
@@ -723,8 +786,65 @@ $(document).ready(
 				}
 			});
 		}
-
-		
-//=====================================================================================================
+		if($("#edit-advert-form").is(":visible")){
+			var element = document.getElementById("groupUuid");
+			var multiWidget = uploadcare.MultipleWidget('#editAdWidget');
+			multiWidget.value(element.value);
+			
+			var groupUuid = document.getElementById("groupUuid");
+			
+			multiWidget.onUploadComplete(function(group){
+				if(group){
+					group;
+					
+					groupUuid.value = group.uuid;
+					
+					$("#edit-advert-form").append(
+							"<input type='hidden' name='groupCdnUrl' " +
+							"value='" + group.cdnUrl + "' path='groupCdnUrl'/>"
+					);
+					$("#edit-advert-form").append(
+							"<input type='hidden' name='groupCount' " +
+							"value='" + group.count + "' path='groupCount'/>"
+					);
+					$("#edit-advert-form").append(
+							"<input type='hidden' name='groupSize' " +
+							"value='" + group.size + "' path='groupSize'/>"
+					);
+				}
+			});
+			multiWidget.onChange(function(group){
+				
+				
+				if(group){
+					group;
+					group.files();
+					
+					$.when.apply(null, group.files()).then(
+						function(){
+							var filesInfo = arguments;
+							for(i=0; i< filesInfo.length; i++){
+								$("#edit-advert-form").append(
+										"<input type='hidden' name='imageUuid[" + i + "]'" +
+										"value='"+filesInfo[i].uuid+"' path='imageUuid'/>"
+								);
+								$("#edit-advert-form").append(
+										"<input type='hidden' name='imageCdnUrl[" + i + "]'" +
+										"value='"+filesInfo[i].cdnUrl+"' path='imageCdnUrl'/>"
+								);
+								$("#edit-advert-form").append(
+										"<input type='hidden' name='imageSize[" + i + "]'" +
+										"value='"+filesInfo[i].size+"' path='imageSize'/>"
+								);
+								$("#edit-advert-form").append(
+										"<input type='hidden' name='imageName[" + i + "]'" +
+										"value='"+filesInfo[i].name+"' path='imageName'/>"
+								);
+							}
+						}
+					);	
+				}
+			});
+		}
 	}
 );

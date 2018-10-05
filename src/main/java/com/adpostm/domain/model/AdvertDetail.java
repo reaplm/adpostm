@@ -75,7 +75,7 @@ public class AdvertDetail {
 	public String getBody() {
 		return this.body;
 	}
-	public void setContactEmaily(String contactEmail) {
+	public void setContactEmail(String contactEmail) {
 		this.contactEmail = contactEmail;
 	}
 	public String getContactEmail() {
@@ -174,7 +174,7 @@ public class AdvertDetail {
 			this.body = body;
 			return this;
 		}
-		public AdvertDetailBuilder setContactEmaily(String contactEmail) {
+		public AdvertDetailBuilder setContactEmail(String contactEmail) {
 			this.contactEmail = contactEmail;
 			return this;
 		}

@@ -52,8 +52,9 @@ public class GenericDaoImpl<T, PK extends Serializable>
 	@Override
 	@Transactional(rollbackOn=RuntimeException.class)
 	public void update(T transientObject) throws Exception{
-		//getSession().update(transientObject);		
+		em.getTransaction().begin();
 		em.merge(transientObject);
+		em.getTransaction().commit();
 	}
 	@Override
 	@Transactional
