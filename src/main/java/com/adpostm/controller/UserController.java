@@ -2,6 +2,7 @@ package com.adpostm.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.adpostm.domain.model.Address;
 import com.adpostm.domain.model.AppUser;
@@ -132,4 +134,5 @@ public class UserController {
 		AppUser appUser = userService.read(id);
 		return appUser;
 	}
+	
 }

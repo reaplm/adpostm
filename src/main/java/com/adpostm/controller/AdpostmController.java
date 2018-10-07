@@ -101,11 +101,14 @@ public class AdpostmController {
 		return model;
 	}
 	@RequestMapping(value="/admin/users")
-	public ModelAndView users(){
-		ModelAndView model = new ModelAndView("users");
-		List<Menu> menus= getMenuByType("sidebar");
-		model.addObject("sideMenu", menus);
-		return model;
+	public ModelAndView getUsers() {
+		ModelAndView mav = new ModelAndView("users");
+		mav.addObject("users", getAllUsers());
+		mav.addObject("sideMenu", getMenuByType("sidebar"));
+		return mav;
+	}
+	private List<AppUser> getAllUsers() {
+		return userService.findAll(AppUser.class, true, new String[] {"appUserId"});
 	}
 	private List<Menu> getMenuByType(String type){
 		return iMenuService.getMenuByType(type);
