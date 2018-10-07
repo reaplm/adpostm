@@ -40,10 +40,8 @@
 			</div>
 		</div>
 		<br />
-		<div class="row">
-			 <jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>
-		</div>
 	</div>
+	<jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/jsp/editMenuForm.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/jsp/newMenuForm.jsp"></jsp:include>
 </div>

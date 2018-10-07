@@ -14,9 +14,6 @@
 			</div>
 		</div>
 		<br />
-		<div class="row">
-			<jsp:include page="/WEB-INF/views/jspinc/footer.jsp" />
-		</div>
 	</div>
-	
+	<jsp:include page="/WEB-INF/views/jspinc/footer.jsp" />
 </div>

@@ -1,43 +1,54 @@
 		<div class="footer">
 			<div class="row">	
-				<div class="col-sm-4 d-flex  align-items-center justify-content-center social-links">
-					<a href="#" class="align-center">
-						<img src="<%=request.getContextPath()%>/resources/images/
-							twitter-logo-silhouette.png" 
-							/> 
-					</a>
-					<a href="#">
-						<img src="<%=request.getContextPath()%>/resources/images/
-						facebook-logo_1.png"/> 
-					</a>
+				<div class="col-sm-4">
+	
 				</div>
-				<div class="col-sm-4" >
-					<h3>About</h3>
+				<div class="col-sm-4">
 
 		
 					
 				</div>
-				<div class="col-sm-4">
-						<h3>Contact</h3>
-						<!-- 
+				<div class="col-sm-4">				
 					<div>
 					<img src="<%=request.getContextPath()%>/resources/images/
-					locate-places-on-maps.png" /> 
+					placeholder.png" /> 
 						Gaborone
 					</div>
 					<div>
 					<img src="<%=request.getContextPath()%>/resources/images/
-						phone-receiver_p.png" /> +267 ....
+						old-telephone-ringing.png" /> +267 71406569
 					</div>
 					<div>
 					<img src="<%=request.getContextPath()%>/resources/images/
 						close-envelope.png"/> pdm.molefe@gmail.com
-					</div> -->
+					</div> 
+					<div>
+					<img src="<%=request.getContextPath()%>/resources/images/
+						skype.png"/> pearl.molefe
+					</div> 
+				</div>
+				
+			</div>
+			<div class="row d-flex  justify-content-center pt-4">
+				<div class="social-links">
+					<a href="#">
+						<img src="<%=request.getContextPath()%>/resources/images/
+							twitter-circular.png" 
+							/> 
+					</a>
+					<a href="#">
+						<img src="<%=request.getContextPath()%>/resources/images/
+						facebook-logo.png"/> 
+					</a>
+					<a href="#">
+						<img src="<%=request.getContextPath()%>/resources/images/
+						pinterest-social.png"/> 
+					</a>
 				</div>
 			</div>
 			<br>
 			<div class="card footer-footer">
-				<p>&copy;  Pearl Molefe 2017</p>
+				<p>&copy;  Pearl Molefe 2018</p>
 			</div>
 		</div>
 		

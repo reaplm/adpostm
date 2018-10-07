@@ -18,13 +18,9 @@
 			<a class="navbar-brand" href="/adpostm/home">ADPOST</a>
 			<ul class="navbar-nav collapse" id="admin-menu-toggle">
 				<sec:authorize access="hasAnyRole('ADMIN','USER')">
-					<li class="nav-item"><a href="/adpostm/home" class="nav-link">
-						<i class="material-icons">home</i>
-					</a>
-					</li>
-					<li class="nav-item"><a href="/adpostm/logout"
-						class="nav-link"><i class="material-icons">settings_power</i></a></li>
-
+					<li class="nav-item"><a href="/adpostm/home" class="nav-link">home</a></li>
+					<li class="nav-item"><a href="/adpostm/logout"class="nav-link">settings</a></li>
+					<li class="nav-item"><a href="/adpostm/logout"class="nav-link">logout</a></li>
 				</sec:authorize>
 			</ul>
 		</div>

@@ -70,9 +70,6 @@
 			</div>
 		</div>
 		<br />
-		<div class="row">
-			
-		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/jsp/postDetail.jsp"></jsp:include>
 </div>
