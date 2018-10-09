@@ -6,7 +6,7 @@
 			
 		</a>
 			<form id="form-search" action="/adpostm/advert/search" method="get" class="form-inline float-right">
-					<input id="search" class = "form-control" placeholder="search"  name="search"/>
+					<input id="search" class = "form-control" placeholder="search"  name="search" value="${search}"/>
 					<select id="s-category" class = "form-control" name="s-category">
 						
 					</select>

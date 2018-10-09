@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.Field;
 
 import com.adpostm.domain.enumerated.MenuType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -27,8 +28,11 @@ public class Menu {
 	@GeneratedValue
 	@Column(name="pk_menu_id")
 	private Long menuId;
+	
+	@Field
 	@Column(name="menu_name")
 	private String menuName;
+	
 	@Column(name="menu_desc")
 	private String menuDesc;
 	private String label;

@@ -18,6 +18,9 @@
 			
 			<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
 				<li class="nav-item">
+						<a href="/adpostm/home" class="nav-link">home</a>
+					</li>
+				<li class="nav-item">
 					<a href="/adpostm/advert/search?search=&s-category=-1" class="nav-link">classifieds</a>
 				</li>
 				<li class="nav-item">

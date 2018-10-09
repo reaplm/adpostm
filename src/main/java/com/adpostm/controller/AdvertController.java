@@ -55,6 +55,7 @@ public class AdvertController {
 	public ModelAndView getAdverts(HttpServletRequest request,
 			HttpServletResponse response){
 			ModelAndView modelAndView = new ModelAndView("adverts");
+			modelAndView.addObject("search", request.getParameter("search"));
 			String search = request.getParameter("search");
 			String category = request.getParameter("s-category");
 			
@@ -71,13 +72,21 @@ public class AdvertController {
 								+search+"' did not return anything");
 					}
 				}
-
-				else
-					modelAndView.addObject("advertList", advertService.search(search, menuId));
-				
-			}catch(InterruptedException ex) {
-				System.out.println("Exception caught during search: " + ex);
-				modelAndView.addObject("searchError", "Error occured during search");
+				else if(search.isEmpty() && menuId > 0) {}
+				else if(!search.isEmpty()  && menuId == -1) {
+					advertList = advertService.search(search)
+							.stream()
+							.sorted((a1, a2) -> a1.getMenu().getMenuName()
+									.compareTo(a2.getMenu().getMenuName()))
+							.collect(Collectors.toList());
+					
+					modelAndView.addObject("advertList", advertList);
+				}
+				else if(!search.isEmpty() && menuId > 0) {
+					advertList = advertService.search(search, menuId);
+					
+					modelAndView.addObject("advertList", advertList);
+				}
 			}
 			catch(NumberFormatException ex) {
 				System.out.println("Exception caught during search: " + ex);

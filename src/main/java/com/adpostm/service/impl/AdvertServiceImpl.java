@@ -43,14 +43,6 @@ public class AdvertServiceImpl implements AdvertService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<Advert> search(String searchText, Long category) 
-			throws InterruptedException {
-		return advertDao.search(searchText, category);
-
-	}
-
 	@Override
 	public List<Advert> findAll(Class<Advert> clazz) {
 		return advertDao.findAll(clazz);
@@ -59,6 +51,16 @@ public class AdvertServiceImpl implements AdvertService{
 	@Override
 	public List<Advert> findAll(Class<Advert> clazz, boolean asc, String... orderBy) {
 		return advertDao.findAll(clazz, asc, orderBy);
+	}
+
+	@Override
+	public List<Advert> search(String searchText) {
+		return advertDao.search(searchText);
+	}
+
+	@Override
+	public List<Advert> search(String searchText, Long category) {
+		return advertDao.search(searchText, category);
 	}
 
 }

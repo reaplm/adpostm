@@ -23,7 +23,11 @@
 							<div class="clearfix">
 								<img src="<%=request.getContextPath()%>/resources/
 									images/menu/${menu.getIcon()}" class="float-left"/>
-							<h5 class="pt-2"><a href="${menu.getUrl()}">${menu.getMenuName()}</a></h5>
+								<h5 class="pt-2">
+									<a href="/adpostm/advert/search?search=&s-category=${menu.getMenuId()}">
+										${menu.getMenuName()}
+									</a>
+								</h5>
 							</div>
 						
 						<c:forEach items="${menu.subMenu}" var="subMenu">

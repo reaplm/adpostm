@@ -251,6 +251,9 @@ body{
 	color: #666;
 	text-decoration: underline;
 }
+#pg-adverts .container{
+	min-height: 300px;
+}
 /*--------------------------AD DETAILS PAGE---------------------------------*/
 .ad-dtl-pictures .fade{
 	-webkit-animation-name: fade;
@@ -432,14 +435,20 @@ body{
 }
 .col-layout{
 	-webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
-    -webkit-column-gap: 4em;
-     -moz-column-gap: 4em;
-          column-gap: 4em;
-    -webkit-column-rule: 1px solid #ddd;
-     -moz-column-rule: 1px solid #ddd;
-    column-rule: 1px solid #ddd;
+	-moz-column-count: 3;
+	column-count: 3;
+	-webkit-column-gap: 4em;
+	-moz-column-gap: 4em;
+	column-gap: 4em;
+	-webkit-column-rule: 1px solid #ddd;
+	-moz-column-rule: 1px solid #ddd;
+	column-rule: 1px solid #ddd;
+	
+}
+.col-fill-auto{
+	-webkit-column-fill: auto;
+	-moz-column-fill: auto;
+	column-fill: auto;
 }
 .img-thumb{
 	 width: 200px; 

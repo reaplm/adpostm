@@ -13,8 +13,12 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import org.hibernate.search.Search;
+import org.hibernate.search.jpa.FullTextEntityManager;
+
 import com.adpostm.domain.dao.GenericDao;
 import com.adpostm.domain.enumerated.PersistenceManager;
+import com.mysql.cj.api.Session;
 
 public class GenericDaoImpl<T, PK extends Serializable>
 	implements GenericDao<T, PK>{
@@ -23,9 +27,10 @@ public class GenericDaoImpl<T, PK extends Serializable>
 
 	EntityManager em;
 	
-	public GenericDaoImpl(Class<T> type) {
+	public GenericDaoImpl(Class<T> type){
 		this.type = type;
 		setEntityManager();
+		createInitialIndex();
 	}
 	public void setEntityManager() {
         this.em = PersistenceManager.INSTANCE.getEntityManager();
@@ -69,9 +74,6 @@ public class GenericDaoImpl<T, PK extends Serializable>
 					clazz.getSimpleName())
 				.getResultList();
 	}
-	public EntityManager getEntityManager() {
-		return this.em;
-	}
 	@Override
 	public List<T> findAll(Class<T> clazz, boolean asc, String... orderBy) {
 		List<Order> orderList = new ArrayList<Order>();
@@ -90,6 +92,20 @@ public class GenericDaoImpl<T, PK extends Serializable>
 		
 		return em.createQuery(cq).getResultList();
 		
+	}
+	public EntityManager getEntityManager() {
+		return this.em;
+	}
+	private void createInitialIndex() {
+		try {
+			FullTextEntityManager fullTextEntityManager = 
+				Search.getFullTextSession(em.unwrap(org.hibernate.Session.class));
+		
+			fullTextEntityManager.createIndexer().startAndWait();
+		} catch (InterruptedException e) {
+			System.out.println("Exception creating index.");
+			e.printStackTrace();
+		}
 	}
 }
 //https://www.ibm.com/developerworks/java/library/j-genericdao/

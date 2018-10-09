@@ -28,7 +28,7 @@ public class AdvertDetail {
 	@Column(name="pk_detail_id")
 	private Long detailId;
 	
-	//@Field //defaults: index=Index.YES, analyze=Analyze.YES and store=Store.NO 
+	@Field //defaults: index=Index.YES, analyze=Analyze.YES and store=Store.NO 
 	private String title;
 	
 	@Field

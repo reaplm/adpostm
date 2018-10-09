@@ -9,7 +9,7 @@ import com.adpostm.domain.model.AdvertDetail;
 
 public interface AdvertService extends GenericDao<Advert, Long>{
 	public List<Advert> findByCategory(String category);
-	public List<Advert> search(String searchText, Long category) 
-			throws InterruptedException;
+	public List<Advert> search(String searchText);
+	public List<Advert> search(String searchText, Long category);
 
 }

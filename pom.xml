@@ -83,7 +83,18 @@
 	    <artifactId>hibernate-entitymanager</artifactId>
 	    <version>${hibernate.version}</version>
 	</dependency>
-    
+    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-orm -->
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-search-orm</artifactId>
+	    <version>5.10.4.Final</version>
+	</dependency>
+	<dependency>
+   		<groupId>org.hibernate</groupId>
+	   <artifactId>hibernate-search-elasticsearch</artifactId>
+	   <version>5.10.4.Final</version>
+	</dependency>
+	
     <!-- SPRING -->
     <dependency>
     	<groupId>org.springframework</groupId>
@@ -190,12 +201,8 @@
 	</dependency>
 	
 	<!-- Indexed Search -->
-	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-orm -->
-	<dependency>
-	    <groupId>org.hibernate</groupId>
-	    <artifactId>hibernate-search-orm</artifactId>
-	    <version>5.10.3.Final</version>
-	</dependency>
+	
+	
 	<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
 	<dependency>
 	    <groupId>org.slf4j</groupId>

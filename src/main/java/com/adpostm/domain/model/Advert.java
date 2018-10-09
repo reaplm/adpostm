@@ -16,14 +16,12 @@ import javax.persistence.Table;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
-//import org.hibernate.search.annotations.Indexed;
-
 import com.adpostm.domain.enumerated.AdvertStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-//@Indexed
+@Indexed
 @Table(name="advert")
 public class Advert {
 	@Id
@@ -31,12 +29,13 @@ public class Advert {
 	@Column(name="pk_advert_id")
 	private Long advertId;
 	
-	//@IndexedEmbedded
+	@IndexedEmbedded
 	@OneToOne(mappedBy="advert", cascade=CascadeType.ALL,
 			fetch=FetchType.EAGER)
 	@JsonManagedReference
 	private AdvertDetail advertDetail;
 	
+	@IndexedEmbedded
 	@ManyToOne
 	@JoinColumn(name="fk_menu_id", nullable=false)
 	@JsonBackReference
