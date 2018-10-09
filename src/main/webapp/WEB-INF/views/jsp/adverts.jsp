@@ -9,7 +9,8 @@
 	<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
 	<jsp:include page="/WEB-INF/views/jspinc/searchbar.jsp" />
 	<div id="pg-adverts">
-		<div class="container col-layout col-fill-auto">
+		<div class="container">
+			<div class="col-layout">
 	    	<c:if test="${fn: length(advertList) > 0}">
 	    		<c:set scope="request" var="menuId" value="0" />
 				<c:forEach var="advert" items="${advertList}">
@@ -35,6 +36,7 @@
 						
 			</c:if>											
 			</div>
+		</div>
 		</div>
 	<jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/jsp/postDetail.jsp"></jsp:include>
