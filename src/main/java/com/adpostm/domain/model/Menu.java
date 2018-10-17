@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.hibernate.search.annotations.Field;
 
+import com.adpostm.domain.enumerated.MenuStatus;
 import com.adpostm.domain.enumerated.MenuType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -42,6 +43,11 @@ public class Menu {
 	@Enumerated(EnumType.STRING)
 	@Column(name="menu_type")
 	private MenuType menuType;
+	
+	@Column(name="menu_status")
+	private int menuStatus = 1;
+	@Column(name="admin_menu")
+	private int adminMenu = 1;
 	
 	@OneToMany(mappedBy="menu", 
 			cascade=CascadeType.REMOVE)
@@ -112,6 +118,18 @@ public class Menu {
 	public void setMenuType(MenuType menuType) {
 		this.menuType = menuType;
 	}
+	public int getAdminMenu(){
+		return this.adminMenu;
+	}
+	public void setAdminMenu(int adminMenu){
+		this.adminMenu = adminMenu;
+	}
+	public int getMenuStatus(){
+		return this.menuStatus;
+	}
+	public void setMenuStatus(int menuStatus){
+		this.menuStatus = menuStatus;
+	}
 	public List<Advert> getAdverts() {
 		return this.adverts;
 	}
@@ -130,6 +148,8 @@ public class Menu {
 		 this.subMenu = menuBuilder.subMenu;
 		 this.menu = menuBuilder.menu;
 		 this.adverts = menuBuilder.adverts;
+		 this.adminMenu = menuBuilder.adminMenu;
+		 this.menuStatus = menuBuilder.menuStatus;
 		 
 	 }
 	
@@ -141,7 +161,9 @@ public class Menu {
 		private String label;
 		private String url;
 		private String icon;
+		private int adminMenu = 1;
 		private MenuType menuType;
+		private int menuStatus;
 		private List<Menu> subMenu;
 		private Menu menu;
 		private List<Advert> adverts;
@@ -180,6 +202,14 @@ public class Menu {
 		}
 		public MenuBuilder setMenuType(MenuType menuType) {
 			this.menuType = menuType;
+			return this;
+		}
+		public MenuBuilder setMenuStatus(int menuStatus) {
+			this.menuStatus = menuStatus;
+			return this;
+		}
+		public MenuBuilder setAdminMenu(int adminMenu){
+			this.adminMenu = adminMenu;
 			return this;
 		}
 		public MenuBuilder setAdverts(List<Advert> adverts) {

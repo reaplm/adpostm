@@ -232,9 +232,8 @@ body{
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-top: 20px;
-	height: 300px;
 }
-#pg-adverts .container{height: 100%;}
+#pg-adverts .container{height: 300px;}
 /*--------------------------AD LIST PAGE---------------------------------*/
 #pg-adverts p{
 	margin-bottom: 0;
@@ -410,6 +409,7 @@ body{
 #pg-menu-admin img, #pg-menu-category img{
 	width: 45px;
 }	
+
 .navbar-toggler-icon{
 	color: #2c2a33;
 }
@@ -462,4 +462,11 @@ body{
 	color: #fff;
     width: 200px;
 	height: 45px;
+}
+
+.td-md{
+	width: 20%;
+}
+.td-sm{
+	width: 10%;
 }

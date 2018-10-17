@@ -4,8 +4,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div id="pg-menu-admin">
-		<c:if test="${fn: length(adminMenu) > 0}">
-		<c:forEach items="${adminMenu}" var="admin">
+		<c:if test="${fn: length(sideMenu) > 0}">
+		<c:forEach items="${sideMenu}" var="admin">
 			<div class="clearfix mt-2">
 				<img src="<%=request.getContextPath()%>/resources/
 						images/menu/${admin.getIcon()}" class="float-left" />
@@ -13,6 +13,12 @@
 					<a href="/adpostm/menus/detail?id=${admin.getMenuId()}" 
 					class="dtl-link text-capitalize">${admin.getMenuName()}</a>
 				</h5>
+				<input type="checkbox" class="float-right"
+					<c:if test="${admin.getMenuStatus() == 1}">
+						checked="checked"
+					</c:if>
+					onchange="UpdateMenuStatus(${admin.getMenuId()}, this)"
+				/>
 			</div>
 			<c:if test="${fn: length(admin.getSubMenu()) > 0}">
 				<table class="w-100">
@@ -22,6 +28,8 @@
 							<th>Description</th>
 							<th>Url</th>
 							<th>Label</th>
+							<th>Admin Only</th>
+							<th>Active</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -32,11 +40,28 @@
 								<%}else{ %>
 								<tr class="even-row">
 								<%} %>
-									<td class="text-capitalize pl-1 w-25"><a href="/adpostm/menus/sub/detail?id=${adminSub.getMenuId()}" 
+									<td class="text-capitalize  td-md"><a href="/adpostm/menus/sub/detail?id=${adminSub.getMenuId()}" 
 										class="dtl-link">${adminSub.getMenuName()}</a></td>
-									<td class="w-25">${adminSub.getMenuDesc()}</td>
-									<td class="w-25">${adminSub.getUrl()}</td>
-									<td class="w-25">${adminSub.getLabel()}</td>
+									<td class="td-md">${adminSub.getMenuDesc()}</td>
+									<td class="td-md">${adminSub.getUrl()}</td>
+									<td class="td-md">${adminSub.getLabel()}</td>
+									<td class="td-sm">
+									<input type="checkbox" class="subMenuCheck"
+										<c:if test="${adminSub.getAdminMenu() == 1}">
+											checked="checked"
+										</c:if>
+										onchange="UpdateMenuAdmin(${adminSub.getMenuId()}, this)"
+									/>
+								</td>
+								<td class="td-sm">
+									<input type="checkbox" class="subMenuCheck"
+										<c:if test="${adminSub.getMenuStatus() == 1}">
+											checked="checked"
+										</c:if>
+										onchange="UpdateMenuStatus(${adminSub.getMenuId()}, this)"
+									/>
+				
+								</td>
 								</tr>
 								<%odd=!odd; %>
 							</c:forEach>

@@ -22,7 +22,7 @@ import com.adpostm.service.UserService;
 @Controller
 public class AdpostmController {
 	@Autowired
-	private MenuService iMenuService;
+	private MenuService menuService;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -31,8 +31,6 @@ public class AdpostmController {
 	@RequestMapping(value="/home")
 	public ModelAndView home(){
 		ModelAndView modelAndView = new ModelAndView("home");
-		List<Menu> menus = getMenuByType("home");
-		modelAndView.addObject("menus", menus);
 		return modelAndView;
 	}
 	
@@ -40,7 +38,6 @@ public class AdpostmController {
 	public ModelAndView profile(HttpServletRequest request, 
 			HttpServletResponse response){
 		ModelAndView modelAndView = new ModelAndView("profile");
-		List<Menu> menus= getMenuByType("sidebar");
 		HttpSession session = request.getSession();
 		String username = (String)session.getAttribute("username");
 		AppUser user = null;
@@ -49,7 +46,6 @@ public class AdpostmController {
 			user = userService.getUserByUsername(username);
 
 		modelAndView.addObject("user", user);
-		modelAndView.addObject("sideMenu", menus);
 		modelAndView.addObject("address", new Address());
 		return modelAndView;
 	}
@@ -63,39 +59,29 @@ public class AdpostmController {
 	@RequestMapping(value="/admin/communication")
 	public ModelAndView communication(){
 		ModelAndView modelAndView = new ModelAndView("communication");
-		List<Menu> menus= getMenuByType("sidebar");
-		modelAndView.addObject("sideMenu", menus);
 		return modelAndView;
 	}
 	@RequestMapping(value="/admin/activity")
 	public ModelAndView activity(){
 		ModelAndView modelAndView = new ModelAndView("activity");
-		List<Menu> menus= getMenuByType("sidebar");
-		modelAndView.addObject("sideMenu", menus);
 		return modelAndView;
 	}
 	@RequestMapping(value="/admin/dashboard")
 	public ModelAndView admin(){
 		ModelAndView modelAndView = new ModelAndView("dashboard");
-		List<Menu> menus= getMenuByType("sidebar");
-		modelAndView.addObject("sideMenu", menus);
+
 		return modelAndView;
 	}
 	@RequestMapping(value="/admin/menus")
 	public ModelAndView menus(){
 		ModelAndView model = new ModelAndView("menus");
-		model.addObject("catMenu", getMenuByType("home"));
-		model.addObject("adminMenu", getMenuByType("sidebar"));
-		List<Menu> menus= getMenuByType("sidebar");
-		model.addObject("sideMenu", menus);
+		model.addObject("menu", new Menu.MenuBuilder());
 		return model;
 	}
 	@RequestMapping(value="/admin/posts")
 	public ModelAndView posts(){
 		ModelAndView model = new ModelAndView("posts");
 		List<Advert> adverts = getAdverts();
-		List<Menu> menus= getMenuByType("sidebar");
-		model.addObject("sideMenu", menus);
 		model.addObject("adverts", adverts);
 
 		return model;
@@ -111,7 +97,7 @@ public class AdpostmController {
 		return userService.findAll(AppUser.class, true, new String[] {"appUserId"});
 	}
 	private List<Menu> getMenuByType(String type){
-		return iMenuService.getMenuByType(type);
+		return menuService.getMenuByType(type);
 	}
 	private List<Advert> getAdverts(){
 		return advertService.findAll(Advert.class);

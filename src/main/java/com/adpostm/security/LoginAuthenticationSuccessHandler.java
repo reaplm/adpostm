@@ -87,11 +87,16 @@ public class LoginAuthenticationSuccessHandler
 			session.setAttribute("profileImage", appUser.getUserDetail().getImageCdn());
 		
 		//Menu Items
-		List<Menu> menuList = menuService.getMenuList().stream()
-								.filter(s -> s.getMenuType().equals(MenuType.HOME))
+		List<Menu> menuList = menuService.findAll(Menu.class);
+		List<Menu> homeMenu = menuList.stream()
+								.filter(s -> s.getMenuType().equals(MenuType.valueOf("HOME")))
 								.collect(Collectors.toList());
+		List<Menu> sideMenu = menuList.stream()
+				.filter(s -> s.getMenuType().equals(MenuType.valueOf("SIDEBAR")))
+				.collect(Collectors.toList());
 		
-		session.setAttribute("menuList", menuList);
+		session.setAttribute("homeMenu", homeMenu);
+		session.setAttribute("sideMenu", sideMenu);
 		
 		if(response.isCommitted())
 			return;

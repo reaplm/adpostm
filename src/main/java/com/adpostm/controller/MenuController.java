@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,9 +69,11 @@ public class MenuController {
 	@ResponseBody
 	public String submitEditMenu(HttpServletRequest request,
 			HttpServletResponse response, @ModelAttribute("menu") Menu menu) {
-		String result = "success";
+		String result = "fail";
+		
 		try {
 			menuService.update(menu);
+			result = "success";
 		}
 		catch(Exception ex) {
 			result = "fail";
@@ -80,6 +83,7 @@ public class MenuController {
 	@RequestMapping(value="/menus/add")
 	public 	@ResponseBody String submitAddMenu(HttpServletRequest request,
 			HttpServletResponse response){
+		
 		String message =  "fail";
 		AppUser appUser = null;
 		try {
@@ -105,6 +109,73 @@ public class MenuController {
 		}
 		return message;
 	}
+	@RequestMapping(value="/menu/edit/status")
+	@ResponseBody
+	public String updateMenuStatus(HttpServletRequest request,@RequestParam("id")Long id,
+			@RequestParam("checked")boolean checked) {
+		HttpSession session = request.getSession();
+		String result = "fail";
+		Menu menu = menuService.read(id);
+		
+		try {
+			if(menu != null) {
+				if(checked) {
+					menu.setMenuStatus(1);
+				}
+				else{
+					List<Menu> subMenus = menu.getSubMenu();
+					
+					menu.setMenuStatus(0);
+					
+					//update submenus
+					for(Menu subMenu:menu.getSubMenu())
+						subMenu.setMenuStatus(0);
+	
+					
+				}
+				menuService.update(menu);
+				updateSessionAttribute(session);
+				result = "success";
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+	@RequestMapping(value="/menu/edit/admin")
+	@ResponseBody
+	public String updateMenuAdminFlag(HttpServletRequest request,
+			@RequestParam("id")Long id, @RequestParam("checked")boolean checked) {
+		String result = "fail";
+		HttpSession session = request.getSession();
+		Menu menu = menuService.read(id);
+		
+		try {
+			if(menu != null) {
+				if(checked) {
+					menu.setAdminMenu(1);
+					
+					//update submenus
+					for(Menu subMenu:menu.getSubMenu())
+						subMenu.setAdminMenu(1);
+				}
+				else{					
+					menu.setAdminMenu(0);					
+				}
+				menuService.update(menu);
+				updateSessionAttribute(session);
+				result = "success";
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 	private List<Menu> getAllMenus(){
 		return menuService.getMenuList();
 	}
@@ -116,5 +187,17 @@ public class MenuController {
 					.setIcon(icon)
 					.setLabel(menuName.replaceAll("\\s+", "")).build();
 		return menu;
+	}
+	private void updateSessionAttribute(HttpSession session) {
+		List<Menu> menuList = menuService.findAll(Menu.class);
+		List<Menu> homeMenu = menuList.stream()
+								.filter(s -> s.getMenuType().equals(MenuType.valueOf("HOME")))
+								.collect(Collectors.toList());
+		List<Menu> sideMenu = menuList.stream()
+				.filter(s -> s.getMenuType().equals(MenuType.valueOf("SIDEBAR")))
+				.collect(Collectors.toList());
+		
+		session.setAttribute("homeMenu", homeMenu);
+		session.setAttribute("sideMenu", sideMenu);
 	}
 }

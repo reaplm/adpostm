@@ -1,6 +1,36 @@
 function CloseEditAd(){
 	window.location = "/adpostm/admin/posts";
 }
+function UpdateMenuAdmin(menuId, element){
+	$.ajax({
+		url: '/adpostm/menu/edit/admin?id='+menuId+'&checked='+element.checked,
+		type: "get",
+		error: function(jqHxr,status,errorThrown){
+			alert("Sorry, an error occured.");
+			window.location.reload();
+		},
+		success: function(data){
+			alert("Admin Flag Update: " + data);
+			window.location.reload();
+		}
+	});
+	
+}
+function UpdateMenuStatus(menuId, element){
+	$.ajax({
+		url: '/adpostm/menu/edit/status?id='+menuId+'&checked='+element.checked,
+		type: "get",
+		error: function(jqHxr,status,errorThrown){
+			alert("Sorry, an error occured.");
+			window.location.reload();
+		},
+		success: function(data){
+			alert("Status Update: " + data);
+			window.location.reload();
+		}
+	});
+	
+}
 /**
  * 
  * @param advertId
@@ -208,6 +238,8 @@ function SubmitUpdateMenu(url, data){
 		type: "post",
 		url: url,
 		data: data,
+		dataType: "text",
+		contentType: "json",
 		error: function(jqxHr,errorText, errorThrown){
 			alert("Failed to submit menu");
 		},
@@ -552,8 +584,20 @@ $(document).ready(
 				document.getElementById("menuDesc").value = menu.menuDesc;
 				document.getElementById("url").value = menu.url;
 				document.getElementById("icon").value = menu.icon;
-				$(".modal-header img").attr("src", "/adpostm/resources" +
-						"/images/menu/" + menu.icon);
+				document.getElementById("menuStatus").value = menu.menuStatus;
+				document.getElementById("adminMenu").value = menu.adminMenu;
+				
+				if(menu.adminMenu == 1){
+					document.getElementById("adminMenuCheck").checked = true;
+				} 
+				if(menu.menuStatus == 1){
+					document.getElementById("menuStatusCheck").checked = true;
+				}
+				
+				if(menu.icon !== null){
+					$(".modal-header img").attr("src", "/adpostm/resources" +
+							"/images/menu/" + menu.icon);
+				}
 			});
 			//open bootstrap modal
 			$("#menu-edit-modal").modal();
@@ -846,5 +890,19 @@ $(document).ready(
 				}
 			});
 		}
+		
+		//==========================================CHECKBOXES====================================
+		$("#menuStatusCheck").on("change", function(){
+			if(this.checked){
+				document.getElementById("menuStatus").value = 1;
+			}
+			else{document.getElementById("menuStatus").value = 0;}
+		});
+		$("#adminMenuCheck").on("change", function(){
+			if(this.checked){
+				document.getElementById("adminMenu").value = 1;
+			}
+			else{document.getElementById("adminMenu").value = 0;}
+		});
 	}
 );

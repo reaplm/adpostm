@@ -20,12 +20,30 @@
 				</div>
 				<div class="modal-body">
 					<div class="container">
+						
 						<div class="row">
 							<form:form action="/adpostm/menus/update" method="post" class="form-horizontal" 
 									id="edit-menu-form" modelAttribute="menu">
 								<div class="form-group row">
+							<div class="col-sm-4 text-right">
+								<label for="adminMenu">Admin</label>
+							</div>
+							<div class="col-sm-2" >
+								<input type="checkbox" name="adminMenuCheck"
+								id="adminMenuCheck" class="form-control pt-2"/>
+							</div>
+							 <div class="col-sm-4 text-right">
+								<label for="menuStatusCheck">Active</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="checkbox" name="menuStatusCheck"
+								id="menuStatusCheck" class="form-control"
+								/>
+							</div>
+						</div>
+								<div class="form-group row">
 									<div class="col-sm-4 text-right">
-										<label for="name" path="menuName">Name</label>
+										<label for="nameName">Name</label>
 									</div>
 									<div class="col-sm-8">
 										<input type="text" name="menuName"
@@ -35,7 +53,7 @@
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-4 text-right">
-										<label for="desc" path="menuDesc" >Description</label>
+										<label for="menuDesc" >Description</label>
 									</div>
 									<div class="col-sm-8">
 										<input type="text"
@@ -45,7 +63,7 @@
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-4 text-right">
-										<label for="url" path="url">Url</label>
+										<label for="url">Url</label>
 									</div>
 									<div class="col-sm-8">
 										<input type="text" name="url"
@@ -55,7 +73,7 @@
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-4 text-right">
-										<label for="icon" path="icon">Icon</label>
+										<label for="icon" >Icon</label>
 									</div>
 									<div class="col-sm-8">
 										<input type="text" name="icon"
@@ -63,9 +81,12 @@
 									</div>
 									 
 								</div>
+								
 								<div class="form-group">
 									<input type="hidden" id="menuId" name="menuId" path="menuId" />
 									<input type="hidden" id="menuType" name="menuType" path="menuType" />
+									<input type="hidden" id="adminMenu" name="adminMenu" path="adminMenu" />
+									<input type="hidden" id="menuStatus" name="menuStatus" path="menuStatus" />
 								</div>
 							</form:form>							
 						</div>
@@ -74,7 +95,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary" onClick="ValidateUpdateMenu()">Save</button>
+					<button type="button" class="btn btn-primary" onclick="ValidateUpdateMenu()">Save</button>
 				</div>
 			</div>
 		</div>

@@ -24,7 +24,7 @@
 		</div>
 	</div>
 	<div id="sidebar-accordion" role="tablist" aria-multiselectable="true" class="text-capitalize">
-		<c:forEach items="${sideMenu}" var="menu" varStatus="loop">
+		<c:forEach items="${sessionScope.sideMenu}" var="menu" varStatus="loop">
 			<div class="card">
 				<div class="card-header" role="tab">
 					<h5 class="mb-0">

@@ -30,7 +30,10 @@ public class GenericDaoImpl<T, PK extends Serializable>
 	public GenericDaoImpl(Class<T> type){
 		this.type = type;
 		setEntityManager();
-		createInitialIndex();
+		
+	}
+	public GenericDaoImpl() {
+		//createInitialIndex();
 	}
 	public void setEntityManager() {
         this.em = PersistenceManager.INSTANCE.getEntityManager();
@@ -68,6 +71,7 @@ public class GenericDaoImpl<T, PK extends Serializable>
 	}
 	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public List<T> findAll(Class<T> clazz) {
 		return em
 				.createQuery("from " +

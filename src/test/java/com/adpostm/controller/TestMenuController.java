@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.Assert.*;
@@ -153,6 +154,8 @@ public class TestMenuController{
 		Menu menu = new Menu.MenuBuilder()
 				.setMenuId(1L)
 				.setMenuName("menu1")
+				.setMenuStatus(1)
+				.setAdminMenu(1)
 				.build();
 		
 		//when(menuService.update(Mockito.any(Menu.class))).thenReturn(true);
@@ -206,5 +209,61 @@ public class TestMenuController{
 									.andExpect(MockMvcResultMatchers.content().string("Parent id is invalid"))
 									.andDo(MockMvcResultHandlers.print())
 									.andReturn();
+	}
+	@Test
+	public void testUpdateMenuStatusIf() throws Exception {
+		Menu menu = new Menu.MenuBuilder()
+						.setMenuId(1L)
+						.setMenuName("menu1")
+						.build();
+		
+		Mockito.when(menuService.read(1L)).thenReturn(menu);
+		
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menu/edit/status")
+									.param("id", "1")
+									.param("checked", "checked"))
+									.andExpect(MockMvcResultMatchers.status().isOk())
+									.andExpect(MockMvcResultMatchers.content()
+											.contentType("text/plain;charset=ISO-8859-1"))
+									.andExpect(MockMvcResultMatchers.content().string("success"))
+									.andDo(MockMvcResultHandlers.print())
+									.andReturn();
+	}
+	@Test
+	public void testUpdateMenuStatusElse() throws Exception {
+		List<Menu> subMenus = new ArrayList<Menu>();
+		subMenus.add(
+				new Menu.MenuBuilder()
+					.setMenuId(2L)
+					.setMenuName("submenu1")
+					.setMenuType(MenuType.SUBMENU)
+					.build()
+				);
+		subMenus.add(
+				new Menu.MenuBuilder()
+					.setMenuId(3L)
+					.setMenuName("submenu2")
+					.setMenuType(MenuType.SUBMENU)
+					.build()
+				);
+		
+		Menu menu = new Menu.MenuBuilder()
+						.setMenuId(1L)
+						.setMenuName("menu1")
+						.setSubMenu(subMenus)
+						.build();
+		
+		Mockito.when(menuService.read(1L)).thenReturn(menu);
+		
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menu/edit/status")
+									.param("id", "1")
+									.param("checked", "unchecked"))
+									.andExpect(MockMvcResultMatchers.status().isOk())
+									.andExpect(MockMvcResultMatchers.content()
+											.contentType("text/plain;charset=ISO-8859-1"))
+									.andExpect(MockMvcResultMatchers.content().string("success"))
+									.andDo(MockMvcResultHandlers.print())
+									.andReturn();
+		
 	}
 }
