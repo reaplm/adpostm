@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -15,9 +16,12 @@ import javax.transaction.Transactional;
 
 import org.hibernate.search.Search;
 import org.hibernate.search.jpa.FullTextEntityManager;
+import org.springframework.beans.BeanUtils;
 
+import com.adpostm.controller.Utils.BeanUtility;
 import com.adpostm.domain.dao.GenericDao;
 import com.adpostm.domain.enumerated.PersistenceManager;
+import com.adpostm.domain.model.Menu;
 import com.mysql.cj.api.Session;
 
 public class GenericDaoImpl<T, PK extends Serializable>
@@ -58,11 +62,11 @@ public class GenericDaoImpl<T, PK extends Serializable>
 		
 	}
 	@Override
-	@Transactional(rollbackOn=RuntimeException.class)
+	@Transactional
 	public void update(T transientObject) throws Exception{
-		em.getTransaction().begin();
-		em.merge(transientObject);
-		em.getTransaction().commit();
+			em.getTransaction().begin();
+			em.merge(transientObject);
+			em.getTransaction().commit();
 	}
 	@Override
 	@Transactional
@@ -96,6 +100,15 @@ public class GenericDaoImpl<T, PK extends Serializable>
 		
 		return em.createQuery(cq).getResultList();
 		
+	}
+	public T getObject(T object, PK id) {
+		if(id != null) {
+			T original = read(id);
+			Set<String> ignoreFields = BeanUtility.getNullPropertyNames(original);
+			BeanUtils.copyProperties(original, object, 
+					ignoreFields.toArray(new String[ignoreFields.size()]));
+		}
+		return object;
 	}
 	public EntityManager getEntityManager() {
 		return this.em;

@@ -2,6 +2,8 @@ function CloseEditAd(){
 	window.location = "/adpostm/admin/posts";
 }
 function UpdateMenuAdmin(menuId, element){
+	var checked = element.checked;
+	
 	$.ajax({
 		url: '/adpostm/menu/edit/admin?id='+menuId+'&checked='+element.checked,
 		type: "get",
@@ -11,12 +13,15 @@ function UpdateMenuAdmin(menuId, element){
 		},
 		success: function(data){
 			alert("Admin Flag Update: " + data);
+		
 			window.location.reload();
 		}
 	});
 	
 }
 function UpdateMenuStatus(menuId, element){
+	var checked = element.checked;
+	
 	$.ajax({
 		url: '/adpostm/menu/edit/status?id='+menuId+'&checked='+element.checked,
 		type: "get",
@@ -233,18 +238,19 @@ function SubmitEditAdvert(){
 		}
 	});
 }
-function SubmitUpdateMenu(url, data){
+function SubmitUpdateMenu(){
+	var url = $("#edit-menu-form").attr("action"); 
+	var formData = $("#edit-menu-form").serializeArray();
 	$.ajax({
 		type: "post",
 		url: url,
-		data: data,
-		dataType: "text",
-		contentType: "json",
-		error: function(jqxHr,errorText, errorThrown){
+		data: formData,
+		async: false,
+		error: function(jqXhr, textStatus, errorThrown){
 			alert("Failed to submit menu");
 		},
 		success: function(data){
-			alert("Menu created successfully");
+			alert("Menu Update: " + data);
 		}
 	});
 }
@@ -341,8 +347,7 @@ function ValidateUpdateMenu(){
 		
 	});
 	if(validator.form()){
-		SubmitUpdateMenu($("#edit-menu-form").attr("action"), 
-				$("#edit-menu-form").serializeArray());
+		SubmitUpdateMenu();
 		$("#menu-edit-modal").modal("toggle");
 		window.location.reload();
 	}
@@ -544,7 +549,6 @@ function FillMenuSelect(element, menuList, title){
  */
 $(document).ready(
 	function(){
-		//=============================select=============================================		
 
 		if($("#search-bar").is(":visible")){
 			//get category menu
@@ -557,6 +561,9 @@ $(document).ready(
 			GetMenuList("/adpostm/menus?type=home", function(menuList){
 				FillMenuSelect("#menuId", menuList, "category");
 			});
+		}
+		if($("#pg-menus").is(":visible")){
+			
 		}
 		
 

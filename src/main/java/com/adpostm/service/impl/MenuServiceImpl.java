@@ -1,11 +1,14 @@
 package com.adpostm.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.criteria.Order;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.adpostm.controller.Utils.BeanUtility;
 import com.adpostm.domain.dao.GenericDao;
 import com.adpostm.domain.dao.MenuDao;
 import com.adpostm.domain.model.Menu;
@@ -44,8 +47,15 @@ public class MenuServiceImpl implements MenuService{
 
 	@Override
 	public void update(Menu transientObject) throws Exception {
-		menuDao.update(transientObject);
+		Menu original = read(transientObject.getMenuId());
 		
+		if(original != null) {			
+			Set<String> ignoreFields = BeanUtility.getNullPropertyNames(transientObject);
+			BeanUtils.copyProperties(transientObject, original, 
+					ignoreFields.toArray(new String[ignoreFields.size()]));
+
+			menuDao.update(original);
+		}
 	}
 
 	@Override

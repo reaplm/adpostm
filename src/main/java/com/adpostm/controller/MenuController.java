@@ -7,10 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.adpostm.domain.enumerated.MenuType;
-import com.adpostm.domain.model.AppUser;
 import com.adpostm.domain.model.Menu;
 import com.adpostm.service.MenuService;
 
@@ -85,7 +81,6 @@ public class MenuController {
 			HttpServletResponse response){
 		
 		String message =  "fail";
-		AppUser appUser = null;
 		try {
 			Long parentId = Long.parseLong(request.getParameter("parentId"));
 			
@@ -122,9 +117,7 @@ public class MenuController {
 				if(checked) {
 					menu.setMenuStatus(1);
 				}
-				else{
-					List<Menu> subMenus = menu.getSubMenu();
-					
+				else{					
 					menu.setMenuStatus(0);
 					
 					//update submenus

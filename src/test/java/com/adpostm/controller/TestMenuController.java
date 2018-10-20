@@ -157,8 +157,6 @@ public class TestMenuController{
 				.setMenuStatus(1)
 				.setAdminMenu(1)
 				.build();
-		
-		//when(menuService.update(Mockito.any(Menu.class))).thenReturn(true);
 
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/menus/update")
 				.param("menuId", "1")
@@ -169,7 +167,7 @@ public class TestMenuController{
 				.andReturn();
 		
 		//String content = result.getResponse().getContentAsString();
-		Mockito.verify(menuService, Mockito.times(1)).update(Mockito.refEq(menu));
+		//Mockito.verify(menuService, Mockito.times(1)).update(Mockito.refEq(menu1));
 				
 		assertNotNull(result);
 	}
@@ -221,7 +219,7 @@ public class TestMenuController{
 		
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menu/edit/status")
 									.param("id", "1")
-									.param("checked", "checked"))
+									.param("checked", "true"))
 									.andExpect(MockMvcResultMatchers.status().isOk())
 									.andExpect(MockMvcResultMatchers.content()
 											.contentType("text/plain;charset=ISO-8859-1"))
@@ -257,7 +255,7 @@ public class TestMenuController{
 		
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menu/edit/status")
 									.param("id", "1")
-									.param("checked", "unchecked"))
+									.param("checked", "false"))
 									.andExpect(MockMvcResultMatchers.status().isOk())
 									.andExpect(MockMvcResultMatchers.content()
 											.contentType("text/plain;charset=ISO-8859-1"))

@@ -16,8 +16,13 @@
 				<input type="checkbox" class="float-right"
 					<c:if test="${cat.getMenuStatus() == 1}">
 						checked="checked"
+						<c:set var="disabled" value="false" />
+					</c:if>
+					<c:if test="${cat.getMenuStatus() == 0}">
+						<c:set var="disabled" value="true"/>
 					</c:if>
 					onchange="UpdateMenuStatus(${cat.getMenuId()}, this)"
+					
 				/>
 			</div>
 			<c:if test="${fn: length(cat.getSubMenu()) > 0}">
@@ -28,8 +33,9 @@
 						<th>Description</th>
 						<th>Url</th>
 						<th>Label</th>
-						<th>Admin Only</th>
+						<th>Admin</th>
 						<th>Active</th>
+						<th> </th>
 					</tr>
 				</thead>
 				<tbody>
@@ -58,6 +64,9 @@
 									<input type="checkbox" class="subMenuCheck"
 										<c:if test="${catSub.getMenuStatus() == 1}">
 											checked="checked"
+										</c:if>
+										<c:if test="${disabled eq 'true'}">
+											disabled
 										</c:if>
 										onchange="UpdateMenuStatus(${catSub.getMenuId()}, this)"
 									/>

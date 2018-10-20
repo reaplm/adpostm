@@ -8,14 +8,19 @@
 		<c:forEach items="${sideMenu}" var="admin">
 			<div class="clearfix mt-2">
 				<img src="<%=request.getContextPath()%>/resources/
-						images/menu/${admin.getIcon()}" class="float-left" />
-				<h5>
+						images/menu/${admin.getIcon()}" class="mr-3 float-left" />
+				<h5 class="pt-2">
 					<a href="/adpostm/menus/detail?id=${admin.getMenuId()}" 
 					class="dtl-link text-capitalize">${admin.getMenuName()}</a>
 				</h5>
 				<input type="checkbox" class="float-right"
 					<c:if test="${admin.getMenuStatus() == 1}">
 						checked="checked"
+						<c:set var="disabled" value="false" />
+					</c:if>
+					<c:if test="${admin.getMenuStatus() == 0}">
+						checked="checked"
+						<c:set var="disabled" value="true" />
 					</c:if>
 					onchange="UpdateMenuStatus(${admin.getMenuId()}, this)"
 				/>
@@ -54,9 +59,12 @@
 									/>
 								</td>
 								<td class="td-sm">
-									<input type="checkbox" class="subMenuCheck"
+									<input type="checkbox" class="subMenuCheck subMenuCheck-${admin.getMenuId()}"
 										<c:if test="${adminSub.getMenuStatus() == 1}">
 											checked="checked"
+										</c:if>
+										<c:if test="${disabled eq 'true'}">
+											disabled
 										</c:if>
 										onchange="UpdateMenuStatus(${adminSub.getMenuId()}, this)"
 									/>

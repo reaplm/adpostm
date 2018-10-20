@@ -117,8 +117,6 @@
 			<br />
 			
 		</div>
-		<jsp:include page="/WEB-INF/views/jsp/editMenuForm.jsp"></jsp:include>
-		<jsp:include page="/WEB-INF/views/jsp/newMenuForm.jsp"></jsp:include>
 		<jsp:include page="/WEB-INF/views/jsp/address.jsp"></jsp:include>
 		<jsp:include page="/WEB-INF/views/jsp/contact.jsp"></jsp:include>
 		

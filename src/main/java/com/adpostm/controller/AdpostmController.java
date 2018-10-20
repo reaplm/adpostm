@@ -75,7 +75,7 @@ public class AdpostmController {
 	@RequestMapping(value="/admin/menus")
 	public ModelAndView menus(){
 		ModelAndView model = new ModelAndView("menus");
-		model.addObject("menu", new Menu.MenuBuilder());
+		model.addObject("menu", new Menu());
 		return model;
 	}
 	@RequestMapping(value="/admin/posts")
