@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.adpostm.controller.Utils.BeanUtility;
 import com.adpostm.domain.dao.GenericDao;
 import com.adpostm.domain.dao.MenuDao;
+import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.Menu;
 import com.adpostm.service.MenuService;
 
@@ -24,17 +25,6 @@ public class MenuServiceImpl implements MenuService{
 	public List<Menu> getMenusWithoutSub() {
 		return menuDao.getMenusWithoutSub();
 	}
-
-	@Override
-	public List<Menu> getMenuByType(String type) {
-		return menuDao.getMenuByType(type);
-	}
-
-	@Override
-	public List<Menu> getMenuList() {
-		return menuDao.getMenuList();
-	}
-
 	@Override
 	public Menu create(Menu newInstance){
 		return menuDao.create(newInstance);
@@ -76,5 +66,14 @@ public class MenuServiceImpl implements MenuService{
 	@Override
 	public List<Menu> findAll(Class<Menu> clazz) {
 		return menuDao.findAll(clazz);
+	}
+
+	@Override
+	public boolean checkMenuNameValid(String menuName, Long parentId) {
+		return menuDao.checkMenuNameValid(menuName, parentId);
+	}
+	@Override
+	public List<Menu> findAllByMenuTypeIn(List<MenuType> type) {
+		return menuDao.findAllByMenuTypeIn(type);
 	}
 }

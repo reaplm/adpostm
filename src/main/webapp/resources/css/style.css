@@ -367,6 +367,16 @@ body{
 	border: none;
 	border-bottom: solid 1px #e9eef2;
 }
+.modal-body .border-btm select{
+	border: none;
+	border-bottom: solid 1px #e9eef2;
+}
+.modal-body .form-control-danger{
+	color: #e9eef2;
+}
+.modal-body input, .modal-body select{
+	font-size: 9pt;
+}
 .modal-body label{
 	color: #999;
 }

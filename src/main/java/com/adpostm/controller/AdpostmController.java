@@ -1,6 +1,8 @@
 package com.adpostm.controller;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.Address;
 import com.adpostm.domain.model.Advert;
 import com.adpostm.domain.model.AppUser;
@@ -30,8 +33,9 @@ public class AdpostmController {
 	
 	@RequestMapping(value="/home")
 	public ModelAndView home(){
-		ModelAndView modelAndView = new ModelAndView("home");
-		return modelAndView;
+		ModelAndView mv = new ModelAndView("home");
+
+		return mv;
 	}
 	
 	@RequestMapping(value="/admin/profile")
@@ -52,8 +56,6 @@ public class AdpostmController {
 	@RequestMapping(value="/admin/preferences")
 	public ModelAndView preferences(){
 		ModelAndView modelAndView = new ModelAndView("preferences");
-		List<Menu> menus= getMenuByType("sidebar");
-		modelAndView.addObject("sideMenu", menus);
 		return modelAndView;
 	}
 	@RequestMapping(value="/admin/communication")
@@ -73,9 +75,10 @@ public class AdpostmController {
 		return modelAndView;
 	}
 	@RequestMapping(value="/admin/menus")
-	public ModelAndView menus(){
+	public ModelAndView menus(HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView("menus");
 		model.addObject("menu", new Menu());
+		
 		return model;
 	}
 	@RequestMapping(value="/admin/posts")
@@ -90,16 +93,24 @@ public class AdpostmController {
 	public ModelAndView getUsers() {
 		ModelAndView mav = new ModelAndView("users");
 		mav.addObject("users", getAllUsers());
-		mav.addObject("sideMenu", getMenuByType("sidebar"));
+		mav.addObject("sideMenu", findMenuByType(new String[]{"sidebar"}));
 		return mav;
 	}
 	private List<AppUser> getAllUsers() {
 		return userService.findAll(AppUser.class, true, new String[] {"appUserId"});
 	}
-	private List<Menu> getMenuByType(String type){
-		return menuService.getMenuByType(type);
+	private List<Menu> findMenuByType(String[] type){
+		List<MenuType> menuType = Arrays.asList(type)
+										.stream()
+										.map(s -> MenuType.valueOf(s.toUpperCase()))
+										.collect(Collectors.toList());
+		
+		return menuService.findAllByMenuTypeIn(menuType);
 	}
 	private List<Advert> getAdverts(){
 		return advertService.findAll(Advert.class);
+	}
+	private List<Menu> getAllMenus(){
+		return menuService.findAll(Menu.class);
 	}
 }

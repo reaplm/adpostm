@@ -1,6 +1,7 @@
 package com.adpostm.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -68,17 +69,12 @@ public class TestMenuController{
 					.setMenuName("menu1")
 					.setMenuType(MenuType.HOME)
 					.build());
-		menus.add(new Menu.MenuBuilder()
-				.setMenuId(1L)
-				.setMenuName("menu2")
-				.setMenuType(MenuType.SIDEBAR)
-				.build());
 		
-		when(menuService.getMenuList()).thenReturn(menus);
+		when(menuService.findAllByMenuTypeIn(Mockito.anyList())).thenReturn(menus);
 		
 		MvcResult expected = mockMvc.perform(MockMvcRequestBuilders
 							.get("/menus")
-							.param("type", "home"))
+							.param("type", new String[] {"home"}))
 							.andExpect(MockMvcResultMatchers.status().isOk())
 							.andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
 							.andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(1))
@@ -103,7 +99,7 @@ public class TestMenuController{
 				.setMenuName("menu2")
 				.setMenuType(MenuType.SIDEBAR)
 				.build());
-		when(menuService.getMenuList()).thenReturn(menus);
+		when(menuService.findAll(Menu.class)).thenReturn(menus);
 		
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders
 				.get("/menus"))
@@ -181,8 +177,8 @@ public class TestMenuController{
 		when(menuService.create(Mockito.any(Menu.class))).thenReturn(menu);
 		when(menuService.read(Mockito.anyLong())).thenReturn(menu);
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menus/add")
-									.param("parentId",	"1")
-									.param("menuName",	"menu1"))
+									.param("addParentId",	"1")
+									.param("addMenuName",	"menu1"))
 									.andExpect(MockMvcResultMatchers.status().isOk())
 									.andExpect(MockMvcResultMatchers.content().string("success"))
 									.andReturn();
@@ -263,5 +259,71 @@ public class TestMenuController{
 									.andDo(MockMvcResultHandlers.print())
 									.andReturn();
 		
+	}
+	@Test
+	public void testGetMenuType() throws Exception {
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menutype"))
+									.andExpect(MockMvcResultMatchers.status().isOk())
+									.andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+									.andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(4))
+									.andExpect(MockMvcResultMatchers.jsonPath("$.[0]").value("SIDEBAR"))
+									.andExpect(MockMvcResultMatchers.jsonPath("$.[1]").value("HOME"))
+									.andExpect(MockMvcResultMatchers.jsonPath("$.[2]").value("SUBMENU"))
+									.andExpect(MockMvcResultMatchers.jsonPath("$.[3]").value("UNCLASSIFIED"))
+									.andDo(MockMvcResultHandlers.print())
+									.andReturn();
+									
+	}
+	@Test
+	public void TestCheckMenuNameValid() throws Exception {
+		
+		Mockito.when(menuService.checkMenuNameValid("cars", 1L)).thenReturn(false);
+		
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menuNameValid")
+									.param("parentId", "1")
+									.param("menuName", "cars"))
+									.andExpect(MockMvcResultMatchers.status().isOk())
+									.andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
+									.andExpect(MockMvcResultMatchers.content().string("false"))
+									.andDo(MockMvcResultHandlers.print())
+									.andReturn();
+	}
+	@Test
+	public void testMenuDelete() throws Exception {
+		List<MenuType> menuTypeList = new ArrayList<MenuType>();
+		menuTypeList.add(MenuType.HOME);
+		menuTypeList.add(MenuType.SIDEBAR);
+		
+		List<Menu> menus = new ArrayList<Menu>();
+		menus.add(new Menu.MenuBuilder()
+						.setMenuId(1L)
+						.setMenuName("menu1")
+						.setMenuType(MenuType.HOME)
+						.build());
+		menus.add(new Menu.MenuBuilder()
+				.setMenuId(2L)
+				.setMenuName("menu2")
+				.setMenuType(MenuType.SIDEBAR)
+				.build());
+		
+		Menu menu3 = new Menu.MenuBuilder()
+							.setMenuId(3L)
+							.setMenuName("menu3")
+							.build();
+		
+		Mockito.when(menuService.read(3L)).thenReturn(menu3);
+		Mockito.when(menuService.findAllByMenuTypeIn(menuTypeList)).thenReturn(menus);
+		
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/menu/delete")
+								.param("id", "3"))
+								.andExpect(MockMvcResultMatchers.status().isOk())
+								.andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
+								.andExpect(MockMvcResultMatchers.content().string("success"))
+								.andDo(MockMvcResultHandlers.print())
+								.andReturn();
+		
+		//TODO compare session atributes
+		//assert(request.getAttribute("homeMenu").equals(Arrays.asList(menus.get(0))));
+	
 	}
 }

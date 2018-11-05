@@ -67,7 +67,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary">delete</button>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">delete</button>
 					<button type="button" class="btn btn-primary" onclick="ValidateUpdateMenu()">Save</button>
 				</div>
 			</div>

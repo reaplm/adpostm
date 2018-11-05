@@ -50,6 +50,8 @@ public class GenericDaoImpl<T, PK extends Serializable>
         
 		em.getTransaction().begin();
 		em.persist(newInstance);
+		em.flush();
+		em.clear();
 		em.getTransaction().commit();
 		return newInstance;
 	}
@@ -62,25 +64,32 @@ public class GenericDaoImpl<T, PK extends Serializable>
 		
 	}
 	@Override
-	@Transactional
 	public void update(T transientObject) throws Exception{
 			em.getTransaction().begin();
 			em.merge(transientObject);
+			em.flush();
 			em.getTransaction().commit();
 	}
 	@Override
-	@Transactional
 	public void delete(T persistentObject) throws Exception{
+		em.getTransaction().begin();
 		em.remove(persistentObject);
+		em.flush();
+		em.clear();
+		em.getTransaction().commit();
+		
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	@Transactional
 	public List<T> findAll(Class<T> clazz) {
-		return em
+	
+		List<T> resultSet =  em
 				.createQuery("from " +
 					clazz.getSimpleName())
 				.getResultList();
+	
+		
+		return resultSet;
 	}
 	@Override
 	public List<T> findAll(Class<T> clazz, boolean asc, String... orderBy) {

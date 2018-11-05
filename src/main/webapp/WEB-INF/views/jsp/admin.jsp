@@ -4,8 +4,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div id="pg-menu-admin">
-		<c:if test="${fn: length(sideMenu) > 0}">
-		<c:forEach items="${sideMenu}" var="admin">
+		<c:if test="${fn: length(sessionScope.sideBarMenu) > 0}">
+		<c:forEach items="${sessionScope.sideBarMenu}" var="admin">
 			<div class="clearfix mt-2">
 				<img src="<%=request.getContextPath()%>/resources/
 						images/menu/${admin.getIcon()}" class="mr-3 float-left" />
@@ -69,6 +69,12 @@
 										onchange="UpdateMenuStatus(${adminSub.getMenuId()}, this)"
 									/>
 				
+								</td>
+								<td>
+									<button type="button" class="close"
+										onclick="DeleteMenu(${adminSub.getMenuId()})">
+										<span>&times;</span>
+									</button>
 								</td>
 								</tr>
 								<%odd=!odd; %>

@@ -4,6 +4,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="/WEB-INF/views/jspinc/head.jsp"></jsp:include>
+
 <div id="pg-menus" class="">
 	<jsp:include page="/WEB-INF/views/jspinc/adminMenu.jsp"></jsp:include>
 	<div class="container pg-admin">

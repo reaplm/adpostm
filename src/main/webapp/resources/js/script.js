@@ -1,63 +1,8 @@
 function CloseEditAd(){
 	window.location = "/adpostm/admin/posts";
 }
-function UpdateMenuAdmin(menuId, element){
-	var checked = element.checked;
-	
-	$.ajax({
-		url: '/adpostm/menu/edit/admin?id='+menuId+'&checked='+element.checked,
-		type: "get",
-		error: function(jqHxr,status,errorThrown){
-			alert("Sorry, an error occured.");
-			window.location.reload();
-		},
-		success: function(data){
-			alert("Admin Flag Update: " + data);
-		
-			window.location.reload();
-		}
-	});
-	
-}
-function UpdateMenuStatus(menuId, element){
-	var checked = element.checked;
-	
-	$.ajax({
-		url: '/adpostm/menu/edit/status?id='+menuId+'&checked='+element.checked,
-		type: "get",
-		error: function(jqHxr,status,errorThrown){
-			alert("Sorry, an error occured.");
-			window.location.reload();
-		},
-		success: function(data){
-			alert("Status Update: " + data);
-			window.location.reload();
-		}
-	});
-	
-}
-/**
- * 
- * @param advertId
- * @returns
- */
-function UpdateAdStatus(advertId, element){
-	alert("checked is: " + element.checked);
-	$.ajax({
-		url: '/adpostm/advert/edit/status?id='+advertId+'&checked='+element.checked,
-		type: 'get',
-		dataType: 'json',
-		error: function(jqHxr,status,errorThrown){
-			alert("Sorry, an error occured.");
-		},
-		success: function(data){
-			alert("Response from server: " + data);
-			window.location.reload();
-		}
-	})
-}
-/**
 
+/**
  * Toggle between edit and save
  * @returns
  */
@@ -110,6 +55,26 @@ function UpdateProfileImage(cdnUrl, name, uuid){
 
 function contentToggle(){
 	$(".content-fluid").toggleClass("col-sm-12 col-sm-8");
+}
+//================================================CALLBACKS===============================
+/**
+ * Get enumerated menu type 
+ * @param url
+ * @param callback
+ * @returns
+ */
+function GetMenuType(url, callback){
+	$.ajax({
+		url: url,
+		type: "get",
+		dataType: "json",
+		error: function(jqXhr, status, errorThrown){
+			alert("Fetching menu type failed.");
+		},
+		success: function(data){
+			callback(data);
+		}
+	});
 }
 /**
  * Fetch user details 
@@ -198,6 +163,100 @@ function GetAdvertDetail(url, callback){
 	});
 }
 //============================================SUBMIT===============================
+/**
+ * Delete a menu item using id.
+ * @param menuId
+ * @returns
+ */
+function DeleteMenu(menuId){
+	if(confirm("Are you sure you want to delete this menu?")){
+		$.ajax({
+			type: "get",
+			url: '/adpostm/menu/delete?id='+menuId,
+		})
+		.done(function(data,textStatus, jqXHR){
+			alert("Response from server: " + data);
+			window.location.reload();
+		})
+		.fail(function(jqXHR, textStatus, errorThrown ){
+			console.log(arguments);
+			alert("An error occured. Delete menu failed. - " + errorThrown );
+		});
+	}
+	
+}
+/**
+ * Update value of admin checkbox
+ * @param menuId
+ * @param element
+ * @returns
+ */
+function UpdateMenuAdmin(menuId, element){
+
+	var checked = element.checked;
+	
+	$.ajax({
+		url: '/adpostm/menu/edit/admin?id='+menuId+'&checked='+element.checked,
+		type: "get",
+		error: function(jqHxr,status,errorThrown){
+			alert("Sorry, an error occured.");
+			window.location.reload();
+		},
+		success: function(data){
+			alert("Admin Flag Update: " + data);
+		
+			window.location.reload();
+		}
+	});
+	
+}
+/**
+ * On checkbox changed update menu status
+ * @param menuId
+ * @param element
+ * @returns
+ */
+function UpdateMenuStatus(menuId, element){
+	var checked = element.checked;
+	
+	$.ajax({
+		url: '/adpostm/menu/edit/status?id='+menuId+'&checked='+element.checked,
+		type: "get",
+		error: function(jqHxr,status,errorThrown){
+			alert("Sorry, an error occured.");
+			window.location.reload();
+		},
+		success: function(data){
+			alert("Status Update: " + data);
+			window.location.reload();
+		}
+	});
+	
+}
+/**
+ * 
+ * @param advertId
+ * @returns
+ */
+function UpdateAdStatus(advertId, element){
+	alert("checked is: " + element.checked);
+	$.ajax({
+		url: '/adpostm/advert/edit/status?id='+advertId+'&checked='+element.checked,
+		type: 'get',
+		dataType: 'json',
+		error: function(jqHxr,status,errorThrown){
+			alert("Sorry, an error occured.");
+		},
+		success: function(data){
+			alert("Response from server: " + data);
+			window.location.reload();
+		}
+	})
+}
+/**
+ * 
+ * @returns
+ */
 function SubmitAdvert(){
 	var formData = $("#add-advert-form").serializeArray();
 	var url = $("#add-advert-form").attr("action");
@@ -254,18 +313,23 @@ function SubmitUpdateMenu(){
 		}
 	});
 }
-function SubmitAddMenu(url, formData){
+function SubmitAddMenu(){
+	var url = $("#add-menu-form").attr("action"); 
+	var formData = $("#add-menu-form").serializeArray();
 	$.ajax({
 		type: "get",
 		url: url,
-		data: formData,
-		error: function(jqxHr,errorText, errorThrown){
-			alert("Failed to submit menu");
-		},
-		success: function(data){
-			alert("Menu created successfully");
-		}
+		data: formData
+	})
+	.done(function(data,textStatus, jqXHR){
+		alert("Server Response:  " + data);
+		window.location.reload();
+	})
+	.fail(function(jqXHR, textStatus, errorThrown){
+		console.log(arguments);
+		alert("Failed to submit menu - " + errorThrown);
 	});
+	window.location.reload;
 }
 
 /**
@@ -315,20 +379,30 @@ function ValidateAddMenu(){
 	var validator = $("#add-menu-form").validate({
 		errorClass: "form-control-danger",
 		rules:{
-			menuName:{
-				required: true
+			addMenuName:{
+				required: true,
+				remote:{
+					async: false,
+					type: "get",
+					url: "/adpostm/menuNameValid",
+					data:{
+						'menuName': function(){ return $("#addMenuName").val();},
+						'parentId': function(){return $("#addParentId").val();}
+					}
+				}//element is valid return true otherwise return false
 			}
 		},
 		messages:{
-			menuName:{
-				required: "Menu title is required"
+			addMenuName:{
+				required: "Menu name is required",
+				remote: "That menu already exists!"
 			}
 		}
 	});
 	if(validator.form()){
-		SubmitAddMenu($("#add-menu-form").attr("action"),
-				$("#add-menu-form").serializeArray());
-		window.location.reload();
+		SubmitAddMenu();
+		$("#menu-add-modal").modal("toggle");
+		
 	}
 }
 function ValidateUpdateMenu(){
@@ -341,7 +415,7 @@ function ValidateUpdateMenu(){
 		},
 		messages:{
 			menuName:{
-				required: "Menu name is required"
+				required: "Menu name is required",
 			}
 		}
 		
@@ -609,15 +683,28 @@ $(document).ready(
 			//open bootstrap modal
 			$("#menu-edit-modal").modal();
 		});
+		/**
+		 * Modal for inserting a new menu item
+		 */
 		$(document).on("click", "#newMenuBtn", function(){
 			//parentId select
-			GetMenuList("/adpostm/menus?type=home", function(menuList){
+			GetMenuList("/adpostm/menus?type=home&type=sidebar", function(menuList){
 				if(menuList.length > 0){
-					$("#parentId").empty();
-					$("#parentId").append("<option value=0> </option>");
+					$("#addParentId").empty();
+					$("#addParentId").append("<option value=0> </option>");
 					for(var i=0; i< menuList.length; i++){
-						$("#parentId").append("<option value="+menuList[i].menuId+">" +
+						$("#addParentId").append("<option value="+menuList[i].menuId+">" +
 								menuList[i].menuName+"</option>");
+					}
+				}
+			});
+			GetMenuType("/adpostm/menutype", function(menuType){
+				if(menuType.length > 0){
+					$("#addMenuType").empty();
+					$("#addMenuType").append("<option value=0> </option>");
+					for(var i=0; i< menuType.length; i++){
+						$("#addMenuType").append("<option value="+menuType[i]+">" +
+								menuType[i]+"</option>");
 					}
 				}
 			});
@@ -897,7 +984,13 @@ $(document).ready(
 				}
 			});
 		}
-		
+		//==========================================SELECT====================================
+		$(".modal-body #addParentId").on("change", function(){
+			if(this.value == 0){
+				$("#addMenuType").enabled = true;
+			}
+			else{$("#addMenuType").enabled = false;}
+		});
 		//==========================================CHECKBOXES====================================
 		$("#menuStatusCheck").on("change", function(){
 			if(this.checked){
