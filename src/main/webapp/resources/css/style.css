@@ -233,7 +233,7 @@ body{
 	padding-right: 10px;
 	margin-top: 20px;
 }
-#pg-adverts .container{height: 300px;}
+#pg-adverts .container{min-height: 300px;}
 /*--------------------------AD LIST PAGE---------------------------------*/
 #pg-adverts p{
 	margin-bottom: 0;
@@ -479,4 +479,13 @@ body{
 }
 .td-sm{
 	width: 10%;
+}
+.carousel-inner{
+border: solid;
+}
+.carousel-inner img{
+	width: 100%;
+}
+.carousel-indicators .active{
+	color: red;
 }

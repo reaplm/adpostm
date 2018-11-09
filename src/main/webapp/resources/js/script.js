@@ -163,6 +163,19 @@ function GetAdvertDetail(url, callback){
 	});
 }
 //============================================SUBMIT===============================
+function DeletePost(advertId){
+	$.ajax({
+		type: "get",
+		url: "/adpostm/advert/delete?id="+advertId,
+		
+	}).done(function(data, textStatus, jqXHR){
+		alert("Response from server: " + data);
+		window.location.reload();
+	}).fail(function(jqXHR, textStatus, errorThrown){
+		console.log(arguments);
+		alert("An error occured. Delete menu failed. - " + errorThrown );
+	});
+}
 /**
  * Delete a menu item using id.
  * @param menuId
@@ -573,8 +586,15 @@ function ValidateEditAdvert(){
 				email: true
 			}
 		},
+		messages:{
+
+			contactNo:{
+				required: "required"
+			},
+
+		},
 		errorPlacement: function() {
-	        return false;//prevent display of error message
+	        //return false;//prevent display of error message
 	    }
 		
 	});
@@ -766,6 +786,7 @@ $(document).ready(
 		 */
 		$(document).on("click", ".ad-dtl-link", function(e){
 			e.preventDefault();
+			
 			var url = $(this).attr("href");
 			GetAdvertDetail(url, function(advert){
 				var submitDate = new Date(advert.submittedDate);
@@ -780,27 +801,38 @@ $(document).ready(
 				$("#spanContactEmail").text(advert.advertDetail.contactEmail+"\n");
 				$("#spanContactPhone").text(advert.advertDetail.contactPhone);
 		
-				//Images
-				$("#lg-img").attr("src", "");
-				$("#sm-img1").attr("src", "");
-				$("#sm-img2").attr("src", "");
-				switch(advert.advertDetail.groupCount){
-				case 0:
-					break;
-				case 1:
-					$("#lg-img").attr("src", advert.advertDetail.adPicture[0].cdnUrl);
-					break;
-				case 2:
-					$("#lg-img").attr("src", advert.advertDetail.adPicture[0].cdnUrl);
-					$("#sm-img1").attr("src", advert.advertDetail.adPicture[1].cdnUrl);
-					break;
-				case 3:
-					$("#lg-img").attr("src", advert.advertDetail.adPicture[0].cdnUrl);
-					$("#sm-img1").attr("src", advert.advertDetail.adPicture[1].cdnUrl);
-					$("#sm-img2").attr("src", advert.advertDetail.adPicture[2].cdnUrl);
-					break;
+				//Carousel 
+				var html = "<ol class='carousel-indicators'>";
+				for(i=0; i< advert.advertDetail.groupCount; i++){
+						if(i == 0){
+							html += "<li data-target='#bs-carousel' data-slide-to='"+i+"' class='active'></li>";
+						}
+						else{
+							html += "<li data-target='#bs-carousel' data-slide-to='"+i+"' class=''></li>";
+
+						}
 				}
-				
+				html += "</ol>";
+				html += "<div class='carousel-inner'>";
+				for(i=0; i< advert.advertDetail.groupCount; i++){
+					if(i == 0){
+						html += "<div class='carousel-item active'>";
+					}
+					else{
+						html += "<div class='carousel-item'>";
+					}
+						html += "<img class='d-block w-100 h-100' src='"+advert.advertDetail.adPicture[i].cdnUrl+"' alt='first slide' ></div>";
+				}
+				html += "</div>";				
+				html += "<a class='carousel-control-prev' href='#bs-carousel' role='button'";
+				html += "data-slide='prev'> <span class='carousel-control-prev-icon'";
+				html += "aria-hidden='true'></span> <span class='sr-only'>previous</span>";
+				html += "</a> <a class='carousel-control-next' href='#bs-carousel' role='button'";
+				html += "data-slide='next'> <span class='carousel-control-next-icon'";
+				html += "aria-hidden='true'></span> <span class='sr-only'>Next</span></a>";
+		
+				$("#bs-carousel").html("");
+				$("#bs-carousel").append(html);
 			});
 			//open bootstrap modal
 			$("#advert-detail-modal").modal();

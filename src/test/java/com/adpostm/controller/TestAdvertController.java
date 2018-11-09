@@ -513,7 +513,7 @@ public class TestAdvertController {
 		Mockito.when(advertService.read(1L)).thenReturn(advert);
 		
 		try {
-			MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/advert/edit/submit")
+				MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/advert/edit/submit")
 					.param("advertId", "1")
 					.param("menuId", "1")
 					.param("subMenuId", "2")
@@ -540,7 +540,29 @@ public class TestAdvertController {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	public void testDeleteAdvert() {
+		Advert advert = new Advert.AdvertBuilder()
+							.setAdvertId(1L)
+							.build();
+							
+		
 	
+		Mockito.when(advertService.read(Mockito.anyLong())).thenReturn(advert);
+		
+		try {
+			MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/advert/delete")
+				.param("id", "1"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
+				.andExpect(MockMvcResultMatchers.content().string("success"))
+				.andDo(MockMvcResultHandlers.print())
+				.andReturn();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
 	private void setAuthentication() {
 		authentication.setAuthenticated(true);
 		SecurityContextHolder.getContext().setAuthentication(authentication);

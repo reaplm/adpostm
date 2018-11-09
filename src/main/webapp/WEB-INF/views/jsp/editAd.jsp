@@ -23,8 +23,8 @@
 						<form:select id="menuId" class="text rounded-box menu-select" 
 						name="menuId" path="menuId">
 							<option value="-1" disabled>----------Category--------</option>
-							<c:if test="${fn: length(sessionScope.menuList) > 0}">
-								<c:forEach var="menu" items="${sessionScope.menuList}">
+							<c:if test="${fn: length(sessionScope.homeMenu) > 0}">
+								<c:forEach var="menu" items="${sessionScope.homeMenu}">
 									<c:if test="${menu.menuId eq advertInfo.menuId}">
 										<option value="${menu.menuId}" selected>${menu.menuName}</option>
 										<c:set var="subMenuList" value="${menu.getSubMenu()}" />
@@ -54,14 +54,14 @@
 					
 						<p>LOCATION: </p>
 						<form:input type="text" placeholder="location" class="text form-control" 
-									id="location" name="location" path="location"
+									id="location" name="location" path="location" maxlength="40"
 									/>
 								
 					</div>
 					<div class="form-row has-danger">
 						<p>AD DETAILS: </p>
 						<form:input type="text" class="text form-control" placeholder="subject"
-										id="subject" name="subject" path="subject" />
+										id="subject" name="subject" path="subject" maxlength="40"/>
 										 <br />
 						<form:textarea rows="10" cols="100"	id="body" name="body"
 							path="body" class="text form-control" ></form:textarea>
@@ -70,7 +70,7 @@
 					<div class="form-row has-danger">
 						<p>CONTACT: </p>
 						<form:input type="text" placeholder="phone" class="text form-control" 
-										id="contactNo" name="contactNo" path="contactNo"
+										id="contactNo" name="contactNo" path="contactNo" maxlength="20"
 										/>
 						<form:input type="text" placeholder="email" class="text form-control" 
 										name="contactEmail" id="contactEmail" path="contactEmail"

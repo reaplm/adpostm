@@ -212,6 +212,29 @@ public class AdvertController {
 				return null;
 		
 	}
+	@RequestMapping(value="/advert/delete")
+	@ResponseBody
+	public String deleteAdvert(HttpServletResponse response, HttpServletRequest request,
+			@RequestParam("id")Long id) {
+		String result = "fail";
+		try {
+			if(id > 0) {
+				Advert advert = advertService.read(id);
+				
+				if(advert != null) {
+						advertService.delete(advert);
+						result = "success";
+					} 
+			}
+			
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 	private List<AdPicture> getAdPictures(AdvertInfo advertInfo){
 		List<AdPicture> adPictures = new ArrayList<AdPicture>();
 
@@ -230,7 +253,7 @@ public class AdvertController {
 		return adPictures;
 
 	}
-private Advert createAdvert(AdvertInfo advertInfo) {
+	private Advert createAdvert(AdvertInfo advertInfo) {
 		
 		Menu subMenu = menuService.read(advertInfo.getSubMenuId());
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

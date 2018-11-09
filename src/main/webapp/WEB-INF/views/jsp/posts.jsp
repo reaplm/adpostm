@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1" import="java.text.SimpleDateFormat"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="/WEB-INF/views/jspinc/head.jsp"></jsp:include>
 <div id="pg-posts" class="">
@@ -14,7 +14,7 @@
 			</div>
 			<div class="col-sm-9 content content-fluid nopadding">
 				<div id="content-menu" class="menu-list">
-						<h1>Posts</h1>
+					<h1>Posts</h1>
 				</div>
 				<div id="pg-post-category">
 					<c:if test="${fn: length(adverts) > 0}">
@@ -27,36 +27,42 @@
 									<th>Submitted</th>
 									<th>Approve</th>
 									<th>Edit</th>
-									<th>Delete</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<%boolean odd = true;%>
-								<c:forEach items="${adverts}" var="advert">						
+								<c:forEach items="${adverts}" var="advert">
 									<%if (odd) {%>
 									<tr class="odd-row">
-									<%} else {%>									
+										<%} else {%>
+									
 									<tr class="even-row">
-									<%}%>
+										<%}%>
 										<td class="text-capitalize pl-1 w-25"><a
 											href="/adpostm/advert/detail?id=${advert.getAdvertId()}"
 											class="ad-dtl-link">${advert.advertDetail.getTitle()}</a></td>
-										<td class="w-25">${advert.appUser.userDetail.getFirstName()} 
+										<td class="w-25">${advert.appUser.userDetail.getFirstName()}
 										</td>
 										<td class="w-25">${advert.getAdvertStatus()}</td>
-										<td class="w-25">
-											<fmt:formatDate value="${advert.getSubmittedDate()}" 
-												pattern="dd MMM yyyy" />
+										<td class="w-25"><fmt:formatDate
+												value="${advert.getSubmittedDate()}" pattern="dd MMM yyyy" />
 										</td>
-										<td><input type="checkbox" name="advertStatus" class="adStatusCheck"
-											 <c:if test="${advert.getAdvertStatus() == 'APPROVED'}">
+										<td><input type="checkbox" name="advertStatus"
+											class="adStatusCheck"
+											<c:if test="${advert.getAdvertStatus() == 'APPROVED'}">
 											 	checked="checked"
 											 </c:if>
-											 onchange="UpdateAdStatus(${advert.getAdvertId()}, this)"
-											 class="round"/>
+											onchange="UpdateAdStatus(${advert.getAdvertId()}, this)"
+											class="round" /></td>
+										<td><a
+											href="/adpostm/advert/edit?id=${advert.getAdvertId()}">Edit</a>
 										</td>
 										<td>
-											<a href="/adpostm/advert/edit?id=${advert.getAdvertId()}">Edit</a>
+											<button type="button" class="close"
+												onclick="DeletePost(${advert.getAdvertId()})">
+												<span>&times;</span>
+											</button>
 										</td>
 									</tr>
 									<%odd = !odd;%>
