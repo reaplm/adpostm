@@ -120,7 +120,8 @@ public class TestAdvertController {
 							.param("groupUuid", "groupUuid")
 							.param("groupSize", "1824")
 							.param("groupCdnUrl", "groupCdnUrl")
-							.param("groupCount", "2"))
+							.param("groupCount", "2")
+							.param("imageId"))
 							.andExpect(MockMvcResultMatchers.status().isOk())
 							.andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
 							.andExpect(MockMvcResultMatchers.content().string("success"))
@@ -511,6 +512,7 @@ public class TestAdvertController {
 				.build();
 		
 		Mockito.when(advertService.read(1L)).thenReturn(advert);
+		Mockito.when(menuService.read(Mockito.anyLong())).thenReturn(menu);
 		
 		try {
 				MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/advert/edit/submit")

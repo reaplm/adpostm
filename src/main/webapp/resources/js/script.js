@@ -664,7 +664,7 @@ $(document).ready(
 	$("#menuId").on("change", function(e){
 		var selectedId = $("#menuId").val();
 		GetSubMenu("/adpostm/menus/submenus?parentId="+selectedId, function(menuList){
-			FillMenuSelect("#menuId", menuList, "Select Category");
+			FillMenuSelect("#subMenuId", menuList, "Select Category");
 		});
 	});
 //=============================dialogs=============================================		

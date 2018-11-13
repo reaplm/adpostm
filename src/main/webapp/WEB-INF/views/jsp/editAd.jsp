@@ -99,6 +99,8 @@
 					<br />
 					<form:input type='hidden' id='advertId' name='advertId' path='advertId' />
 					<form:input type='hidden' id='groupUuid' name='groupUuid' path='groupUuid' />
+					<form:input type='hidden' id='imageId' name='imageId' path='imageId' />
+					
 					
 
 

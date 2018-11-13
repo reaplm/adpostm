@@ -125,10 +125,11 @@ public class AdvertController {
 			HttpServletResponse response, 
 			@ModelAttribute("advertInfo")AdvertInfo advertInfo) {
 		String msg = "fail";
+		List<AdPicture> adPictures = null;
 		try {
 			
 			Advert advert = advertService.read(advertInfo.getAdvertId());
-			
+			Menu menu = menuService.read(advertInfo.getSubMenuId());
 			if(advert != null) {
 				advert.getAdvertDetail().setTitle(advertInfo.getSubject());
 				advert.getAdvertDetail().setBody(advertInfo.getBody());
@@ -139,8 +140,18 @@ public class AdvertController {
 				advert.getAdvertDetail().setGroupCount(advertInfo.getGroupCount());
 				advert.getAdvertDetail().setGroupSize(advertInfo.getGroupSize());
 				advert.getAdvertDetail().setGroupUuid(advertInfo.getGroupUuid());
-				advert.getAdvertDetail().setAdPicture(getAdPictures(advertInfo));
-				advert.getMenu().setMenuId(advertInfo.getSubMenuId());
+				
+				//Update Images
+				adPictures = getAdPictures(advertInfo);
+				if(adPictures != null) {
+					for(AdPicture picture:adPictures) {
+						advert.getAdvertDetail().getAdPicture().add(picture);
+					}
+				}
+				//Update Menu
+				if(menu != null) {
+					advert.setMenu(menu);
+				}
 				advertService.update(advert);
 				msg = "success";
 			}
@@ -240,15 +251,17 @@ public class AdvertController {
 
 		
 		for(int i = 0; i< advertInfo.getGroupCount(); i++) {
-			AdPicture adPicture = new AdPicture.
-									AdPictureBuilder()									
-									.setName((advertInfo.getImageName()).get(i))
-									.setSize((advertInfo.getImageSize()).get(i))
-									.setUuid((advertInfo.getImageUuid()).get(i))
-									.setCdnUrl((advertInfo.getImageCdnUrl()).get(i))
-									.build();
-			adPictures.add(adPicture);		
-									
+			//Only add new images
+			if(advertInfo.getImageId().get(i) == null) {
+				AdPicture adPicture = new AdPicture.
+						AdPictureBuilder()									
+						.setName((advertInfo.getImageName()).get(i))
+						.setSize((advertInfo.getImageSize()).get(i))
+						.setUuid((advertInfo.getImageUuid()).get(i))
+						.setCdnUrl((advertInfo.getImageCdnUrl()).get(i))
+						.build();
+				adPictures.add(adPicture);		
+			}					
 		}
 		return adPictures;
 
@@ -324,8 +337,12 @@ public class AdvertController {
 								.stream()
 								.map(ad -> ad.getCdnUrl())
 								.collect(Collectors.toList());
+				List<Integer> imageId = adPictures.stream()
+										.map(a -> a.getAdPictureId())
+										.collect(Collectors.toList());
 				
 				advertInfo.setImageCdnUrl(cdnUrl);
+				advertInfo.setImageId(imageId);
 			}
 		}
 		catch(Exception ex) {
