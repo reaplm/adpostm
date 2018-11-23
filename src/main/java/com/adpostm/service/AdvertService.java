@@ -11,5 +11,6 @@ public interface AdvertService extends GenericDao<Advert, Long>{
 	public List<Advert> findByCategory(String category);
 	public List<Advert> search(String searchText);
 	public List<Advert> search(String searchText, Long category);
-
+	public boolean checkImageExists(String uuid);
+	public boolean removeAllPictures(Long id);
 }

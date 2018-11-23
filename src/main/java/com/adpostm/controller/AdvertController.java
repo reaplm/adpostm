@@ -1,17 +1,15 @@
 package com.adpostm.controller;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.FormSubmitEvent.MethodType;
 
-import org.hibernate.criterion.Order;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.adpostm.domain.dao.AdvertDao;
+import com.adpostm.controller.Utils.Uploadcare;
 import com.adpostm.domain.enumerated.AdvertStatus;
 import com.adpostm.domain.model.AdPicture;
 import com.adpostm.domain.model.Advert;
@@ -119,39 +117,92 @@ public class AdvertController {
 		
 		return msg;
 	}
+	/**
+	 * Editing an advert...
+	 * 	1. Use the id to fetch the object from the database
+	 * 	2. Update simple information (title, body, location, contact)
+	 * 	3. Update images as follows
+	 * 		a. Images are contained in a group, if the groupUuid has not changed
+	 * 		 	that means no images were added or deleted therefore do nothing
+	 * 		Otherwise....
+	 * 		b. Remove images currently attached to this advert
+	 * 			-> remove from the database
+	 * 			-> remove from online storage
+	 * 		c. Create a list of images from form data and attach to the advert
+	 * 	  	d. Update group information 
+	 * 	4. Fetch the menu this advert belongs to 
+	 * 	5. If the menu has changed fetch the new menu
+	 * 	6. Update the advert with the new menu
+	 * 	7. Persist the advert
+	 * @param request
+	 * @param response
+	 * @param advertInfo bean containing form data
+	 * @return
+	 */
 	@RequestMapping(value="/advert/edit/submit", method=RequestMethod.POST)
 	@ResponseBody
 	public String submitEditAdvert(HttpServletRequest request, 
 			HttpServletResponse response, 
 			@ModelAttribute("advertInfo")AdvertInfo advertInfo) {
 		String msg = "fail";
+		JSONObject ucareResponse;
 		List<AdPicture> adPictures = null;
+		List<String> uuid = null;
 		try {
 			
 			Advert advert = advertService.read(advertInfo.getAdvertId());
-			Menu menu = menuService.read(advertInfo.getSubMenuId());
 			if(advert != null) {
-				advert.getAdvertDetail().setTitle(advertInfo.getSubject());
+				//Update form fields
+  				advert.getAdvertDetail().setTitle(advertInfo.getSubject());
 				advert.getAdvertDetail().setBody(advertInfo.getBody());
 				advert.getAdvertDetail().setContactEmail(advertInfo.getContactEmail());
 				advert.getAdvertDetail().setContactPhone(advertInfo.getContactNo());
 				advert.getAdvertDetail().setLocation(advert.getAdvertDetail().getLocation());
-				advert.getAdvertDetail().setGroupCdnUrl(advert.getAdvertDetail().getGroupCdnUrl());
-				advert.getAdvertDetail().setGroupCount(advertInfo.getGroupCount());
-				advert.getAdvertDetail().setGroupSize(advertInfo.getGroupSize());
-				advert.getAdvertDetail().setGroupUuid(advertInfo.getGroupUuid());
 				
-				//Update Images
-				adPictures = getAdPictures(advertInfo);
-				if(adPictures != null) {
-					for(AdPicture picture:adPictures) {
-						advert.getAdvertDetail().getAdPicture().add(picture);
+				//Update images only if they have changed
+				if(advert.getAdvertDetail().getGroupUuid() == null ||
+						advert.getAdvertDetail().getGroupUuid().equals(advertInfo.getGroupUuid()) == false) {
+					
+					//Delete images
+					if(advert.getAdvertDetail().getAdPicture().size() > 0) {
+						
+						uuid = new ArrayList<String>();
+						
+						for(AdPicture picture:advert.getAdvertDetail().getAdPicture())
+							uuid.add(picture.getUui());
+						
+						//Remove from the database
+						advertService.removeAllPictures(advert.getAdvertId());
+						
+						//Remove from storage
+						ucareResponse = deleteFromStorage(uuid);
+
+	
+					}
+										
+					//Replace with new Images
+					adPictures = getAdPictures(advertInfo);
+					for(AdPicture adPicture:adPictures) {
+						advert.getAdvertDetail().addAdPicture(adPicture);
+					}
+					
+					//Replace group Information
+					if(adPictures.size() > 0) {
+						advert.getAdvertDetail().setGroupCdnUrl(advertInfo.getGroupCdnUrl());
+						advert.getAdvertDetail().setGroupCount(advertInfo.getGroupCount());
+						advert.getAdvertDetail().setGroupSize(advertInfo.getGroupSize());
+						advert.getAdvertDetail().setGroupUuid(advertInfo.getGroupUuid());
 					}
 				}
-				//Update Menu
-				if(menu != null) {
-					advert.setMenu(menu);
+
+				//Check if menu has change
+				if(advert.getMenu().getMenuId() != advertInfo.getSubMenuId()){
+					Menu menu = menuService.read(advertInfo.getSubMenuId());
+					if(menu != null) {
+						advert.setMenu(menu);
+					}
 				}
+				
 				advertService.update(advert);
 				msg = "success";
 			}
@@ -251,8 +302,6 @@ public class AdvertController {
 
 		
 		for(int i = 0; i< advertInfo.getGroupCount(); i++) {
-			//Only add new images
-			if(advertInfo.getImageId().get(i) == null) {
 				AdPicture adPicture = new AdPicture.
 						AdPictureBuilder()									
 						.setName((advertInfo.getImageName()).get(i))
@@ -260,8 +309,7 @@ public class AdvertController {
 						.setUuid((advertInfo.getImageUuid()).get(i))
 						.setCdnUrl((advertInfo.getImageCdnUrl()).get(i))
 						.build();
-				adPictures.add(adPicture);		
-			}					
+				adPictures.add(adPicture);						
 		}
 		return adPictures;
 
@@ -322,32 +370,30 @@ public class AdvertController {
 				advertInfo.setContactEmail(advert.getAdvertDetail().getContactEmail());
 				advertInfo.setContactNo(advert.getAdvertDetail().getContactPhone());
 				advertInfo.setLocation(advert.getAdvertDetail().getLocation());
+				advertInfo.setSubMenuId(advert.getMenu().getMenuId());
 				advertInfo.setGroupCdnUrl(advert.getAdvertDetail().getGroupCdnUrl());
 				advertInfo.setGroupCount(advert.getAdvertDetail().getGroupCount());
-				advertInfo.setGroupSize(advert.getAdvertDetail().getGroupSize());
 				advertInfo.setGroupUuid(advert.getAdvertDetail().getGroupUuid());
-				advertInfo.setSubMenuId(advert.getMenu().getMenuId());
 				
 				Menu subMenu = menuService.read(advert.getMenu().getMenuId());//submenu
 				Menu parentMenu = menuService.read(subMenu.getMenu().getMenuId());
 				
 				advertInfo.setMenuId(parentMenu.getMenuId());
-				List<AdPicture>  adPictures = advert.getAdvertDetail().getAdPicture();
-				List<String> cdnUrl = adPictures
-								.stream()
-								.map(ad -> ad.getCdnUrl())
-								.collect(Collectors.toList());
-				List<Integer> imageId = adPictures.stream()
-										.map(a -> a.getAdPictureId())
-										.collect(Collectors.toList());
-				
-				advertInfo.setImageCdnUrl(cdnUrl);
-				advertInfo.setImageId(imageId);
 			}
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();
 		}
 		return advertInfo;
+	}
+	/**
+	 * Delete a batch of images from UCare storage
+	 * @param uuid
+	 * @return
+	 */
+	private JSONObject deleteFromStorage(List<String> uuidGroup) {
+		Uploadcare ucare = new Uploadcare();
+		
+		return ucare.deleteBatch(uuidGroup);
 	}
 }

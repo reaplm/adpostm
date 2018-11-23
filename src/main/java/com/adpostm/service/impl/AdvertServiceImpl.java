@@ -63,4 +63,14 @@ public class AdvertServiceImpl implements AdvertService{
 		return advertDao.search(searchText, category);
 	}
 
+	@Override
+	public boolean checkImageExists(String uuid) {
+		return advertDao.checkImageExists(uuid);
+	}
+
+	@Override
+	public boolean removeAllPictures(Long id) {
+		return advertDao.removeAllPictures(id);
+	}
+
 }

@@ -481,10 +481,11 @@ body{
 	width: 10%;
 }
 .carousel-inner{
-border: solid;
+	height: 100%;
 }
 .carousel-inner img{
 	width: 100%;
+	
 }
 .carousel-indicators .active{
 	color: red;

@@ -49,8 +49,9 @@ public class AdvertDetail {
 	@JsonBackReference
 	private Advert advert;
 	
-	@OneToMany(mappedBy="advertDetail", cascade= {CascadeType.ALL})
-	 @JsonManagedReference
+	@OneToMany(mappedBy="advertDetail", orphanRemoval=true, 
+			cascade= {CascadeType.ALL})
+	@JsonManagedReference
 	private List<AdPicture> adPictures = new ArrayList<AdPicture>();
 	
 	//image group information

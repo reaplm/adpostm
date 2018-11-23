@@ -3,6 +3,7 @@ package com.adpostm.domain.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NonUniqueResultException;
 import javax.transaction.Transactional;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
@@ -53,5 +54,40 @@ public class AdvertDaoImpl extends GenericDaoImpl<Advert, Long> implements Adver
 		
 		
 		return results;
+	}
+	@Override
+	public boolean checkImageExists(String uuid) {
+		boolean exists = false;
+		try {
+			Long count = (Long)em
+					.createQuery("select count(*) from AdPicture where uuid = :uuid")
+					.setParameter("uuid", uuid)
+					.getSingleResult();
+			
+			exists = count == 0?false:true;
+		}
+		catch(NonUniqueResultException ex) {
+			System.out.println("NonUniqueResultException in checkImageExists: " + ex);
+		}
+		return exists;
+	}
+	@Override
+	public boolean removeAllPictures(Long id) {
+		boolean success = false;
+		try {
+			em.getTransaction().begin();
+			Advert advert = read(id);
+			
+			if(advert != null) {
+				advert.getAdvertDetail().getAdPicture().clear();
+			}
+			
+			em.getTransaction().commit();
+			success = true;
+		}
+		catch(Exception ex) {
+			
+		}
+		return success;
 	}
 }

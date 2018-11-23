@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +23,8 @@ import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.everyItem;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.equalTo;
 import org.springframework.security.core.Authentication;
@@ -48,6 +52,8 @@ import com.adpostm.domain.model.Menu;
 import com.adpostm.service.AdvertService;
 import com.adpostm.service.MenuService;
 import com.adpostm.service.UserService;
+
+import net.minidev.json.parser.JSONParser;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -120,8 +126,7 @@ public class TestAdvertController {
 							.param("groupUuid", "groupUuid")
 							.param("groupSize", "1824")
 							.param("groupCdnUrl", "groupCdnUrl")
-							.param("groupCount", "2")
-							.param("imageId"))
+							.param("groupCount", "2"))
 							.andExpect(MockMvcResultMatchers.status().isOk())
 							.andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
 							.andExpect(MockMvcResultMatchers.content().string("success"))
@@ -397,6 +402,7 @@ public class TestAdvertController {
 									.build();
 			
 		Mockito.when(advertService.read(Mockito.any())).thenReturn(advert);
+		
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/advert/edit/status")
 								.param("checked", "true")
 								.param("id", "1"))
@@ -431,6 +437,10 @@ public class TestAdvertController {
 		Menu menu = new Menu.MenuBuilder()
 				.setMenuId(1L)
 				.setMenuName("menu1")
+				.build();
+		Menu submenu = new Menu.MenuBuilder()
+				.setMenuId(10L)
+				.setMenuName("submenu1")
 				.build();
 		AdvertDetail advertDetail = new AdvertDetail
 						.AdvertDetailBuilder()
@@ -475,6 +485,7 @@ public class TestAdvertController {
 		
 		
 		Mockito.when(advertService.read(Mockito.anyLong())).thenReturn(advert);
+		Mockito.when(menuService.read(Mockito.anyLong())).thenReturn(submenu);
 		
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/advert/edit")
 								.param("id", "1"))
@@ -495,14 +506,24 @@ public class TestAdvertController {
 		
 		
 	}
+	/**
+	 * URL: /advert/edit/submit
+	 * Test the condition: if(advert.getAdvertDetail().getGroupUuid() == null)
+	 * AdvertInfo image arraylists are empty i.e advert does not contain images
+	 * @throws Exception 
+	 */
 	@Test
-	public void testSubmitEditAdvert(){
+	public void testSubmitEditAdvertNoImg() throws Exception{
 		Menu menu = new Menu.MenuBuilder()
 				.setMenuId(1L)
 				.setMenuName("menu1")
 				.build();
 		AdvertDetail advertDetail = new AdvertDetail
 				.AdvertDetailBuilder()
+				.setGroupCount(0)
+				.setGroupSize(null)
+				.setGroupCdnUrl(null)
+				.setGroupUuid(null)
 				.build();
 		Advert advert = new Advert.AdvertBuilder()
 				.setAdvertId(1L)
@@ -514,33 +535,94 @@ public class TestAdvertController {
 		Mockito.when(advertService.read(1L)).thenReturn(advert);
 		Mockito.when(menuService.read(Mockito.anyLong())).thenReturn(menu);
 		
-		try {
+		
+		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/advert/edit/submit")
+			.param("advertId", "1")
+			.param("menuId", "1")
+			.param("subMenuId", "2")
+			.param("location", "gaborone")
+			.param("subject", "car for sale")
+			.param("body", "car for sale in gaborone") 
+			.param("contactEmail", "admin@email")
+			.param("contactNo", "71406569"))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
+			.andExpect(MockMvcResultMatchers.content().string("success"))
+			.andDo(MockMvcResultHandlers.print())
+			.andReturn();
+		
+
+	}
+	/**
+	 * URL: /advert/edit/submit
+	 * Test the condition: if(advert.getAdvertDetail().getGroupUuid().equals(advertInfo.getGroupUuid()) == false)
+	 * AdvertInfo contains images which will replace existing images
+	 * @throws Exception 
+	 */
+	@Test
+	public void testSubmitEditAdvertWithImg() throws Exception{
+		List<AdPicture> adPictures = new ArrayList<AdPicture>();
+		adPictures.add(
+				new AdPicture.AdPictureBuilder()
+						.setAdPictureId(1)
+						.setName("about me sample 3.PNG")
+						.setUuid("e45920a4-1d42-43b0-ac9b-a4e797f8edb4")
+						.setSize(135083L)
+						.build()
+				);
+		adPictures.add(
+				new AdPicture.AdPictureBuilder()
+						.setAdPictureId(2)
+						.setName("IMAG1139_1")
+						.setUuid("d32a0038-f9bd-4948-9ac5-4e23352e0f07")
+						.setSize(779273L)
+						.build()
+				);
+		Menu menu = new Menu.MenuBuilder()
+				.setMenuId(1L)
+				.setMenuName("menu1")
+				.build();
+		AdvertDetail advertDetail = new AdvertDetail
+				.AdvertDetailBuilder()
+				.setGroupCount(1)
+				.setGroupSize(1024L)
+				.setAdPicture(adPictures)
+				.setGroupCdnUrl("groupCdnUrl1")
+				.setGroupUuid("groupUuid1")
+				.build();
+		Advert advert = new Advert.AdvertBuilder()
+				.setAdvertId(1L)
+				.setAdvertStatus(AdvertStatus.SUBMITTED)
+				.setAdvertDetail(advertDetail)
+				.setMenu(menu)
+				.build();
+		
+		Mockito.when(advertService.read(1L)).thenReturn(advert);
+		Mockito.when(menuService.read(Mockito.anyLong())).thenReturn(menu);
+
 				MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/advert/edit/submit")
 					.param("advertId", "1")
 					.param("menuId", "1")
-					.param("subMenuId", "2")
+					.param("subMenuId", "1")
 					.param("location", "gaborone")
 					.param("subject", "car for sale")
-					.param("body", "car for sale in gaborone")
+					.param("body", "car for sale in gaborone") 
 					.param("contactEmail", "admin@email")
 					.param("contactNo", "71406569")
 					.param("imageCdnUrl", "cdnUrl1", "cdnUrl2")
 					.param("imageName", "image1", "image2")
 					.param("imageUuid", "uuid1", "uuid2")
 					.param("imageSize", "1024","800")
-					.param("groupUuid", "groupUuid")
+					.param("groupUuid", "groupUuid2")
 					.param("groupSize", "1824")
-					.param("groupCdnUrl", "groupCdnUrl")
-					.param("groupCount", "2"))
+					.param("groupCount", "2")
+					.param("groupCdnUrl", "groupCdnUrl2"))
 					.andExpect(MockMvcResultMatchers.status().isOk())
 					.andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
 					.andExpect(MockMvcResultMatchers.content().string("success"))
 					.andDo(MockMvcResultHandlers.print())
 					.andReturn();
-		} catch (Exception e) {
-			System.out.println("Exception during test of url: /advert/edit/submit. \n" + e);
-			e.printStackTrace();
-		}
+
 	}
 	@Test
 	public void testDeleteAdvert() {
@@ -564,7 +646,7 @@ public class TestAdvertController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-}
+	}
 	private void setAuthentication() {
 		authentication.setAuthenticated(true);
 		SecurityContextHolder.getContext().setAuthentication(authentication);

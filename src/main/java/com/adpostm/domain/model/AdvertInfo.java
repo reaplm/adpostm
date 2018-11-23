@@ -13,7 +13,6 @@ public class AdvertInfo {
 	private String contactEmail;
 	
 	//Advert Pictures
-	private List<Integer> imageId;
 	private List<String> imageUuid;
 	private List<String> imageCdnUrl;
 	private List<Long> imageSize;
@@ -72,12 +71,6 @@ public class AdvertInfo {
 	}
 	public String getContactEmail() {
 		return this.contactEmail;
-	}
-	public void setImageId(List<Integer> imageId) {
-		this.imageId = imageId;
-	}
-	public List<Integer> getImageId() {
-		return this.imageId;
 	}
 	public void setImageUuid(List<String> imageUuid) {
 		this.imageUuid = imageUuid;

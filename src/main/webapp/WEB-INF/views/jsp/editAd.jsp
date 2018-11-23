@@ -76,32 +76,18 @@
 										name="contactEmail" id="contactEmail" path="contactEmail"
 										/>
 					</div>
-					<br />
-					<div class="clearfix">    
-						<c:set var="pictureList" value="${advertInfo.getImageCdnUrl()}" />
-						<c:if test="${fn: length(pictureList) > 0}">
-							<c:forEach var="adCdnUrl" items="${advertInfo.getImageCdnUrl()}">
-								<div class="card float-left img-thumb">
-									<div class="card-header">
-										<button type="button" class="close">x</button>
-									</div>
-									<div class="img-thumb-body">
-									<img class="card-img-top" src="${adCdnUrl}" 
-										alt="Card image cap" width="100%"/>
-									</div>
-									<div class="card-footer">
-								      <small class="text-muted">small text</small>
-								    </div>
-								</div>
-							</c:forEach>
-						</c:if>
-					</div>
+					
 					<br />
 					<form:input type='hidden' id='advertId' name='advertId' path='advertId' />
+					<form:input type='hidden' id='groupCdnUrl' name='groupCdnUrl' path='groupCdnUrl' />
 					<form:input type='hidden' id='groupUuid' name='groupUuid' path='groupUuid' />
-					<form:input type='hidden' id='imageId' name='imageId' path='imageId' />
+					<form:input type='hidden' id='groupCount' name='groupCount' path='groupCount' />
+					<form:input type='hidden' id='groupSize' name='groupSize' path='groupSize' />
 					
-					
+					<form:input type='hidden' id='imageCdnUrl' name='imageCdnUrl[]' path='imageCdnUrl' />
+					<form:input type='hidden' id='imageUuid' name='imageUuid[]' path='imageUuid' />
+					<form:input type='hidden' id='imageName' name='imageName[]' path='imageName' />
+					<form:input type='hidden' id='imageSize' name='imageSize[]' path='imageSize' />
 
 
 					<div class="form-row form-footer">

@@ -968,49 +968,37 @@ $(document).ready(
 					group;
 					
 					groupUuid.value = group.uuid;
-					
-					$("#edit-advert-form").append(
-							"<input type='hidden' name='groupCdnUrl' " +
-							"value='" + group.cdnUrl + "' path='groupCdnUrl'/>"
-					);
-					$("#edit-advert-form").append(
-							"<input type='hidden' name='groupCount' " +
-							"value='" + group.count + "' path='groupCount'/>"
-					);
-					$("#edit-advert-form").append(
-							"<input type='hidden' name='groupSize' " +
-							"value='" + group.size + "' path='groupSize'/>"
-					);
+					document.getElementById("groupCdnUrl").value = group.cdnUrl;
+					document.getElementById("groupCount").value = group.count;
+					document.getElementById("groupSize").value = group.size;
+
 				}
 			});
 			multiWidget.onChange(function(group){
 				
-				
 				if(group){
 					group;
 					group.files();
-					
+		
 					$.when.apply(null, group.files()).then(
 						function(){
 							var filesInfo = arguments;
-							for(i=0; i< filesInfo.length; i++){
-								$("#edit-advert-form").append(
-										"<input type='hidden' name='imageUuid[" + i + "]'" +
-										"value='"+filesInfo[i].uuid+"' path='imageUuid'/>"
-								);
-								$("#edit-advert-form").append(
-										"<input type='hidden' name='imageCdnUrl[" + i + "]'" +
-										"value='"+filesInfo[i].cdnUrl+"' path='imageCdnUrl'/>"
-								);
-								$("#edit-advert-form").append(
-										"<input type='hidden' name='imageSize[" + i + "]'" +
-										"value='"+filesInfo[i].size+"' path='imageSize'/>"
-								);
-								$("#edit-advert-form").append(
-										"<input type='hidden' name='imageName[" + i + "]'" +
-										"value='"+filesInfo[i].name+"' path='imageName'/>"
-								);
+							var uuid = new Array(filesInfo.length);
+							var cdnUrl = new Array(filesInfo.length);
+							var name = new Array(filesInfo.length);
+							var size = new Array(filesInfo.length);
+							
+							for(i=0; i<filesInfo.length; i++){
+								uuid[i] = filesInfo[i].uuid
+								cdnUrl[i] = filesInfo[i].cdnUrl;
+								name[i] = filesInfo[i].name;
+								size[i] = filesInfo[i].size;
 							}
+							$('[name=imageUuid]').val(uuid);
+							$('[name=imageCdnUrl]').val(cdnUrl);
+							$('[name=imageName]').val(name);
+							$('[name=imageSize]').val(size);
+							
 						}
 					);	
 				}

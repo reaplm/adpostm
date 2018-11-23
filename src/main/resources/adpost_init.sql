@@ -91,20 +91,12 @@ INSERT INTO advert_detail (pk_detail_id, body, contact_email, contact_phone, gro
 (null, 'M looking for a large room or 1 n half Even a Bachelor pad not above P1500.\r\n			Gabane,mogoditshane along route 4,tsolamosese,mmopane,metsimotlhabe.', NULL, ' ', NULL, 0, NULL, NULL, 'mogoditshane', 'room wanted'),
 (null, '3month Samsung J1 Ace For Sale. P650 inclusive of headsets,protective \r\n			back cover and charger. Call or Text 71290199 if interested.', NULL, '71290199', NULL, 0, NULL, NULL, ' ', 'Samsung J1 Ace For Sale'),
 (null, 'Head sets 25 pula Pouches 50 pula', NULL, ' ', NULL, 0, NULL, NULL, 'Broadhurst Industrial', 'Pouches for sale....clearance sale...J7 pro, iPhone 6s,J7, 7plus,J2 prime,J5 prime,J5'),
-(null, 'i am selling a car in gaborone.', 'pearl@email', '71406569', 'https://ucarecdn.com/9096aec4-52f6-449d-beaf-23bddf1c3a43~3/', 3, 12261090, '9096aec4-52f6-449d-beaf-23bddf1c3a43~3', 'Gaborone', 'car for sale'),
-(null, 'Dell Inspiron 5000 series i7 15.6" display HDMI', 'pearl@email', '71406569', 'https://ucarecdn.com/46dfc0eb-73a6-400e-a61e-5935e0500ae6~2/', 2, 2008639, '46dfc0eb-73a6-400e-a61e-5935e0500ae6~2', 'Gaborone', 'Dell laptop for sale');
+(null, 'i am selling a car in gaborone.', 'pearl@email', '71406569', null, 0, null, null, 'Gaborone', 'car for sale'),
+(null, 'Dell Inspiron 5000 series i7 15.6" display HDMI', 'pearl@email', '71406569', null, 0, null, null, 'Gaborone', 'Dell laptop for sale');
 
 INSERT INTO advert_detail(pk_detail_id, title, body, contact_phone, contact_email, location, 
 		group_cdn, group_count, group_size, group_uuid)
-		VALUES(null, 'VW Polo for sale', 'i am selling a car in gaborone.','71406569', 'pearl@email', 'gaborone',
-		'https://ucarecdn.com/9096aec4-52f6-449d-beaf-23bddf1c3a43~3/', 3, 12261090, 
-		'9096aec4-52f6-449d-beaf-23bddf1c3a43~3'),
+		VALUES(null, 'VW Polo for sale', 'i am selling a car in gaborone.','71406569', 'pearl@email', 'gaborone',null, 0, 0, 
+		null),
 		(null, 'Dell laptop for sale', 'Dell Inspiron 5000 series i7 15.6" display HDMI','71406569', 'pearl@email', 'gaborone',
-		'https://ucarecdn.com/46dfc0eb-73a6-400e-a61e-5935e0500ae6~2/',2, 2008639, '46dfc0eb-73a6-400e-a61e-5935e0500ae6~2');
-		
-	INSERT INTO ad_picture (ad_pic_id, cdn_url, name, size, uuid, fk_ad_detail) VALUES
-		(null, 'https://ucarecdn.com/6aecdb6b-fdb0-4e6d-adec-346125e86da0/', 'InkedIMAG0920_LI.jpg', 4732824, '6aecdb6b-fdb0-4e6d-adec-346125e86da0', 13),
-		(null, 'https://ucarecdn.com/933bce1e-7c19-4093-90aa-26dba450ca19/', 'InkedIMAG0922_LI.jpg', 4666891, '933bce1e-7c19-4093-90aa-26dba450ca19', 13),
-		(null, 'https://ucarecdn.com/50ec1901-352f-4a0f-8201-b7210a8df560/', 'InkedIMAG0925_LI.jpg', 2861375, '50ec1901-352f-4a0f-8201-b7210a8df560', 13),
-		(null, 'https://ucarecdn.com/f7a19f90-5883-4bb9-a2e0-205d4ce154ef/', 'IMAG0925.jpg', 689469, 'f7a19f90-5883-4bb9-a2e0-205d4ce154ef', 14),
-		(null, 'https://ucarecdn.com/9990cf13-39b0-4ee9-8997-062115475936/', 'IMAG1137.jpg', 1319170, '9990cf13-39b0-4ee9-8997-062115475936', 14);
+		null,0, 0, null);
