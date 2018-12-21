@@ -35,7 +35,7 @@ public class AdpostmController {
 	public ModelAndView home(){
 		ModelAndView mv = new ModelAndView("home");
 
-		return mv;
+		return mv.addObject("homeMenu", findMenuByType(new String[] {"home"}));
 	}
 	
 	@RequestMapping(value="/admin/profile")

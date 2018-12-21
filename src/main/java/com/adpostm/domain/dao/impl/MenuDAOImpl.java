@@ -72,7 +72,8 @@ public class MenuDaoImpl extends GenericDaoImpl<Menu, Long> implements MenuDao{
 		List<Menu> menus = em.createQuery("from Menu where menuType in (:type)")
 							.setParameter("type", type)
 							.getResultList();
-		
+
+	
 		return menus;
 	}
 }

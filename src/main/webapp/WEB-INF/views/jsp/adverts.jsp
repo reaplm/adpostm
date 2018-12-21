@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"
-	import="java.util.List, java.util.Iterator,
+	pageEncoding="ISO-8859-1" import="java.util.List, java.util.Iterator,
     java.text.SimpleDateFormat, java.util.Date, com.adpostm.domain.model.Menu,
     java.util.Date"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -12,9 +11,9 @@
 <div id="pg-adverts">
 	<div class="container">
 		<div class="col-layout">
-			<c:if test="${fn: length(sessionScope.homeMenu) > 0}">
+			<c:if test="${fn: length(homeMenu) > 0}">
 				<!-- Get main menu items -->
-				<c:forEach var="menu" items="${sessionScope.homeMenu}">
+				<c:forEach var="menu" items="${homeMenu}">
 					<h5 class="text-uppercase text-center  font-weight-bold dark-bg">
 						<c:out value="${menu.getMenuName()}" />
 					</h5>
@@ -27,7 +26,6 @@
 						<c:forEach var="subMenu" items="${subMenus}">
 							<!-- For each sub-menu get all adverts -->
 							<c:set var="adverts" value="${subMenu.getAdverts()}" />
-							<c:forEach var="advert" items="${adverts}">
 								<!-- For each advert prints info-->
 								<c:if test="${fn: length(adverts) > 0}">
 									<c:forEach var="advert" items="${adverts}">
@@ -42,7 +40,6 @@
 										<hr />
 									</c:forEach>
 								</c:if>
-							</c:forEach>
 						</c:forEach>
 					</c:if>
 				</c:forEach>

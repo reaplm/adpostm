@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -45,7 +46,7 @@ public class AdvertDetail {
 	
 	//@ContainedIn //To make sure Lucene document is updated when its advert changes
 	@OneToOne
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="fk_advert_id")
 	@JsonBackReference
 	private Advert advert;
 	

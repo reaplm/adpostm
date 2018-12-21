@@ -2,6 +2,7 @@ package com.adpostm.controller;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.adpostm.controller.Utils.Uploadcare;
 import com.adpostm.domain.enumerated.AdvertStatus;
+import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.AdPicture;
 import com.adpostm.domain.model.Advert;
 import com.adpostm.domain.model.AdvertDetail;
@@ -297,6 +299,14 @@ public class AdvertController {
 		
 		return result;
 	}
+	@RequestMapping(value="/adverts")
+	public ModelAndView getAdverts() {
+		ModelAndView mv = new ModelAndView("adverts");
+		
+		mv.addObject("homeMenu", findMenuByType(new String[] {"home"}));
+		
+		return mv;
+	}
 	private List<AdPicture> getAdPictures(AdvertInfo advertInfo){
 		List<AdPicture> adPictures = new ArrayList<AdPicture>();
 
@@ -395,5 +405,18 @@ public class AdvertController {
 		Uploadcare ucare = new Uploadcare();
 		
 		return ucare.deleteBatch(uuidGroup);
+	}
+	/**
+	 * Find menus by type
+	 * @param type
+	 * @return
+	 */
+	private List<Menu> findMenuByType(String[] type){
+		List<MenuType> menuType = Arrays.asList(type)
+										.stream()
+										.map(s -> MenuType.valueOf(s.toUpperCase()))
+										.collect(Collectors.toList());
+		
+		return menuService.findAllByMenuTypeIn(menuType);
 	}
 }

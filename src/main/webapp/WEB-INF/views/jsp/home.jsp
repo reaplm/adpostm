@@ -17,8 +17,8 @@
 		</div>
 		<div class="row">
 			<%int colCount = 0; %>
-			<c:if test="${fn: length(sessionScope.homeMenu) > 0}">
-				<c:forEach items="${sessionScope.homeMenu}" var="menu">
+			<c:if test="${fn: length(homeMenu) > 0}">
+				<c:forEach items="${homeMenu}" var="menu">
 					<div class="col-6 col-sm-3 category mb-2">
 							<div class="clearfix">
 								<img src="<%=request.getContextPath()%>/resources/

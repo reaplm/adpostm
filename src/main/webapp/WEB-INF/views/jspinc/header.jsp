@@ -21,7 +21,7 @@
 						<a href="/adpostm/home" class="nav-link">home</a>
 					</li>
 				<li class="nav-item">
-					<a href="/adpostm/advert/search?search=&s-category=-1" class="nav-link">classifieds</a>
+					<a href="/adpostm/adverts" class="nav-link">classifieds</a>
 				</li>
 				<li class="nav-item">
 					<a href="/adpostm/login" class="nav-link">sign in</a>
@@ -36,7 +36,7 @@
 						<a href="/adpostm/home" class="nav-link">home</a>
 					</li>
 					<li class="nav-item">
-						<a href="/adpostm/advert/search?search=&s-category=-1" class="nav-link">classifieds</a>
+						<a href="/adpostm/adverts" class="nav-link">classifieds</a>
 					</li>
 					
 					<li class="nav-item">

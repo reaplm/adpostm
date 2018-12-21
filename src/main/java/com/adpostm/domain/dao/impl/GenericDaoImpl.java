@@ -68,6 +68,7 @@ public class GenericDaoImpl<T, PK extends Serializable>
 			em.getTransaction().begin();
 			em.merge(transientObject);
 			em.flush();
+			em.clear();
 			em.getTransaction().commit();
 	}
 	@Override
