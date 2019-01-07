@@ -307,6 +307,11 @@ public class AdvertController {
 		
 		return mv;
 	}
+	@RequestMapping(value="/advert/statusCount")
+	@ResponseBody
+	public List<Object[]> advertsPerCategory() {
+		return advertService.statusCount();
+	}
 	private List<AdPicture> getAdPictures(AdvertInfo advertInfo){
 		List<AdPicture> adPictures = new ArrayList<AdPicture>();
 

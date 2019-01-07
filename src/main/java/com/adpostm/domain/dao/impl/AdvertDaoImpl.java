@@ -90,4 +90,17 @@ public class AdvertDaoImpl extends GenericDaoImpl<Advert, Long> implements Adver
 		}
 		return success;
 	}
+	/**
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object[]> statusCount() {
+		List<Object[]> result = em.createQuery("select advertStatus, "
+				+ " round(count(*) * 100.0 / (select count(*) from Advert),2) as percent "
+				+ " from Advert group by advertStatus")
+				.getResultList();
+		
+		return result;
+	}
 }

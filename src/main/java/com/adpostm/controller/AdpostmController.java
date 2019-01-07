@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.adpostm.domain.enumerated.AdvertStatus;
 import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.Address;
 import com.adpostm.domain.model.Advert;
@@ -70,9 +71,21 @@ public class AdpostmController {
 	}
 	@RequestMapping(value="/admin/dashboard")
 	public ModelAndView admin(){
-		ModelAndView modelAndView = new ModelAndView("dashboard");
-
-		return modelAndView;
+		ModelAndView mv = new ModelAndView("dashboard");
+		List<Advert> adverts = getAdverts();
+		List<Advert> filtered = adverts.stream()
+					.filter(a -> a.getAdvertStatus().equals(AdvertStatus.SUBMITTED)
+							|| a.getAdvertStatus().equals(AdvertStatus.REJECTED))
+					.collect(Collectors.toList());
+		
+		List<AppUser> newUsers = getAllUsers().stream()
+					.filter(a -> a.getActivated() == 0)
+					.collect(Collectors.toList());
+		
+		mv.addObject("adverts", filtered);
+		mv.addObject("users", newUsers);
+		
+		return mv;
 	}
 	@RequestMapping(value="/admin/menus")
 	public ModelAndView menus(HttpServletRequest request, HttpServletResponse response){

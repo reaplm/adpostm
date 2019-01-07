@@ -12,6 +12,7 @@
 		<script src="<%=request.getContextPath()%>/resources/js/jquery/jquery-3.2.1.min.js"></script>
 		<script src="<%=request.getContextPath()%>/resources/js/jquery/jquery.validate.js"></script>
 		<script src="<%=request.getContextPath()%>/resources/js/bootstrap/js/bootstrap.min.js"></script>
+		<script src="<%=request.getContextPath()%>/resources/js/d3/d3.min.js" type="text/javascript"></script>
 		<script src="<%=request.getContextPath()%>/resources/js/script.js"></script>
 		<script>
 			UPLOADCARE_LOCALE = "en";

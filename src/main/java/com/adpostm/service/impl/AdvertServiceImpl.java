@@ -73,4 +73,9 @@ public class AdvertServiceImpl implements AdvertService{
 		return advertDao.removeAllPictures(id);
 	}
 
+	@Override
+	public List<Object[]> statusCount() {
+		return advertDao.statusCount();
+	}
+
 }

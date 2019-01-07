@@ -63,21 +63,21 @@ INSERT INTO menu(pk_menu_id, menu_type, menu_name, label,icon, admin_menu, menu_
 		(54, 'SUBMENU','posts', 'posts', null,0,1, 15);
 		
 INSERT INTO advert(pk_advert_id, advert_status, submitted_date, fk_appuser_id, fk_menu_id)
-	VALUES(1, 1, (select sysdate() from dual), 1, (select pk_menu_id from menu where label='houseforrent')),
-			(2, 1, (select (sysdate()-10) from dual), 1,(select pk_menu_id from menu where label='autoparts')),
-			(3, 1, (select (sysdate()-3) from dual), 1, (select pk_menu_id from menu where label='cars')),
-			(4, 1, (select (sysdate()-1) from dual), 1, (select pk_menu_id from menu where label='cars')),
-			(5, 1, (select (sysdate()-18) from dual), 1,(select pk_menu_id from menu where label='furniture')),
-			(6, 1, (select (sysdate()-6) from dual), 1,(select pk_menu_id from menu where label='appliances')),
-			(7, 1, (select (sysdate()-14) from dual), 1,(select pk_menu_id from menu where label='houseforsale')),
-			(8, 1, (select (sysdate()-2) from dual), 1,(select pk_menu_id from menu where label='houseforrent')),
-			(9, 1, (select (sysdate()-5) from dual), 1,(select pk_menu_id from menu where label='houseforrent')),
-			(10, 1, (select (sysdate()-14) from dual), 1,(select pk_menu_id from menu where label='housetoshare')),
-			(11, 1, (select (sysdate()-8) from dual), 1,(select pk_menu_id from menu where label='mobilephones')),
-			(12, 1, (select (sysdate()-2) from dual), 1,(select pk_menu_id from menu where label='phoneaccessories')),
-			(13, 1, (select (sysdate()) from dual), 1,(select pk_menu_id from menu where label='computers')),
-			(14, 0, (select (sysdate()) from dual), 1,(select pk_menu_id from menu where label='cars')),
-			(15, 0, (select (sysdate()) from dual), 1,(select pk_menu_id from menu where label='pets'));
+	VALUES(1, 'SUBMITTED', (select sysdate() from dual), 1, (select pk_menu_id from menu where label='houseforrent')),
+			(2, 'APPROVED', (select (sysdate()-10) from dual), 1,(select pk_menu_id from menu where label='autoparts')),
+			(3, 'SUBMITTED', (select (sysdate()-3) from dual), 1, (select pk_menu_id from menu where label='cars')),
+			(4, 'SUBMITTED', (select (sysdate()-1) from dual), 1, (select pk_menu_id from menu where label='cars')),
+			(5, 'SUBMITTED', (select (sysdate()-18) from dual), 1,(select pk_menu_id from menu where label='furniture')),
+			(6, 'REJECTED', (select (sysdate()-6) from dual), 1,(select pk_menu_id from menu where label='appliances')),
+			(7, 'SUBMITTED', (select (sysdate()-14) from dual), 1,(select pk_menu_id from menu where label='houseforsale')),
+			(8, 'APPROVED', (select (sysdate()-2) from dual), 1,(select pk_menu_id from menu where label='houseforrent')),
+			(9, 'APPROVED', (select (sysdate()-5) from dual), 1,(select pk_menu_id from menu where label='houseforrent')),
+			(10, 'SUBMITTED', (select (sysdate()-14) from dual), 1,(select pk_menu_id from menu where label='housetoshare')),
+			(11, 'APPROVED', (select (sysdate()-8) from dual), 1,(select pk_menu_id from menu where label='mobilephones')),
+			(12, 'SUBMITTED', (select (sysdate()-2) from dual), 1,(select pk_menu_id from menu where label='phoneaccessories')),
+			(13, 'APPROVED', (select (sysdate()) from dual), 1,(select pk_menu_id from menu where label='computers')),
+			(14, 'APPROVED', (select (sysdate()) from dual), 1,(select pk_menu_id from menu where label='cars')),
+			(15, 'REJECTED', (select (sysdate()) from dual), 1,(select pk_menu_id from menu where label='pets'));
 
 INSERT INTO advert_detail (pk_detail_id, body, contact_email, contact_phone, group_cdn, group_count, group_size, group_uuid, location, title, fk_advert_id) VALUES
 (null, 'A LARGE ROOM- can be shared by 2 people porcelain floor tiles, ceiling,\r\n			multi res, boundary wall, electric fence, sliding gate, common toilet, & shower. Close to UB, IDM, \r\n			BAC, BCA, riverwalk, fairground, main mall.', NULL, '77100180', NULL, 0, NULL, NULL, 'Extension 14', 'house for rent',1),

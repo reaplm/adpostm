@@ -232,6 +232,11 @@ public class MenuController {
 
 		return String.valueOf(valid);
 	}
+	@RequestMapping(value="/adsPerCategory")
+	@ResponseBody
+	public List<Object[]> advertsPerCategory() {
+		return menuService.countAdsPerCategory();
+	}
 	private List<Menu> findAll(){
 		return menuService.findAll(Menu.class);
 	}

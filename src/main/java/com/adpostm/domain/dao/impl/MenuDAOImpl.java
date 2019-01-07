@@ -73,7 +73,19 @@ public class MenuDaoImpl extends GenericDaoImpl<Menu, Long> implements MenuDao{
 							.setParameter("type", type)
 							.getResultList();
 
-	
 		return menus;
+	}
+
+	@Override
+	public List<Object[]> countAdsPerCategory() {
+		@SuppressWarnings("unchecked")
+		List<Object[]> result = em.createQuery("SELECT mc.menuName," + 
+						" count(*) from Menu m, Advert a, Menu mc " + 
+						" where m.menuId = a.menu  " + 
+						" and mc.menuId = m.menu " +
+						" group by mc.menuName order by mc.menuName ")
+						.getResultList();
+		
+		return result;
 	}
 }

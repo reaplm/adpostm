@@ -76,4 +76,8 @@ public class MenuServiceImpl implements MenuService{
 	public List<Menu> findAllByMenuTypeIn(List<MenuType> type) {
 		return menuDao.findAllByMenuTypeIn(type);
 	}
+	@Override
+	public List<Object[]> countAdsPerCategory() {
+		return menuDao.countAdsPerCategory();
+	}
 }

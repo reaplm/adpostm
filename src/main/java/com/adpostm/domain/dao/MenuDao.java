@@ -10,4 +10,5 @@ public interface MenuDao extends GenericDao<Menu, Long>{
 	public List<Menu> findAllByMenuTypeIn(List<MenuType> type);
 	public List<Menu> getSubMenus(Long parentId);
 	public boolean checkMenuNameValid(String menuName, Long parentId);
+	public List<Object[]> countAdsPerCategory();
 }
