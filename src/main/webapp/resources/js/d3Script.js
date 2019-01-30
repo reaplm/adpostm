@@ -66,7 +66,7 @@
 d3.json("/adpostm/advert/statusCount")
 	.then(function(data){
 		
-		var svgWidth = 250;
+		var svgWidth = 240;
 		var svgHeight = 200;
 		var totalRadius = Math.min(svgWidth, svgHeight) / 3;
 		var holeRadius = totalRadius *0.3;
@@ -83,10 +83,11 @@ d3.json("/adpostm/advert/statusCount")
 		var color_d3 = d3.scaleOrdinal(d3.schemePastel2);
 		
 		
-		var container = d3.select("#adStatusGraph")
+		var container = d3.select("#adStatusGraph .card-body")
 			.append("svg")
 			.attr("width", svgWidth)
 			.attr("height", svgHeight)
+			.attr("class", "card")
 			.append("g")
 			.attr("transform", function(){
 				var translate = [svgWidth/2,svgHeight/2];
@@ -138,7 +139,7 @@ d3.json("/adpostm/advert/statusCount")
 d3.json("/adpostm/adsPerCategory")
 	.then(function(data){
 		var margin = 10;
-		var svgWidth = 250;
+		var svgWidth = 240;
 		var svgHeight = 200;
 		var minRadius = 10;
 		var arcWidth = 10;
@@ -151,17 +152,18 @@ d3.json("/adpostm/adsPerCategory")
 			domain[i] = data[i][0];
 		}
 		
-		var toolTip = d3.select("#adsPerCategory")
+		var toolTip = d3.select("#adsPerCategory .card-body")
 		.append("div")
 		.attr("class", "tooltip")
 		.style("opacity", 0);
 		
 		var color = d3.scaleOrdinal(d3.schemePastel2) 
 		
-		var svg = d3.select("#adsPerCategory")
+		var svg = d3.select("#adsPerCategory .card-body")
 			.append("svg")
 			.attr("width", svgWidth)
 			.attr("height", svgHeight)
+			.attr("class", "card")
 			.append("g")
 			.attr("transform", function(){
 				var translate = [svgWidth/2,svgHeight/2];

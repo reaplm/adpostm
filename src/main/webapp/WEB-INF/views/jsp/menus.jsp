@@ -6,13 +6,15 @@
 <jsp:include page="/WEB-INF/views/jspinc/head.jsp"></jsp:include>
 
 <div id="pg-menus" class="">
-	<jsp:include page="/WEB-INF/views/jspinc/adminMenu.jsp"></jsp:include>
-	<div class="container pg-admin">
+	
+	<div class="container pg-admin mt-5 mb-3 shadow">
 		<div class="row">
-			<div class="col-sm-3 nopadding pr-1">
+			<div class="col-sm-3 nopadding">
 				<jsp:include page="/WEB-INF/views/jspinc/sidebar.jsp"></jsp:include>
 			</div>
 			<div class="col-sm-9 content content-fluid nopadding">
+			<jsp:include page="/WEB-INF/views/jspinc/adminMenu.jsp"></jsp:include>
+		
 				<div class="card-header">
 					<div class="nav">
 						<ul class="nav nav-tabs card-header-tabs" role="tablist">
@@ -40,7 +42,6 @@
 				</div>
 			</div>
 		</div>
-		<br />
 	</div>
 	<jsp:include page="/WEB-INF/views/jspinc/footer.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/jsp/editMenuForm.jsp"></jsp:include>

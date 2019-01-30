@@ -6,13 +6,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="/WEB-INF/views/jspinc/head.jsp"></jsp:include>
 <div id="pg-posts" class="">
-	<jsp:include page="/WEB-INF/views/jspinc/adminMenu.jsp"></jsp:include>
-	<div class="container pg-admin">
+	
+	<div class="container pg-admin mt-5 mb-3 shadow">
 		<div class="row">
-			<div class="col-sm-3 nopadding pr-1">
+			<div class="col-sm-3 nopadding">
 				<jsp:include page="/WEB-INF/views/jspinc/sidebar.jsp"></jsp:include>
 			</div>
 			<div class="col-sm-9 content content-fluid nopadding">
+			<jsp:include page="/WEB-INF/views/jspinc/adminMenu.jsp"></jsp:include>
 				<div id="content-menu" class="menu-list">
 					<h1>Posts</h1>
 				</div>
@@ -75,7 +76,6 @@
 
 			</div>
 		</div>
-		<br />
 	</div>
 	<jsp:include page="/WEB-INF/views/jsp/postDetail.jsp"></jsp:include>
 </div>

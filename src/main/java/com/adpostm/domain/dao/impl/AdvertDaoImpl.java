@@ -43,6 +43,7 @@ public class AdvertDaoImpl extends GenericDaoImpl<Advert, Long> implements Adver
 				.keyword()
 				.onFields("advertDetail.title","advertDetail.body")
 				.matching(searchText)
+				
 				.createQuery();
 		
 		javax.persistence.Query jpaQuery = fullTextEntityManager
@@ -55,6 +56,7 @@ public class AdvertDaoImpl extends GenericDaoImpl<Advert, Long> implements Adver
 		
 		return results;
 	}
+	
 	@Override
 	public boolean checkImageExists(String uuid) {
 		boolean exists = false;
@@ -102,5 +104,25 @@ public class AdvertDaoImpl extends GenericDaoImpl<Advert, Long> implements Adver
 				.getResultList();
 		
 		return result;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> findDistinctLocation() {
+		return em.createQuery("SELECT distinct location FROM AdvertDetail")
+					.getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> findDistinctYear() {
+		return em.createQuery("SELECT distinct date_format(submittedDate, '%Y') as year "
+				+ " FROM Advert ORDER BY 1 DESC")
+				.getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> findDistinctMonth() {
+		return em.createQuery("SELECT distinct date_format(submittedDate, '%M') as month "
+				+ " FROM Advert ORDER BY 1 DESC")
+				.getResultList();
 	}
 }

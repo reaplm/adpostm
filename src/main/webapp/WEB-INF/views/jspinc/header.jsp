@@ -29,6 +29,13 @@
 				<li class="nav-item">
 					<a href="/adpostm/register" class="nav-link">register</a>
 				</li>
+				<li>
+					<button type="submit" class="button-primary btn" role="button" onClick="SubmitSearch()">
+						<img src="<%=request.getContextPath()%>/resources/images/magnifier.png" 
+							alt="search" title="search" 
+							width="15" height="15" />
+					</button>
+				</li>
 			</sec:authorize>
 			
 			<sec:authorize access="hasAnyRole('ADMIN','USER')">
@@ -48,7 +55,14 @@
 					<li class="nav-item">
 						<a href="/adpostm/logout" class="nav-link">logout</a>
 					</li>
-					
+					<li>
+						<button type="submit" class="button-primary btn" role="button" 
+							onClick="window.location = '/adpostm/advert/search/f=false'">
+							<img src="<%=request.getContextPath()%>/resources/images/magnifier.png" 
+								alt="search" title="search" 
+								width="15" height="15" />
+						</button>
+					</li>
 			</sec:authorize>
 		</ul>
 	</div>

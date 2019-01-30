@@ -2,6 +2,7 @@
 body{
 	background-color: #e9eef2;
 	font-size: .8125rem;
+	font-family: Calibri;
 }
 /*=========================LOGIN/REG======================================*/
 .center-block {
@@ -83,6 +84,11 @@ body{
 .list-unstyled{
 	margin-bottom: 0px;
 }
+#top-menu button{
+	color: #fff;
+	background-color: transparent;
+	
+}
 /*=========================SEARCH BAR======================================*/
 #search-bar{
 	width: 100%;
@@ -95,10 +101,10 @@ body{
 }
 
 #search-bar form{
-	width: 80%;
+	width: 100%;
 }
 #search-bar input{
-	width: 75%;
+	width: 94%;
 }
 #search-bar select{
 	width: 15%;
@@ -137,7 +143,7 @@ body{
 	text-align: right;
 }
 #admin-menu a, #admin-menu a:visited{
-	color: #999;
+	color: #666;
 	
 }
 #admin-menu a:hover, #admin-menu a:active{
@@ -152,42 +158,57 @@ body{
 }
 
 /*=========================SIDEBAR======================================*/
-#sidebar{
-	margin-top: 30px;
+#inc-adm-sb{
+	background-color: #2c2a33;
+	color: #fff;
 	width: 100%;
 	-webkit-transition: margin 2s ease;
     -moz-transition: margin 2s ease;
     -o-transition: margin 2s ease;
     transition: margin 2s ease;
+    height: 100%;
 }
-#sidebar a{
-	color: #2c2a33;
-}
-#sidebar .user-info{
-	background-color: #fff;
+#inc-adm-sb .user{
 	padding-top: 20px;
 	margin-bottom: 10px;
 }
-#sidebar .user-info-img{
-	margin: 0 auto;
+
+#inc-adm-sb .user img{
 	width: 70%;
 }
-#sidebar .user-info-img img{
-	width: 100%;
+#inc-adm-sb-accordion li{
+	font-size: 20pt;
 }
-#sidebar .card-block{
-	background-color: #fff;
+#inc-adm-sb-accordion li span{
+	font-size: .8125rem;
 }
-#sidebar-accordion li.active{
-	border-right: solid 6px #f7547a;
+#inc-adm-sb-accordion li.active{
+	border-left: solid 3px #f7547a;
+	
 }
-.sidebar-footer{
-	height: 100px;
+#inc-adm-sb-accordion .card{
+	border: none;
+	border-radius: 0;
+}
+#inc-adm-sb-accordion .card-header{
+	background-color: #2c2a33;
+	border-radius: 0;
+}
+#inc-adm-sb-accordion .card-block{
+	background-color: #201e25;
+	padding: 0;
+}
+#inc-adm-sb a, #inc-adm-sb a:visited{
+	color: #545454;
+}
+#inc-adm-sb a:hover, #inc-adm-sb a:active{
+	color: #fff;
+	text-decoration: none;
 }
 .content{
-	margin-top: 30px;
 	background-color: #fff;
 }
+
 .content a, .content a:visited{
 	color: #666;
 }
@@ -212,16 +233,13 @@ body{
 	background-color: #f8d650;
 }
 #admin-menu {
-	background-color: #fff;
-	color: #2c2a33;
-	width: 105%;
+	background-color:#fff;
+	color: #fff;
+	width: 100%;
 }
-.pg-admin{
-	/*box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);*/
-}
+
 #navbar-menu{
-	width: 80%;
-	margin-left: 7%;
+	width: 100%;
 	font-size: 9pt;
 
 }
@@ -349,24 +367,21 @@ body{
     background-color: #2c2a33;
 }
 /*=============================DASHBOARD PAGE====================*/
-#pg-dashboard {
-	
+#pg-dashboard .container{
+	background-color: #ebebec;
 }
 
 #pg-dashboard .odd-row{
 	background-color: #fff;
 }
+#pg-dashboard .graph{
+	
+}
 #ads-table tr{
 	border-bottom: solid 2px #e9eef2;
 }
 
-#pg-dashboard a, #pg-dashboard a:visited{
-	color: #666;
-}
-#pg-dashboard a:hover, #pg-dashboard a:active{
-	color: #f7547a;
-	text-decoration: underline;
-}
+
 /*=============================MODAL=============================*/
 .modal-content{
 	color: #2c2a33;
@@ -405,10 +420,15 @@ body{
 	background-color: #2c2a33;
 	color: #fff;
 	padding-top: 15px;
-	font-size: 12pt;
+	font-size: 10pt;
 }
-.footer img{
-	width: 6%;
+.footer .contact img{
+	width: 15px;
+	height: 15px;
+	margin-left: 5px;
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-top: 2px;
 }
 .footer-content{
 	width: 20%;
@@ -520,4 +540,32 @@ body{
 }
 .rounded-img{
 	border-radius: 50%;
+}
+#filter-accordion .card{
+	background-color: #e9eef2;
+	border: none;
+	
+}
+#filter-accordion .card-header{
+	background-color: #e9eef2;
+	border: none;
+	border-bottom: solid 2px #666;
+}
+#filter-accordion a{
+	color: #666;
+	text-decoration: none;
+}
+h5{
+	font-size: 12pt;
+}
+/*box-shadow: [horizontal offset] [vertical offset] [blur radius] [optional spread radius] [color]*/
+.shadow {
+  -webkit-box-shadow: 1px 2px 5px 5px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    1px 2px 5px 5px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         1px 2px 5px 5px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+.shadow-1{
+	-webkit-box-shadow: 0 10px 6px -6px #ccc;
+	   -moz-box-shadow: 0 10px 6px -6px #ccc;
+	        box-shadow: 0 10px 6px -6px #ccc;
 }

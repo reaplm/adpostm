@@ -3,7 +3,7 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<div class="card text-capitalize" id="admin-menu">
+<div class="text-uppercase card" id="admin-menu">
 
 		<button type="button" class="navbar-toggler hidden-lg-up 
 			navbar-toggler-left pt-3" onclick="contentToggle();"

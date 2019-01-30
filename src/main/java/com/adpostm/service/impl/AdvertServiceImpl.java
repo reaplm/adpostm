@@ -78,4 +78,19 @@ public class AdvertServiceImpl implements AdvertService{
 		return advertDao.statusCount();
 	}
 
+	@Override
+	public List<String> findDistinctLocation() {
+		return advertDao.findDistinctLocation();
+	}
+
+	@Override
+	public List<String> findDistinctMonth() {
+		return advertDao.findDistinctMonth();
+	}
+
+	@Override
+	public List<String> findDistinctYear() {
+		return advertDao.findDistinctYear();
+	}
+
 }

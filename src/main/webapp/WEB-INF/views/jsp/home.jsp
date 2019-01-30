@@ -13,7 +13,6 @@
 			<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
 		</div>
 		<div class="row mb-5" >
-			<jsp:include page="/WEB-INF/views/jspinc/searchbar.jsp"></jsp:include>
 		</div>
 		<div class="row">
 			<%int colCount = 0; %>

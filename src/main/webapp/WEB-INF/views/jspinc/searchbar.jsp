@@ -7,9 +7,6 @@
 		</a>
 			<form id="form-search" action="/adpostm/advert/search" method="get" class="form-inline float-right">
 					<input id="search" class = "form-control" placeholder="search"  name="search" value="${search}"/>
-					<select id="s-category" class = "form-control" name="s-category">
-						
-					</select>
 					<button type="submit" class="button-primary btn" role="button" onClick="SubmitSearch()">
 						<img src="<%=request.getContextPath()%>/resources/images/magnifier.png" 
 							alt="search" title="search" 

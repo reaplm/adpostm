@@ -11,4 +11,7 @@ public interface AdvertDao extends GenericDao<Advert, Long>{
 	public boolean checkImageExists(String uuid);
 	public boolean removeAllPictures(Long id);
 	public List<Object[]> statusCount();
+	public List<String> findDistinctLocation();
+	public List<String> findDistinctYear();
+	public List<String> findDistinctMonth();
 }

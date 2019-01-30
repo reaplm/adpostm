@@ -1,3 +1,26 @@
+function PerformSearchFilter(value){
+	var url = '/adpostm/advert/search?';
+	$('input[type="checkbox"]:checked').each(function(){
+		console.log(this.name, this.value);
+		var text = this.closest('li').textContent.trim();
+
+		if(this.name == 'category'){
+			url += url[url.length-1] == '?' ? 'category=' + text : '&category=' + text;
+		}
+		else if(this.name == 'location'){
+			url += url[url.length-1] =='?' ? 'loaction=' + text : '&location=' + text;
+		}	
+		else if(this.name == 'year'){
+			url += url[url.length-1] =='?' ? 'year=' + text : '&year=' + text;
+		}
+		else if(this.name == 'images'){
+			url += url[url.length-1] =='?' ? 'image=' + true : '&image=' + true;
+		}
+
+
+	});
+	console.log(url);	
+}
 function CloseEditAd(){
 	window.location = "/adpostm/admin/posts";
 }

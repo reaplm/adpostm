@@ -3,15 +3,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<div id="sidebar" class="collapse show">
+<div id="inc-adm-sb" class="collapse show">
 	
-	<div id="" class="user-info">
-		
-		<div class="user-info-img" >
-			<img src="<%=session.getAttribute("profileImage")%>" />
+	<div class="user">
+		<img src="<%=session.getAttribute("profileImage")%>" class="d-block mr-auto ml-auto"/>
 				
-		</div>
-		<div class="user-info-txt">
+		<div>
 			<%
 				SimpleDateFormat format = new SimpleDateFormat("dd MMM yyy"); 
 				Date registrationDate = (Date)session.getAttribute("registrationDate");
@@ -23,12 +20,12 @@
 			<p class="text-center">Member Since <%=dateText%></p>
 		</div>
 	</div>
-	<div id="sidebar-accordion" role="tablist" aria-multiselectable="true" class="text-capitalize">
+	<div id="inc-adm-sb-accordion" role="tablist" aria-multiselectable="true" class="text-uppercase">
 		<c:forEach items="${sessionScope.sideMenu}" var="menu" varStatus="loop">
 			<div class="card">
 				<div class="card-header" role="tab">
 					<h5 class="mb-0">
-						<a data-toggle="collapse" data-parent="#sidebar-accordion"  
+						<a data-toggle="collapse" data-parent="#inc-adm-sb-accordion"  
 							href="#${menu.getLabel()}" 
 							<c:if test="${loop.index==0}">								
 								aria-expanded="true"  
@@ -54,9 +51,9 @@
 						<div class="card-block">
 							<ul class="list-unstyled">
 								<c:forEach items="${menu.subMenu}" var="subMenu">
-									<li ><a href="/adpostm/admin/${subMenu.getLabel()}" class="acc-nav-link">
-										${subMenu.getMenuName()}</a></li>
-									<li class="dropdown-divider"></li>
+									<li ><span><a href="/adpostm/admin/${subMenu.getLabel()}" 
+										class="acc-nav-link pl-4">
+										${subMenu.getMenuName()}</a></span></li>
 								</c:forEach>
 							</ul>
 						</div>
@@ -64,8 +61,5 @@
 				</c:if>
 			</div>
 		</c:forEach>
-	</div>
-	<div id="" class="sidebar-footer card-header">
-
 	</div>
 </div>

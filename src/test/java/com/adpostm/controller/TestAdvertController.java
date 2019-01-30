@@ -3,7 +3,9 @@ package com.adpostm.controller;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -40,9 +43,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.adpostm.domain.enumerated.AdvertStatus;
+import com.adpostm.domain.enumerated.MenuType;
 import com.adpostm.domain.model.AdPicture;
 import com.adpostm.domain.model.Advert;
 import com.adpostm.domain.model.AdvertDetail;
@@ -137,11 +144,11 @@ public class TestAdvertController {
 		
 	}
 	/**
-	 * Testing if(search.isEmpty() && menuId == -1)
+	 * Param f=false
 	 * @throws Exception
 	 */
 	@Test
-	public void testGetAdvertsFirstIf() throws Exception {
+	public void testSearchNoFilterNoSearch() throws Exception {
 		List<Advert> advertList = new ArrayList<Advert>();
 		advertList.add(
 				new Advert.AdvertBuilder()
@@ -154,15 +161,13 @@ public class TestAdvertController {
 						.build()
 				);
 		
-		
-		Mockito.when(advertService.findAll(Advert.class,true,new String[]{"menu"}))
+		Mockito.when(advertService.findAll(Advert.class))
 			.thenReturn(advertList);
 		
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/advert/search")
-								.param("search", "")
-								.param("s-category", "-1"))
+								.param("f", "false"))
 								.andExpect(MockMvcResultMatchers.status().isOk())
-								.andExpect(MockMvcResultMatchers.view().name("adverts"))
+								.andExpect(MockMvcResultMatchers.view().name("search"))
 								.andExpect(MockMvcResultMatchers.model().attribute("advertList", hasSize(2)))
 								.andExpect(MockMvcResultMatchers.model().attribute("advertList", advertList))
 								.andDo(MockMvcResultHandlers.print())
@@ -170,104 +175,74 @@ public class TestAdvertController {
 
 	}
 	/**
-	 * Testing else if(!search.isEmpty()  && menuId == -1)
+	 * Param f=false, s=Not Null
 	 * @throws Exception
 	 */
 	@Test
-	public void testGetAdvertsThirdIf() throws Exception {
+	public void testSearchNoFilter() throws Exception {
+		List<AdPicture> adPictures = new ArrayList<AdPicture>();
 		List<Advert> advertList = new ArrayList<Advert>();
-		AdvertDetail advertDetail1 = new AdvertDetail.AdvertDetailBuilder()
-										.setTitle("Car for Sale")
-										.setBody("Toyota corolla for sale in Gaborone")
-										.build();
-		AdvertDetail advertDetail2 = new AdvertDetail.AdvertDetailBuilder()
-				.setTitle("Toyota Car for Sale")
-				.setBody("Toyota corolla for sale in Mogoditshane")
-				.build();
-		AdvertDetail advertDetail3 = new AdvertDetail.AdvertDetailBuilder()
-				.setTitle("House for rent")
-				.setBody("Two bedroom house for rent in Gaborone")
-				.build();
+		List<String> year = Arrays.asList(new String[] {"2002","2017"});
+		List<String> location = Arrays.asList(new String[] {"gaborone","mogoditshane"});
 		
-		Menu menu = new Menu.MenuBuilder()
-				.setMenuId(1L)
-				.setMenuName("vehicles")
-				.build();
-		
-		advertList.add(
-				new Advert.AdvertBuilder()
-						.setAdvertId(1L)
-						.setAdvertDetail(advertDetail1)
-						.setMenu(menu)
+		adPictures.add(
+				new AdPicture.AdPictureBuilder()
+						.setAdPictureId(1)
+						.setCdnUrl("ImageCdnUrl1")
+						.setName("ImageName1")
+						.setUuid("ImageUuid1")
+						.setSize(1048L)
 						.build()
 				);
-		advertList.add(
-				new Advert.AdvertBuilder()
-						.setAdvertId(2L)
-						.setAdvertDetail(advertDetail2)
-						.setMenu(menu)
-						.build()
-						
-				);
-		advertList.add(
-				new Advert.AdvertBuilder()
-						.setAdvertId(2L)
-						.setAdvertDetail(advertDetail3)
+		adPictures.add(
+				new AdPicture.AdPictureBuilder()
+						.setAdPictureId(2)
+						.setCdnUrl("ImageCdnUrl2")
+						.setName("ImageName2")
+						.setUuid("ImageUuid2")
+						.setSize(336L)
 						.build()
 				);
 		
-		
-		Mockito.when(advertService.search("car"))
-			.thenReturn(advertList.stream()
-					.filter(s -> s.getAdvertDetail().getTitle()
-							.contains("Car"))
-					.collect(Collectors.toList())
-				);
-		
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/advert/search")
-								.param("search", "car")
-								.param("s-category", "-1"))
-								.andExpect(MockMvcResultMatchers.status().isOk())
-								.andExpect(MockMvcResultMatchers.view().name("adverts"))
-								.andExpect(MockMvcResultMatchers.model().attribute("advertList", hasSize(2)))
-								.andExpect(MockMvcResultMatchers.model()
-										.attribute("advertList", advertList.subList(0, 2)))
-								.andDo(MockMvcResultHandlers.print())
-								.andReturn();
-
-	}
-	/**
-	 * Testing else if(!search.isEmpty() && menuId > 0)
-	 * @throws Exception
-	 */
-	@Test
-	public void testGetAdvertsFourthIf() throws Exception {
-		List<Advert> advertList = new ArrayList<Advert>();
-		AdvertDetail advertDetail1 = new AdvertDetail.AdvertDetailBuilder()
-										.setTitle("Car for Sale")
-										.setBody("Toyota for sale in Gaborone")
-										.build();
-		AdvertDetail advertDetail2 = new AdvertDetail.AdvertDetailBuilder()
-				.setTitle("Toyota Car for Sale")
-				.setBody("Toyota corolla for sale in Mogoditshane")
+		AdvertDetail advertDetail1 = new AdvertDetail
+				.AdvertDetailBuilder()
+				.setTitle("car for sale")
+				.setBody("There is a car for sale")
+				.setContactEmail("admin@email")
+				.setContactPhone("123456")
+				.setGroupCdnUrl("groupCdnUrl")
+				.setGroupCount(2)
+				.setGroupUuid("groupUuid")
+				.setAdPicture(adPictures)
+				.setLocation("gaborone")
 				.build();
-		AdvertDetail advertDetail3 = new AdvertDetail.AdvertDetailBuilder()
-				.setTitle("House for rent")
-				.setBody("Two bedroom house for rent in Gaborone")
+		
+		AdvertDetail advertDetail2 = new AdvertDetail
+				.AdvertDetailBuilder()
+				.setTitle("Pouches for sale")
+				.setBody("Head sets 25 pula Pouches 50 pula")
+				.setContactEmail("admin@email")
+				.setContactPhone("123456")
+				.setGroupCount(0)
+				.setLocation("mogoditshane")
 				.build();
 		
 		Menu menu1 = new Menu.MenuBuilder()
 				.setMenuId(1L)
-				.setMenuName("vehicles")
+				.setMenuName("phone accessories")
+				.setMenuType(MenuType.HOME)
 				.build();
+		
 		Menu menu2 = new Menu.MenuBuilder()
-				.setMenuId(2L)
-				.setMenuName("property")
+				.setMenuId(1L)
+				.setMenuName("vehicles")
+				.setMenuType(MenuType.HOME)
 				.build();
 		
 		advertList.add(
 				new Advert.AdvertBuilder()
 						.setAdvertId(1L)
+						.setSubmittedDate(new GregorianCalendar(2002,10,15).getTime())
 						.setAdvertDetail(advertDetail1)
 						.setMenu(menu1)
 						.build()
@@ -275,121 +250,154 @@ public class TestAdvertController {
 		advertList.add(
 				new Advert.AdvertBuilder()
 						.setAdvertId(2L)
+						.setSubmittedDate(new GregorianCalendar(2015,2,15).getTime())
 						.setAdvertDetail(advertDetail2)
-						.setMenu(menu1)
-						.build()
-						
-				);
-		advertList.add(
-				new Advert.AdvertBuilder()
-						.setAdvertId(2L)
-						.setAdvertDetail(advertDetail3)
 						.setMenu(menu2)
 						.build()
 				);
 		
-		
-		Mockito.when(advertService.search("toyota",1L))
-			.thenReturn(advertList.stream()
-					.filter(s -> s.getMenu()
-							.getMenuId()
-							.equals(1L))
-					.filter(s -> s.getAdvertDetail().getBody()
-							.toLowerCase()
-							.contains("corolla"))
-					.collect(Collectors.toList())
-				);
+		//Mock Service Layer
+		Mockito.when(advertService.search(Mockito.anyString()))
+			.thenReturn(Arrays.asList(advertList.get(1)));
+		Mockito.when(advertService.findDistinctLocation())
+		.thenReturn(location);
+		Mockito.when(advertService.findDistinctYear())
+		.thenReturn(year);
+		Mockito.when(menuService.findAllByMenuTypeIn(Mockito.<MenuType>anyList()))
+		.thenReturn(Arrays.asList(new Menu[] {menu1, menu2}));
+
 		
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/advert/search")
-								.param("search", "toyota")
-								.param("s-category", "1"))
+								.param("f", "false")
+								.param("s", "pouches"))
 								.andExpect(MockMvcResultMatchers.status().isOk())
-								.andExpect(MockMvcResultMatchers.view().name("adverts"))
+								.andExpect(MockMvcResultMatchers.view().name("search"))
 								.andExpect(MockMvcResultMatchers.model().attribute("advertList", hasSize(1)))
 								.andExpect(MockMvcResultMatchers.model()
-										.attribute("advertList", advertList.subList(1, 2)))
-								.andDo(MockMvcResultHandlers.print())
-								.andReturn();
-
-	}
-	@Test
-	public void testGetAdvertsElse() throws Exception {
-		List<Advert> advertList = new ArrayList<Advert>();
-		advertList.add(
-				new Advert.AdvertBuilder()
-						.setAdvertId(1L)
-						.build()
-				);
-		advertList.add(
-				new Advert.AdvertBuilder()
-						.setAdvertId(2L)
-						.build()
-				);
-		
-		Mockito.when(advertService.search(Mockito.anyString(), Mockito.anyLong()))
-			.thenReturn(advertList);
-		
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/advert/search")
-								.param("search", "vehicles")
-								.param("s-category", "1"))
-								.andExpect(MockMvcResultMatchers.status().isOk())
-								.andExpect(MockMvcResultMatchers.view().name("adverts"))
-								.andExpect(MockMvcResultMatchers.model().attribute("advertList", hasSize(2)))
-								.andExpect(MockMvcResultMatchers.model().attribute("advertList", advertList))
-								.andDo(MockMvcResultHandlers.print())
-								.andReturn();
-
-	}
-	
-	public void testGetAdvertsInterruptedExceptionThrown() throws Exception {
-		List<Advert> advertList = new ArrayList<Advert>();
-		advertList.add(
-				new Advert.AdvertBuilder()
-						.setAdvertId(1L)
-						.build()
-				);
-		advertList.add(
-				new Advert.AdvertBuilder()
-						.setAdvertId(2L)
-						.build()
-				);
-		
-
-		Mockito.doThrow(Mockito.mock(InterruptedException.class))
-			.when(advertService).search(Mockito.anyString(), Mockito.anyLong());
-		
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/advert/search")
-								.param("search", "all")
-								.param("s-category", "1"))
-								.andExpect(MockMvcResultMatchers.status().isOk())
-								.andExpect(MockMvcResultMatchers.view().name("adverts"))
+										.attribute("advertList", Arrays.asList(advertList.get(1))))
 								.andExpect(MockMvcResultMatchers.model()
-										.attribute("searchError", "Error occured during search"))
+										.attribute("locations", location))
+								.andExpect(MockMvcResultMatchers.model()
+										.attribute("years", year))
+								.andExpect(MockMvcResultMatchers.model()
+										.attribute("categories", Arrays.asList(menu1, menu2)))
+								.andExpect(MockMvcResultMatchers.model()
+										.attribute("searchMsg", "<p>Search result for "
+												+ "<span style = 'font-weight: bold'>pouches</span></p>"))
 								.andDo(MockMvcResultHandlers.print())
 								.andReturn();
 
 	}
+	/**
+	 * Param f=true, s=Not Null, category=Not Null
+	 * @throws Exception
+	 */
 	@Test
-	public void testGetAdvertsNumberFormatExceptionThrown() throws Exception {
+	public void testSearchWithCategoryAndFilter() throws Exception {
+		List<AdPicture> adPictures = new ArrayList<AdPicture>();
 		List<Advert> advertList = new ArrayList<Advert>();
+		List<String> year = Arrays.asList(new String[] {"2002","2017"});
+		List<String> location = Arrays.asList(new String[] {"gaborone","mogoditshane"});
+		
+		adPictures.add(
+				new AdPicture.AdPictureBuilder()
+						.setAdPictureId(1)
+						.setCdnUrl("ImageCdnUrl1")
+						.setName("ImageName1")
+						.setUuid("ImageUuid1")
+						.setSize(1048L)
+						.build()
+				);
+		adPictures.add(
+				new AdPicture.AdPictureBuilder()
+						.setAdPictureId(2)
+						.setCdnUrl("ImageCdnUrl2")
+						.setName("ImageName2")
+						.setUuid("ImageUuid2")
+						.setSize(336L)
+						.build()
+				);
+		
+		AdvertDetail advertDetail1 = new AdvertDetail
+				.AdvertDetailBuilder()
+				.setTitle("car for sale")
+				.setBody("There is a car for sale")
+				.setContactEmail("admin@email")
+				.setContactPhone("123456")
+				.setGroupCdnUrl("groupCdnUrl")
+				.setGroupCount(2)
+				.setGroupUuid("groupUuid")
+				.setAdPicture(adPictures)
+				.setLocation("gaborone")
+				.build();
+		
+		AdvertDetail advertDetail2 = new AdvertDetail
+				.AdvertDetailBuilder()
+				.setTitle("Pouches for sale")
+				.setBody("Head sets 25 pula Pouches 50 pula")
+				.setContactEmail("admin@email")
+				.setContactPhone("123456")
+				.setGroupCount(0)
+				.setLocation("mogoditshane")
+				.build();
+		
+		Menu menu1 = new Menu.MenuBuilder()
+				.setMenuId(1L)
+				.setMenuName("phone accessories")
+				.setMenuType(MenuType.HOME)
+				.build();
+		
+		Menu menu2 = new Menu.MenuBuilder()
+				.setMenuId(1L)
+				.setMenuName("vehicles")
+				.setMenuType(MenuType.HOME)
+				.build();
+		
 		advertList.add(
 				new Advert.AdvertBuilder()
 						.setAdvertId(1L)
+						.setSubmittedDate(new GregorianCalendar(2002,10,15).getTime())
+						.setAdvertDetail(advertDetail1)
+						.setMenu(menu1)
 						.build()
 				);
 		advertList.add(
 				new Advert.AdvertBuilder()
 						.setAdvertId(2L)
+						.setSubmittedDate(new GregorianCalendar(2015,2,15).getTime())
+						.setAdvertDetail(advertDetail2)
+						.setMenu(menu2)
 						.build()
 				);
 		
+		//Mock Service Layer
+		Mockito.when(advertService.search(Mockito.anyString()))
+			.thenReturn(Arrays.asList(advertList.get(1)));
+		Mockito.when(advertService.findDistinctLocation())
+			.thenReturn(location);
+		Mockito.when(advertService.findDistinctYear())
+			.thenReturn(year);
+		Mockito.when(menuService.findAllByMenuTypeIn(Mockito.<MenuType>anyList()))
+			.thenReturn(Arrays.asList(new Menu[] {menu1, menu2}));
+		
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/advert/search")
-								.param("search", "all")
-								.param("s-category", "ab"))
+								.param("f", "true")
+								.param("s", "pouches")
+								.param("category", "phone accessories")
+								.param("category", "vehicles"))
 								.andExpect(MockMvcResultMatchers.status().isOk())
-								.andExpect(MockMvcResultMatchers.view().name("adverts"))
+								.andExpect(MockMvcResultMatchers.view().name("search"))
 								.andExpect(MockMvcResultMatchers.model()
-										.attribute("searchError", "NumberFormatException caught during search"))
+										.attribute("advertList", advertList.get(1)))
+								.andExpect(MockMvcResultMatchers.model()
+										.attribute("locations", location))
+								.andExpect(MockMvcResultMatchers.model()
+										.attribute("years", year))
+								.andExpect(MockMvcResultMatchers.model()
+										.attribute("categories", Arrays.asList(menu1, menu2)))
+								.andExpect(MockMvcResultMatchers.model()
+										.attribute("searchMsg", "<p>Search result for "
+												+ "<span style = 'font-weight: bold'>pouches</span></p>"))
 								.andDo(MockMvcResultHandlers.print())
 								.andReturn();
 
@@ -647,10 +655,61 @@ public class TestAdvertController {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	public void testFindDistinctYear() throws Exception {
+		String[] array = new String[] {"2019","2018","2017"};
+		List<String> year = new ArrayList<String>(Arrays.asList(array));
+		
+		Mockito.when(advertService.findDistinctYear()).thenReturn(year);
+		
+		mockMvc.perform(MockMvcRequestBuilders.get("/advert/year"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(3))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.[0]").value("2019"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.[1]").value("2018"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.[2]").value("2017"))
+				.andReturn();
+		
+	}
+	@Test
+	public void testFindDistinctLocation() throws Exception {
+		String[] array = new String[] {"Gaborone","Mogoditshane"};
+		List<String> year = new ArrayList<String>(Arrays.asList(array));
+		
+		Mockito.when(advertService.findDistinctLocation()).thenReturn(year);
+		
+		mockMvc.perform(MockMvcRequestBuilders.get("/advert/location"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(2))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.[0]").value("Gaborone"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.[1]").value("Mogoditshane"))
+				.andReturn();
+	}
+	@Test
+	public void testFindDistinctMonth() throws Exception {
+		String[] array = new String[] {"January","March","June", "July"};
+		List<String> month = new ArrayList<String>(Arrays.asList(array));
+		
+		Mockito.when(advertService.findDistinctMonth()).thenReturn(month);
+		
+		mockMvc.perform(MockMvcRequestBuilders.get("/advert/month"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().contentType("application/json;charset=UTF-8"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(4))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.[0]").value("January"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.[1]").value("March"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.[2]").value("June"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.[3]").value("July"))
+				.andReturn();
+	}
+	
 	private void setAuthentication() {
 		authentication.setAuthenticated(true);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
+
 	
 	
 }

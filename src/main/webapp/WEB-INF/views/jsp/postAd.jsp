@@ -7,7 +7,6 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 	<jsp:include page="/WEB-INF/views/jspinc/head.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/jspinc/header.jsp" />
-	<jsp:include page="/WEB-INF/views/jspinc/searchbar.jsp" />
 	<div id="pg-add-advert" class="content" >
 		<div class="container">
 			<div class="row mb-5" >

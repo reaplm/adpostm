@@ -3,8 +3,10 @@ package com.adpostm.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +53,105 @@ public class AdvertController {
 		model.addObject("advertInfo", new AdvertInfo());
 		return model;
 	}
+	///adpostm/advert/search?category=house for rent&category=house to wanted&
+	//category=mobile phones&location=Extension 14&location=mogoditshane&year=2019&image=true
+	/**
+	 * Search using given criteria
+	 * @param fCategory
+	 * @param fLocation
+	 * @param fYear
+	 * @param fImage
+	 * @param f
+	 * @return
+	 */
 	@RequestMapping(value="/advert/search", method=RequestMethod.GET)
+	public ModelAndView search(
+			@RequestParam(value="s", required=false)String s,
+			@RequestParam(value="category", required=false)List<String> fCategory,
+			@RequestParam(value="location", required=false)List<String> fLocation,
+			@RequestParam(value="year", required=false)List<Integer> fYear,
+			@RequestParam(value="image", required=false)boolean fImage,
+			@RequestParam(value="f", required=true)boolean f){
+		ModelAndView mv = new ModelAndView("search");
+		
+		List<Advert> advertList = null;
+		List<String> location = advertService.findDistinctLocation();
+		List<String> year = advertService.findDistinctYear();
+		List<Menu> menu = findMenuByType(new String[] {"home","submenu"});
+		
+		List<Menu> category = menu.stream()
+				.filter(o -> o.getMenuType().equals(MenuType.HOME))
+				.collect(Collectors.toList());
+	
+		String searchMsg = "";
+		
+		if(s != null) {
+			advertList = advertService.search(s);
+			searchMsg = "<p>Search result for <span style = 'font-weight: bold'>"+s+"</span></p>";
+		}
+		if(advertList != null) {
+			if(f) {
+				advertList = advertList.stream()
+						.filter((a) -> fLocation.contains(a.getAdvertDetail().getLocation()))
+						.filter((a) -> fCategory.contains(a.getAdvertDetail().getLocation()))
+						.filter(a -> a.getAdvertDetail().getAdPicture().size() > 0)
+						.filter(a -> {
+							Calendar date = Calendar.getInstance();
+							date.setTime(a.getSubmittedDate());
+							return fYear.contains(date.get(Calendar.YEAR));
+						})
+						.collect(Collectors.toList());
+			
+			}
+		}
+		
+		else {
+			advertList = advertService.findAll(Advert.class);
+		}
+		
+		mv.addObject("advertList", advertList);
+		mv.addObject("locations", location);
+		mv.addObject("years", year);
+		mv.addObject("categories", category);
+		mv.addObject("searchMsg", searchMsg);
+		
+		return mv;
+	}
+	///adpostm/advert/search?category=house for rent&category=house to wanted&
+		//category=mobile phones&location=Extension 14&location=mogoditshane&year=2019&image=true
+		/**
+		 * Search using given criteria
+		 * @param fCategory
+		 * @param fLocation
+		 * @param fYear
+		 * @param fImage
+		 * @param f
+		 * @return
+		 */
+		/*@RequestMapping(value="/advert/search", method=RequestMethod.GET)
+		public ModelAndView search(){
+		ModelAndView mv = new ModelAndView("search");
+			
+			
+			List<Advert> advertList = advertService.findAll(Advert.class);;
+			List<String> location = advertService.findDistinctLocation();
+			List<String> month = advertService.findDistinctMonth();
+			List<String> year = advertService.findDistinctYear();
+			List<Menu> menu = findMenuByType(new String[] {"home","submenu"});
+			
+			List<Menu> category = menu.stream()
+					.filter(o -> o.getMenuType().equals(MenuType.HOME))
+					.collect(Collectors.toList());
+
+			mv.addObject("advertList", advertList);
+			mv.addObject("locations", location);
+			mv.addObject("years", year);
+			mv.addObject("categories", category);
+			//mv.addObject("submenus", submenu);
+			
+			return mv;
+		}*/
+	@RequestMapping(value="/advert/search/1", method=RequestMethod.GET)
 	public ModelAndView getAdverts(HttpServletRequest request,
 			HttpServletResponse response){
 			ModelAndView modelAndView = new ModelAndView("adverts");
@@ -312,6 +412,21 @@ public class AdvertController {
 	public List<Object[]> advertsPerCategory() {
 		return advertService.statusCount();
 	}
+	@RequestMapping(value="/advert/location")
+	@ResponseBody
+	public List<String> findDistinctLocation() {
+		return advertService.findDistinctLocation();
+	}
+	@RequestMapping(value="/advert/year")
+	@ResponseBody
+	public List<String> findDistinctYear() {
+		return advertService.findDistinctYear();
+	}
+	@RequestMapping(value="/advert/month")
+	@ResponseBody
+	public List<String> findDistictMonth() {
+		return advertService.findDistinctMonth();
+	}
 	private List<AdPicture> getAdPictures(AdvertInfo advertInfo){
 		List<AdPicture> adPictures = new ArrayList<AdPicture>();
 
@@ -424,4 +539,6 @@ public class AdvertController {
 		
 		return menuService.findAllByMenuTypeIn(menuType);
 	}
+	
+	
 }
