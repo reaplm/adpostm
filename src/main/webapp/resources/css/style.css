@@ -109,8 +109,15 @@ body{
 #search-bar select{
 	width: 15%;
 }
-#search-bar .form-control{
-	
+#search-bar .form-control-danger{
+	border: solid px #f9f2a2;
+}
+#search-bar .form-control-danger{
+	border: solid 1px #f7547a;
+}
+#search-bar label[for="search"]{
+	color: #f7547a;
+	border: none;
 }
 #search-bar button{
 	color: #fff;

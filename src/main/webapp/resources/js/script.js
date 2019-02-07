@@ -1,4 +1,4 @@
-function PerformSearchFilter(value){
+function PerformSearchFilter(){
 	var url = '/adpostm/advert/search?';
 	$('input[type="checkbox"]:checked').each(function(){
 		console.log(this.name, this.value);
@@ -8,7 +8,7 @@ function PerformSearchFilter(value){
 			url += url[url.length-1] == '?' ? 'category=' + text : '&category=' + text;
 		}
 		else if(this.name == 'location'){
-			url += url[url.length-1] =='?' ? 'loaction=' + text : '&location=' + text;
+			url += url[url.length-1] =='?' ? 'location=' + text : '&location=' + text;
 		}	
 		else if(this.name == 'year'){
 			url += url[url.length-1] =='?' ? 'year=' + text : '&year=' + text;
@@ -16,10 +16,13 @@ function PerformSearchFilter(value){
 		else if(this.name == 'images'){
 			url += url[url.length-1] =='?' ? 'image=' + true : '&image=' + true;
 		}
-
+		
 
 	});
+	url += url[url.length-1] =='?' ? 'f=' + true : '&f=' + true;
+	url += url[url.length-1] =='?' ? 's=' +  $("#search").val(): '&s=' + $("#search").val();
 	console.log(url);	
+	window.location = url;
 }
 function CloseEditAd(){
 	window.location = "/adpostm/admin/posts";
@@ -625,6 +628,20 @@ function ValidateEditAdvert(){
 		SubmitEditAdvert();
 	}
 }
+function SubmitSearch(){
+	var validator = $("#form-search").validate({
+		errorClass: 'form-control-danger',
+		rules:{
+			s: {required: true}
+		},
+		messages:{
+			s:{required: "enter search phrase"}
+		}
+	});
+	if(validator.form()){
+		$("#search-form").submit();
+	}
+}
 //==================================================================
 function SaveActiveAcc(active){
 	var dataStore = window.sessionStorage;
@@ -644,7 +661,38 @@ function OpenActiveAcc(){
 	$(elementId).addClass("show");
 }
 window.onload = function() {
-	 //OpenActiveAcc();
+	if($("#filter-accordion").is(":visible")){
+		$('input[type="checkbox"]:checked').each(function(){
+			var elementId = $(this).closest('[role=tabpanel]').attr('id');
+			elementId = "#"+elementId;
+			
+			//Selecting [h5 a] element
+			var headerSelector = "[href='"+elementId+"']";
+			
+			$(headerSelector).attr("aria-expanded","true");
+			$(elementId).addClass("show");
+			
+			//For sub accordion
+			var subAccordion = $(this).closest('[role=tabpanel').attr('data-parent');
+			var innerElement = $(this).closest('[role=tabpanel').attr('id');
+			
+			
+			if(subAccordion == "#sub-accordion"){
+				//get parent accordion
+				var parentAccordion = $(subAccordion).closest('[role=tabpanel').attr('id')
+				$('#'+parentAccordion).addClass("show");
+				$('#'+parentAccordion).attr("aria-expanded","true");
+				
+				
+				$('#'+innerElement).attr("aria-expanded","true");
+				$('#'+innerElement).addClass("show");
+			}
+			
+			
+		});
+	} 
+
+	
 	
 }
 function FillMenuSelect(element, menuList, title){

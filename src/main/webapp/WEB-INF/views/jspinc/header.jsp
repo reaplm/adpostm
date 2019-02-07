@@ -57,7 +57,7 @@
 					</li>
 					<li>
 						<button type="submit" class="button-primary btn" role="button" 
-							onClick="window.location = '/adpostm/advert/search/f=false'">
+							onClick="window.location = '/adpostm/advert/search?f=false'">
 							<img src="<%=request.getContextPath()%>/resources/images/magnifier.png" 
 								alt="search" title="search" 
 								width="15" height="15" />

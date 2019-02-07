@@ -87,114 +87,58 @@ public class AdvertController {
 		
 		if(s != null) {
 			advertList = advertService.search(s);
-			searchMsg = "<p>Search result for <span style = 'font-weight: bold'>"+s+"</span></p>";
-		}
-		if(advertList != null) {
+			searchMsg = "Search result for <span style = 'font-weight: bold'>"+s+"</span>";
+
 			if(f) {
 				advertList = advertList.stream()
-						.filter((a) -> fLocation.contains(a.getAdvertDetail().getLocation()))
-						.filter((a) -> fCategory.contains(a.getAdvertDetail().getLocation()))
-						.filter(a -> a.getAdvertDetail().getAdPicture().size() > 0)
 						.filter(a -> {
-							Calendar date = Calendar.getInstance();
-							date.setTime(a.getSubmittedDate());
-							return fYear.contains(date.get(Calendar.YEAR));
-						})
+								if(fLocation != null) 
+									return fLocation.contains(a.getAdvertDetail().getLocation().toLowerCase());
+								else return true;
+							}
+						)
+						.filter(
+								a -> {
+									if(fCategory != null) 
+										return fCategory.contains(a.getMenu().getMenuName().toLowerCase());
+									else return true;
+								}
+						)
+						.filter(a -> {
+									if(fImage)
+										return a.getAdvertDetail().getAdPicture().size() > 0;
+									else return true;
+								}
+						)
+						.filter(a -> {
+								if(fYear != null) {
+									Calendar date = Calendar.getInstance();
+									date.setTime(a.getSubmittedDate());
+									return fYear.contains(date.get(Calendar.YEAR));
+								}
+								else {return true; }
+							}
+						)
 						.collect(Collectors.toList());
 			
 			}
+			
 		}
-		
-		else {
-			advertList = advertService.findAll(Advert.class);
-		}
-		
+
 		mv.addObject("advertList", advertList);
 		mv.addObject("locations", location);
 		mv.addObject("years", year);
 		mv.addObject("categories", category);
 		mv.addObject("searchMsg", searchMsg);
+		mv.addObject("search", s);
+		mv.addObject("fCategory", fCategory);
+		mv.addObject("fLocation", fLocation);
+		mv.addObject("fYear", fYear);
+		mv.addObject("fImage", fImage);
 		
 		return mv;
 	}
-	///adpostm/advert/search?category=house for rent&category=house to wanted&
-		//category=mobile phones&location=Extension 14&location=mogoditshane&year=2019&image=true
-		/**
-		 * Search using given criteria
-		 * @param fCategory
-		 * @param fLocation
-		 * @param fYear
-		 * @param fImage
-		 * @param f
-		 * @return
-		 */
-		/*@RequestMapping(value="/advert/search", method=RequestMethod.GET)
-		public ModelAndView search(){
-		ModelAndView mv = new ModelAndView("search");
-			
-			
-			List<Advert> advertList = advertService.findAll(Advert.class);;
-			List<String> location = advertService.findDistinctLocation();
-			List<String> month = advertService.findDistinctMonth();
-			List<String> year = advertService.findDistinctYear();
-			List<Menu> menu = findMenuByType(new String[] {"home","submenu"});
-			
-			List<Menu> category = menu.stream()
-					.filter(o -> o.getMenuType().equals(MenuType.HOME))
-					.collect(Collectors.toList());
-
-			mv.addObject("advertList", advertList);
-			mv.addObject("locations", location);
-			mv.addObject("years", year);
-			mv.addObject("categories", category);
-			//mv.addObject("submenus", submenu);
-			
-			return mv;
-		}*/
-	@RequestMapping(value="/advert/search/1", method=RequestMethod.GET)
-	public ModelAndView getAdverts(HttpServletRequest request,
-			HttpServletResponse response){
-			ModelAndView modelAndView = new ModelAndView("adverts");
-			modelAndView.addObject("search", request.getParameter("search"));
-			String search = request.getParameter("search");
-			String category = request.getParameter("s-category");
-			
-			List<Advert> advertList = null;
-			try {
-				Long menuId = Long.parseLong(category);
-				
-				if(search.isEmpty() && menuId == -1) {
-					advertList = advertService.findAll(Advert.class, true, new String[]{"menu"});
-					modelAndView.addObject("advertList", advertList);
-					
-					if(advertList == null) {
-						modelAndView.addObject("searchError", "Your search for the keyword '"
-								+search+"' did not return anything");
-					}
-				}
-				else if(search.isEmpty() && menuId > 0) {}
-				else if(!search.isEmpty()  && menuId == -1) {
-					advertList = advertService.search(search)
-							.stream()
-							.sorted((a1, a2) -> a1.getMenu().getMenuName()
-									.compareTo(a2.getMenu().getMenuName()))
-							.collect(Collectors.toList());
-					
-					modelAndView.addObject("advertList", advertList);
-				}
-				else if(!search.isEmpty() && menuId > 0) {
-					advertList = advertService.search(search, menuId);
-					
-					modelAndView.addObject("advertList", advertList);
-				}
-			}
-			catch(NumberFormatException ex) {
-				System.out.println("Exception caught during search: " + ex);
-				modelAndView.addObject("searchError", "NumberFormatException caught during search");
-			}
-		
-			return modelAndView;
-	}
+	
 	@RequestMapping(value="/advert/add", method=RequestMethod.POST)
 	@ResponseBody
 	public String submitAdvert(HttpServletRequest request, 
